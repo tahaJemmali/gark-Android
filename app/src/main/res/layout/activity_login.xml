@@ -57,20 +57,22 @@
             android:paddingLeft="15dp"
             android:textSize="14dp" />
 
-        <EditText
-            android:id="@+id/passwordET"
-            android:layout_width="302dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginVertical="20dp"
-            android:background="@drawable/rounded_edittext"
-            android:elevation="10dp"
-            android:fontFamily="@font/arial_rounded"
-            android:hint="password"
-            android:inputType="textPassword"
-            android:paddingLeft="15dp"
-            android:drawableLeft="@drawable/ic_baseline_lock_24"
-            android:textSize="14dp" />
+
+            <EditText
+                android:id="@+id/passwordET"
+                android:layout_width="302dp"
+                android:elevation="10dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginVertical="20dp"
+                android:background="@drawable/rounded_edittext"
+                android:fontFamily="@font/arial_rounded"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:paddingHorizontal="15dp"
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
+                android:textSize="14dp"
+                android:visibility="visible"/>
 
     </LinearLayout>
 
@@ -81,6 +83,7 @@
     android:layout_marginBottom="20dp"
     android:orientation="horizontal">
 <androidx.appcompat.widget.AppCompatCheckBox
+    android:id="@+id/remeberMe"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginRight="50dp"

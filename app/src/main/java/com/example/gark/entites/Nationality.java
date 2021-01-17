@@ -1,6 +1,8 @@
 package com.example.gark.entites;
 
-public enum Nationality{
+import java.io.Serializable;
+
+public enum Nationality implements Serializable {
 Afghanistan,Albania,Algeria,AmericanSamoa,Andorra,Angola,Anguilla,
 
 Antarctica,AntiguaandBarbuda,Argentina,Armenia,Aruba,Australia,Austria,

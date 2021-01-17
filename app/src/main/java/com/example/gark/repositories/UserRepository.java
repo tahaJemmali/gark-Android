@@ -15,6 +15,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.MainActivity;
 import com.example.gark.Utils.VolleyInstance;
+import com.example.gark.entites.Nationality;
+import com.example.gark.entites.Role;
+import com.example.gark.entites.Skills;
 import com.example.gark.entites.User;
 
 import org.json.JSONException;
@@ -26,7 +29,7 @@ public class UserRepository {
 
     private static UserRepository instance;
 
-    private String baseURL = "http://192.168.209.1:3000";
+    private String baseURL = IRepository.baseURL;
 
     private IRepository iRepository;
 
@@ -48,7 +51,6 @@ public class UserRepository {
         try {
             object.put("email",email);
             object.put("password",password);
-            Log.e("TAG", "onResponse: "+email+password );
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -91,9 +93,8 @@ public class UserRepository {
                     public void onResponse(JSONObject response) {
                         try {
                             String message = response.getString("message");
-                            System.out.println(message);
+
                             JSONObject jsonObject = response.getJSONObject("user");
-                            System.out.println(jsonObject);
 
                             User user = new User();
                             user.setId(jsonObject.getString("_id"));
@@ -103,7 +104,6 @@ public class UserRepository {
                             user.setAddress(jsonObject.getString("address"));
                             user.setPhone(jsonObject.getString("phone"));
                             user.setPhoto(jsonObject.getString("photo"));
-                            user.setScore(jsonObject.getInt("score"));
 
                             user.setSign_up_date(getDate(jsonObject.getString("sign_up_date")));
                             if (jsonObject.has("birth_date")){
@@ -153,7 +153,9 @@ public class UserRepository {
                     public void onResponse(JSONObject response) {
                         try {
                             String message = response.getString("message");
-                            Toast.makeText(context,""+message,Toast.LENGTH_SHORT).show();
+                            u.setId(message);
+                            Toast.makeText(context,"Registration success",Toast.LENGTH_SHORT).show();
+                            SkillsRepository.getInstance().add(context,new Skills(Role.AM,u),null);
                             iRepository.doAction();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -188,7 +190,6 @@ public class UserRepository {
                     public void onResponse(JSONObject response) {
                         try {
                             String message = response.getString("message");
-                            System.out.println(message);
                             switch (message){
                                 case "Wrong password":
                                     Toast.makeText(context,message+"",Toast.LENGTH_SHORT).show();
@@ -356,5 +357,28 @@ public class UserRepository {
             }
         });
         VolleyInstance.getInstance(context).addToRequestQueue(request);
+    }
+
+    public User convertJsonToObject(JSONObject jsonObject) {
+        try {
+            User user = new User();
+            user.setId(jsonObject.getString("_id"));
+            user.setFirstName(jsonObject.getString("firstName"));
+            user.setLastName(jsonObject.getString("lastName"));
+            user.setEmail(jsonObject.getString("email"));
+            user.setAddress(jsonObject.getString("address"));
+            user.setPhone(jsonObject.getString("phone"));
+            user.setPhoto(jsonObject.getString("photo"));
+
+            user.setSign_up_date(getDate(jsonObject.getString("sign_up_date")));
+            if (jsonObject.has("birth_date")){
+                user.setBirth_date(getDate(jsonObject.getString("birth_date")));
+            }
+            user.setSigned_up_with(jsonObject.getString("signed_up_with"));
+            return user;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -2,7 +2,7 @@ package com.example.gark.entites;
 
 import java.io.Serializable;
 
-public class Skills implements Serializable {
+public class Skills implements Serializable{
     String id;
     byte pace=50;
     byte shooting=50;
@@ -17,12 +17,36 @@ public class Skills implements Serializable {
     Nationality nationality=Nationality.Tunisia;
 
     public Skills(){
-
+         pace=50;
+         shooting=50;
+         passing=50;
+         dribbling=50;
+         defending=50;
+         physical=50;
+         score=50;
+         goals=0;
+         nationality=Nationality.Tunisia;
     }
 
     public Skills(Role role,User player) {
+        super();
         this.role = role;
         this.player=player;
+    }
+
+    public Skills(String id, byte pace, byte shooting, byte passing, byte dribbling, byte defending, byte physical, byte score, int goals, Role role, User player, Nationality nationality) {
+        this.id = id;
+        this.pace = pace;
+        this.shooting = shooting;
+        this.passing = passing;
+        this.dribbling = dribbling;
+        this.defending = defending;
+        this.physical = physical;
+        this.score = score;
+        this.goals = goals;
+        this.role = role;
+        this.player = player;
+        this.nationality = nationality;
     }
 
     public byte getPace() {

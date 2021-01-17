@@ -28,6 +28,19 @@ public class Team implements Serializable {
         this.substitutes = substitutes;
     }
 
+    public Team(String id, String name, String image, User capitaine, List<User> titulares, List<User> substitutes, int victories, int defeats, int points, int rating) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+        this.capitaine = capitaine;
+        this.titulares = titulares;
+        this.substitutes = substitutes;
+        this.victories = victories;
+        this.defeats = defeats;
+        this.points = points;
+        this.rating = rating;
+    }
+
     public String getId() {
         return id;
     }

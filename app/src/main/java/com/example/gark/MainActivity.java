@@ -1,18 +1,23 @@
 package com.example.gark;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
+import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.TeamsAdapter;
 import com.example.gark.adapters.TopPlayersAdapter;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.entites.User;
+import com.example.gark.fragments.AcceuilFragment;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.SkillsRepository;
 import com.example.gark.repositories.TeamRepository;
@@ -22,17 +27,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements IRepository {
-    //UI
-    RecyclerView recycleViewTopPlayers;
-    RecyclerView recycleViewTeams;
-    ProgressDialog dialogg;
-    //VAR
-    ArrayList<Skills> players;
-    ArrayList<Team> teams;
-    //Adapters
-    TopPlayersAdapter topPlayersAdapter;
-    TeamsAdapter teamsAdapter;
+public class MainActivity extends AppCompatActivity implements CallBackInterface {
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
     private static User CurrentLoggedInUser;
 
     public static User getCurrentLoggedInUser(){
@@ -47,58 +44,37 @@ public class MainActivity extends AppCompatActivity implements IRepository {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fragmentManager = getSupportFragmentManager();
         initUI();
     }
-
-    void initUI(){
-        dialogg = ProgressDialog.show(this
-                , "","Loading Data ..Wait.." , true);
-        ///players
-        players=new  ArrayList<Skills>();
-        SkillsRepository.getInstance().setiRepository(this);
-        SkillsRepository.getInstance().getAll(this,null);
-        recycleViewTopPlayers=findViewById(R.id.recycleViewTopPlayers);
-        initUIRecycleViewerTopPlayers();
-        //teams
-        teams=new  ArrayList<Team>();
-        TeamRepository.getInstance().setiRepository(this);
-        TeamRepository.getInstance().getAll(this,null);
-        recycleViewTeams=findViewById(R.id.recycleViewTeams);
-        initUIRecycleViewerTopRatedTeams();
+    public void initUI(){
+        acceuilFragement();
     }
-    private void initUIRecycleViewerTopPlayers() {
 
-        recycleViewTopPlayers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        topPlayersAdapter = new TopPlayersAdapter(this, players);
-        recycleViewTopPlayers.setAdapter(topPlayersAdapter);
+
+    public void addAcceuilFragment(View view) {
+    acceuilFragement();
     }
-    private void initUIRecycleViewerTopRatedTeams() {
 
-        recycleViewTeams.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        teamsAdapter = new TeamsAdapter(this, teams);
-        recycleViewTeams.setAdapter(topPlayersAdapter);
+    public void acceuilFragement(){
+        fragmentTransaction = fragmentManager.beginTransaction();
+        AcceuilFragment acceuilFragment = new AcceuilFragment();
+        acceuilFragment.setCallBackInterface(this);
+        fragmentTransaction.replace(R.id.fragment_container,acceuilFragment);
+        fragmentTransaction.commit();
     }
     @Override
-    public void showLoadingButton() {
-        dialogg.show();
+    public void popBack() {
+
     }
 
     @Override
-    public void doAction() {
-        //////skills
-         players=SkillsRepository.getInstance().getList();
-        //pour que le premier s'affiche à gauche
-        Collections.reverse(players);
-        topPlayersAdapter = new TopPlayersAdapter(this, players);
-        recycleViewTopPlayers.setAdapter(topPlayersAdapter);
-        /////teams
-        teams= TeamRepository.getInstance().getList();
-        teamsAdapter = new TeamsAdapter(this, teams);
-        recycleViewTeams.setAdapter(teamsAdapter);
+    public void openFragment(String name) {
+
     }
 
     @Override
-    public void dismissLoadingButton() {
-        dialogg.dismiss();
+    public void popBackb() {
+
     }
 }

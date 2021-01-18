@@ -11,8 +11,6 @@
         android:roundIcon="@drawable/gark_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TopBarActivity"></activity>
-        <activity android:name=".BottomNavBarActivity" />
         <activity android:name=".login.SignUpActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".MainActivity" />

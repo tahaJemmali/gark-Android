@@ -128,7 +128,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                 (byte)jsonTag.getInt("goals"),
                 Role.valueOf(jsonTag.getString("role")),
                 UserRepository.getInstance().convertJsonToObject((JSONObject)jsonTag.get("player")),
-                (Nationality.valueOf(jsonTag.getString("nationality"))));
+                (Nationality.valueOf(jsonTag.getString("nationality"))),jsonTag.getInt("rating"));
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

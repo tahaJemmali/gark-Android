@@ -18,6 +18,7 @@ import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.entites.User;
 import com.example.gark.fragments.AcceuilFragment;
+import com.example.gark.fragments.CommunityFragment;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.SkillsRepository;
 import com.example.gark.repositories.TeamRepository;
@@ -76,5 +77,25 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     @Override
     public void popBackb() {
 
+    }
+
+    public void addCommunityFragment(View view) {
+        fragmentTransaction = fragmentManager.beginTransaction();
+        CommunityFragment communityFragment = new CommunityFragment();
+        communityFragment.setCallBackInterface(this);
+        fragmentTransaction.replace(R.id.fragment_container,communityFragment);
+        fragmentTransaction.commit();
+    }
+
+    public void addNotificationFragment(View view) {
+    }
+
+    public void addCurrentUserProfileFragment(View view) {
+    }
+
+    public void addMessengerFragment(View view) {
+    }
+
+    public void addTopViewedStories(View view) {
     }
 }

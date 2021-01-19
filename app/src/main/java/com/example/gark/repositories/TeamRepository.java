@@ -86,29 +86,30 @@ public class TeamRepository implements CRUDRepository<Team> {
     @Override
     public Team convertJsonToObject(JSONObject jsonTag) {
         try {
-            List<User> titulares = new ArrayList<>();
-            List<User> substitutes = new ArrayList<>();
+            List<Skills> titulares = new ArrayList<>();
+            List<Skills> substitutes = new ArrayList<>();
             JSONArray jsonArrayTitulares = jsonTag.getJSONArray("titulares");
             for (int i = 0; i < jsonArrayTitulares.length(); i++) {
                 JSONObject titulaire = jsonArrayTitulares.getJSONObject(i);
-                titulares.add(UserRepository.getInstance().convertJsonToObject(titulaire));
+                titulares.add(SkillsRepository.getInstance().convertJsonToObject(titulaire));
             }
             JSONArray jsonArraySubstitutes = jsonTag.getJSONArray("substitutes");
             for (int i = 0; i < jsonArraySubstitutes.length(); i++) {
                 JSONObject substitute = jsonArrayTitulares.getJSONObject(i);
-                substitutes.add(UserRepository.getInstance().convertJsonToObject(substitute));
+                substitutes.add(SkillsRepository.getInstance().convertJsonToObject(substitute));
             }
 
             return new Team(jsonTag.getString("_id"),
                     jsonTag.getString("name"),
                     jsonTag.getString("image"),
-                    UserRepository.getInstance().convertJsonToObject((JSONObject)jsonTag.get("capitaine")),
+                    SkillsRepository.getInstance().convertJsonToObject((JSONObject)jsonTag.get("capitaine")),
                     titulares,
                     substitutes,
                     jsonTag.getInt("victories"),
                     jsonTag.getInt("defeats"),
                     jsonTag.getInt("points"),
-                    jsonTag.getInt("rating"));
+                    jsonTag.getInt("rating"),
+                    jsonTag.getString("categorie"));
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

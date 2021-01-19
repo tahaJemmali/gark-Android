@@ -11,10 +11,11 @@ public class Skills implements Serializable{
     byte defending=50;
     byte physical=50;
     byte score=50;
+    int rating=0;
     int goals=0;
     Role role;
     User player;
-    Nationality nationality=Nationality.Tunisia;
+    Nationality nationality=Nationality.tunisia;
 
     public Skills(){
          pace=50;
@@ -25,7 +26,7 @@ public class Skills implements Serializable{
          physical=50;
          score=50;
          goals=0;
-         nationality=Nationality.Tunisia;
+         nationality=Nationality.tunisia;
     }
 
     public Skills(Role role,User player) {
@@ -34,7 +35,7 @@ public class Skills implements Serializable{
         this.player=player;
     }
 
-    public Skills(String id, byte pace, byte shooting, byte passing, byte dribbling, byte defending, byte physical, byte score, int goals, Role role, User player, Nationality nationality) {
+    public Skills(String id, byte pace, byte shooting, byte passing, byte dribbling, byte defending, byte physical, byte score, int goals, Role role, User player, Nationality nationality,int rating) {
         this.id = id;
         this.pace = pace;
         this.shooting = shooting;
@@ -47,6 +48,7 @@ public class Skills implements Serializable{
         this.role = role;
         this.player = player;
         this.nationality = nationality;
+        this.rating = rating;
     }
 
     public byte getPace() {
@@ -145,6 +147,14 @@ public class Skills implements Serializable{
         this.nationality = nationality;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
         return "Skills{" +
@@ -160,6 +170,7 @@ public class Skills implements Serializable{
                 ", role=" + role +
                 ", player=" + player +
                 ", nationality=" + nationality +
+                ", rating=" + rating +
                 '}';
     }
 }

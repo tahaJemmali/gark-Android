@@ -7,9 +7,10 @@ public class Team implements Serializable {
     String id;
     String name;
     String image;
-    User capitaine;
-    List<User> titulares;
-    List<User> substitutes;
+    Skills capitaine;
+    String categorie;
+    List<Skills> titulares;
+    List<Skills> substitutes;
     int victories=0;
     int defeats=0;
     int points=0;
@@ -20,15 +21,16 @@ public class Team implements Serializable {
 
     }
 
-    public Team(String name, String image, User capitaine, List<User> titulares, List<User> substitutes) {
+    public Team(String name, String image,String categorie, Skills capitaine, List<Skills> titulares, List<Skills> substitutes) {
         this.name = name;
         this.image = image;
+        this.categorie = categorie;
         this.capitaine = capitaine;
         this.titulares = titulares;
         this.substitutes = substitutes;
     }
 
-    public Team(String id, String name, String image, User capitaine, List<User> titulares, List<User> substitutes, int victories, int defeats, int points, int rating) {
+    public Team(String id, String name, String image, Skills capitaine, List<Skills> titulares, List<Skills> substitutes, int victories, int defeats, int points, int rating,String categorie) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -39,6 +41,7 @@ public class Team implements Serializable {
         this.defeats = defeats;
         this.points = points;
         this.rating = rating;
+        this.categorie = categorie;
     }
 
     public String getId() {
@@ -65,27 +68,27 @@ public class Team implements Serializable {
         this.image = image;
     }
 
-    public User getCapitaine() {
+    public Skills getCapitaine() {
         return capitaine;
     }
 
-    public void setCapitaine(User capitaine) {
+    public void setCapitaine(Skills capitaine) {
         this.capitaine = capitaine;
     }
 
-    public List<User> getTitulares() {
+    public List<Skills> getTitulares() {
         return titulares;
     }
 
-    public void setTitulares(List<User> titulares) {
+    public void setTitulares(List<Skills> titulares) {
         this.titulares = titulares;
     }
 
-    public List<User> getSubstitutes() {
+    public List<Skills> getSubstitutes() {
         return substitutes;
     }
 
-    public void setSubstitutes(List<User> substitutes) {
+    public void setSubstitutes(List<Skills> substitutes) {
         this.substitutes = substitutes;
     }
 
@@ -113,6 +116,22 @@ public class Team implements Serializable {
         this.points = points;
     }
 
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
     @Override
     public String toString() {
         return "Team{" +
@@ -125,6 +144,8 @@ public class Team implements Serializable {
                 ", victories=" + victories +
                 ", points=" + points +
                 ", defeats=" + defeats +
+                ", categorie=" + categorie +
+                ", rating=" + rating +
                 '}';
     }
 }

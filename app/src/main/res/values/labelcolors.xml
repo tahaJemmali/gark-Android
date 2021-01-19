@@ -2,4 +2,6 @@
 <resources>
     <drawable name="pressed_color">#01B79A</drawable> <!--custom color for pressed state -->
     <drawable name="normal_color">#00D183</drawable> <!--transperent color for normal state -->
+    <drawable name="white_color_bg">#FFF</drawable> <!--transperent color for normal state -->
+    <drawable name="black_color_bg">#000</drawable> <!--transperent color for normal state -->
 </resources>

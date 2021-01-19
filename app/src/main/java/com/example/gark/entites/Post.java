@@ -1,6 +1,7 @@
 package com.example.gark.entites;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Post implements Serializable {
     String id;
@@ -9,6 +10,8 @@ public class Post implements Serializable {
     String image;
     User creator;
     int likes=0;
+    int views=0;
+    Date date_created=new Date();
     public Post(){
 
     }
@@ -18,6 +21,17 @@ public class Post implements Serializable {
         this.description = description;
         this.image = image;
         this.creator = creator;
+    }
+
+    public Post(String id, String title, String description, String image, User creator, int likes, Date date_created,int views) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.image = image;
+        this.creator = creator;
+        this.likes = likes;
+        this.views = views;
+        this.date_created = date_created;
     }
 
     public String getId() {
@@ -68,6 +82,22 @@ public class Post implements Serializable {
         this.likes = likes;
     }
 
+    public Date getDate_created() {
+        return date_created;
+    }
+
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
+    }
+
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -76,7 +106,9 @@ public class Post implements Serializable {
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
                 ", creator=" + creator +
+                ", date_created=" + date_created +
                 ", likes=" + likes +
+                ", views=" + views +
                 '}';
     }
 }

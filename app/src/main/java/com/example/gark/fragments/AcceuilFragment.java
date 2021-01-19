@@ -16,11 +16,14 @@ import android.view.ViewGroup;
 
 import com.example.gark.R;
 import com.example.gark.Utils.CallBackInterface;
+import com.example.gark.adapters.PostAdapter;
 import com.example.gark.adapters.TeamsAdapter;
 import com.example.gark.adapters.TopPlayersAdapter;
+import com.example.gark.entites.Post;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.repositories.IRepository;
+import com.example.gark.repositories.PostRepository;
 import com.example.gark.repositories.SkillsRepository;
 import com.example.gark.repositories.TeamRepository;
 
@@ -39,13 +42,16 @@ public class AcceuilFragment extends Fragment implements IRepository {
     //UI
     RecyclerView recycleViewTopPlayers;
     RecyclerView recycleViewTeams;
+    RecyclerView recycleViewPosts;
     ProgressDialog dialogg;
     //VAR
     ArrayList<Skills> players;
     ArrayList<Team> teams;
+    ArrayList<Post> posts;
     //Adapters
     TopPlayersAdapter topPlayersAdapter;
     TeamsAdapter teamsAdapter;
+    PostAdapter postAdapter;
 
     public AcceuilFragment() {
         // Required empty public constructor
@@ -58,6 +64,19 @@ public class AcceuilFragment extends Fragment implements IRepository {
         view =  inflater.inflate(R.layout.fragment_acceuil, container, false);
         mContext = getContext();
         initUI();
+
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
+            @Override
+            public void handleOnBackPressed() {
+                System.out.println("on back pressed from frag");
+                if (callBackInterface!=null){
+                    callBackInterface.popBack();
+                }
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+
         return view;
     }
     void initUI(){
@@ -75,10 +94,16 @@ public class AcceuilFragment extends Fragment implements IRepository {
         TeamRepository.getInstance().getAll(mContext,null);
         recycleViewTeams=view.findViewById(R.id.recycleViewTeams);
         initUIRecycleViewerTopRatedTeams();
+        //posts
+        posts=new  ArrayList<Post>();
+        PostRepository.getInstance().setiRepository(this);
+        PostRepository.getInstance().getAll(mContext,null);
+        recycleViewPosts=view.findViewById(R.id.recycleViewPosts);
+        initUIRecycleViewerPosts();
     }
     private void initUIRecycleViewerTopPlayers() {
 
-        recycleViewTopPlayers.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, true));
+        recycleViewTopPlayers.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         topPlayersAdapter = new TopPlayersAdapter(mContext, players);
         recycleViewTopPlayers.setAdapter(topPlayersAdapter);
     }
@@ -87,6 +112,13 @@ public class AcceuilFragment extends Fragment implements IRepository {
         recycleViewTeams.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         teamsAdapter = new TeamsAdapter(mContext, teams);
         recycleViewTeams.setAdapter(topPlayersAdapter);
+    }
+
+    private void initUIRecycleViewerPosts() {
+
+        recycleViewPosts.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        postAdapter = new PostAdapter(mContext, posts);
+        recycleViewPosts.setAdapter(postAdapter);
     }
     @Override
     public void showLoadingButton() {
@@ -98,13 +130,17 @@ public class AcceuilFragment extends Fragment implements IRepository {
         //////skills
         players=SkillsRepository.getInstance().getList();
         //pour que le premier s'affiche à gauche
-        Collections.reverse(players);
+     //   Collections.reverse(players);
         topPlayersAdapter = new TopPlayersAdapter(mContext, players);
         recycleViewTopPlayers.setAdapter(topPlayersAdapter);
         /////teams
         teams= TeamRepository.getInstance().getList();
         teamsAdapter = new TeamsAdapter(mContext, teams);
         recycleViewTeams.setAdapter(teamsAdapter);
+        /////posts
+        posts= PostRepository.getInstance().getList();
+        postAdapter = new PostAdapter(mContext, posts);
+        recycleViewPosts.setAdapter(postAdapter);
     }
 
     @Override

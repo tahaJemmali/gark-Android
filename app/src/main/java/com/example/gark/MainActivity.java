@@ -32,6 +32,12 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     private static User CurrentLoggedInUser;
+    //fragment
+    AcceuilFragment acceuilFragment;
+    CommunityFragment communityFragment;
+    //already generated
+    boolean alreadyGenerated=false;
+    boolean alreadyGeneratedCommunity=false;
 
     public static User getCurrentLoggedInUser(){
         return CurrentLoggedInUser;
@@ -59,8 +65,11 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
     public void acceuilFragement(){
         fragmentTransaction = fragmentManager.beginTransaction();
-        AcceuilFragment acceuilFragment = new AcceuilFragment();
-        acceuilFragment.setCallBackInterface(this);
+        if(!alreadyGenerated){
+             acceuilFragment = new AcceuilFragment();
+            acceuilFragment.setCallBackInterface(this);
+            alreadyGenerated=true;
+        }
         fragmentTransaction.replace(R.id.fragment_container,acceuilFragment);
         fragmentTransaction.commit();
     }
@@ -81,8 +90,11 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
     public void addCommunityFragment(View view) {
         fragmentTransaction = fragmentManager.beginTransaction();
-        CommunityFragment communityFragment = new CommunityFragment();
-        communityFragment.setCallBackInterface(this);
+        if(!alreadyGeneratedCommunity){
+            communityFragment = new CommunityFragment();
+            communityFragment.setCallBackInterface(this);
+            alreadyGeneratedCommunity=true;
+        }
         fragmentTransaction.replace(R.id.fragment_container,communityFragment);
         fragmentTransaction.commit();
     }

@@ -52,7 +52,8 @@ public class AcceuilFragment extends Fragment implements IRepository {
     TopPlayersAdapter topPlayersAdapter;
     TeamsAdapter teamsAdapter;
     PostAdapter postAdapter;
-
+   ///
+    boolean generated=false;
     public AcceuilFragment() {
         // Required empty public constructor
     }
@@ -80,27 +81,41 @@ public class AcceuilFragment extends Fragment implements IRepository {
         return view;
     }
     void initUI(){
-        dialogg = ProgressDialog.show(mContext
-                , "","Loading Data ..Wait.." , true);
-        ///players
-        players=new  ArrayList<Skills>();
-        SkillsRepository.getInstance().setiRepository(this);
-        SkillsRepository.getInstance().getAll(mContext,null);
         recycleViewTopPlayers=view.findViewById(R.id.recycleViewTopPlayers);
-        initUIRecycleViewerTopPlayers();
-        //teams
-        teams=new  ArrayList<Team>();
-        TeamRepository.getInstance().setiRepository(this);
-        TeamRepository.getInstance().getAll(mContext,null);
         recycleViewTeams=view.findViewById(R.id.recycleViewTeams);
-        initUIRecycleViewerTopRatedTeams();
-        //posts
-        posts=new  ArrayList<Post>();
-        PostRepository.getInstance().setiRepository(this);
-        PostRepository.getInstance().getAll(mContext,null);
         recycleViewPosts=view.findViewById(R.id.recycleViewPosts);
+        if (!generated){
+            dialogg = ProgressDialog.show(mContext
+                    , "","Loading Data ..Wait.." , true);
+            ///players
+            players=new  ArrayList<Skills>();
+            SkillsRepository.getInstance().setiRepository(this);
+            SkillsRepository.getInstance().getAll(mContext,null);
+
+            //teams
+            teams=new  ArrayList<Team>();
+            TeamRepository.getInstance().setiRepository(this);
+            TeamRepository.getInstance().getAll(mContext,null);
+
+            //posts
+            posts=new  ArrayList<Post>();
+            PostRepository.getInstance().setiRepository(this);
+            PostRepository.getInstance().getAll(mContext,null);
+            generated=true;
+        }
+
+
+        initUIRecycleViewerTopPlayers();
+        initUIRecycleViewerTopRatedTeams();
         initUIRecycleViewerPosts();
     }
+    private void initUIRecycleViewerPosts() {
+
+        recycleViewPosts.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        postAdapter = new PostAdapter(mContext, posts);
+        recycleViewPosts.setAdapter(postAdapter);
+    }
+
     private void initUIRecycleViewerTopPlayers() {
 
         recycleViewTopPlayers.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
@@ -111,15 +126,9 @@ public class AcceuilFragment extends Fragment implements IRepository {
 
         recycleViewTeams.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         teamsAdapter = new TeamsAdapter(mContext, teams);
-        recycleViewTeams.setAdapter(topPlayersAdapter);
+        recycleViewTeams.setAdapter(teamsAdapter);
     }
 
-    private void initUIRecycleViewerPosts() {
-
-        recycleViewPosts.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        postAdapter = new PostAdapter(mContext, posts);
-        recycleViewPosts.setAdapter(postAdapter);
-    }
     @Override
     public void showLoadingButton() {
         dialogg.show();

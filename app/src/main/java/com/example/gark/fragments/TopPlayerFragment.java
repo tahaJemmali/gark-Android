@@ -47,7 +47,7 @@ public class TopPlayerFragment extends Fragment implements IRepository {
     boolean playerGenerated=false;
     //Adapters
     CommunityTopPlayerAdapter communityTopPlayerAdapter;
-
+    private static final String FRAGMENT_NAME = "topPlayer";
 
     public TopPlayerFragment() {
         // Required empty public constructor
@@ -59,7 +59,7 @@ public class TopPlayerFragment extends Fragment implements IRepository {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_top_player, container, false);
-        mContext = getContext();
+        mContext = getActivity();
        initUI();
 
         // This callback will only be called when MyFragment is at least Started.

@@ -123,6 +123,9 @@
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="right"
                     android:text="Show All"
+                    android:clickable="true"
+                    android:onClick="showTopPlayers"
+                    android:textColor="@drawable/label_bg"
                     android:textSize="15dp" />
             </LinearLayout>
 
@@ -156,6 +159,8 @@
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="right"
                     android:text="Show All"
+                    android:onClick="showMostLikedPosts"
+                    android:textColor="@drawable/label_bg"
                     android:textSize="15dp" />
             </LinearLayout>
 
@@ -327,8 +332,12 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="right"
+                    android:clickable="true"
+                    android:onClick="showTopTeams"
+                    android:textColor="@drawable/label_bg"
                     android:text="Show All"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    tools:ignore="OnClick" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

@@ -56,7 +56,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Teams"
-                android:checked="true"
                 style="@style/RadioButton" />
             <RadioButton
                 android:id="@+id/buttonPlayers"

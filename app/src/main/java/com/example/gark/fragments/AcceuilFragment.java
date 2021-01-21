@@ -52,8 +52,9 @@ public class AcceuilFragment extends Fragment implements IRepository {
     TopPlayersAdapter topPlayersAdapter;
     TeamsAdapter teamsAdapter;
     PostAdapter postAdapter;
-   ///
+   //boolean
     boolean generated=false;
+    private static final String FRAGMENT_NAME = "acceuil";
     public AcceuilFragment() {
         // Required empty public constructor
     }
@@ -96,7 +97,6 @@ public class AcceuilFragment extends Fragment implements IRepository {
             teams=new  ArrayList<Team>();
             TeamRepository.getInstance().setiRepository(this);
             TeamRepository.getInstance().getAll(mContext,null);
-
             //posts
             posts=new  ArrayList<Post>();
             PostRepository.getInstance().setiRepository(this);

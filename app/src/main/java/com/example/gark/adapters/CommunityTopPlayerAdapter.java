@@ -1,18 +1,23 @@
 package com.example.gark.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.gark.PlayerProfileActvity;
 import com.example.gark.R;
 import com.example.gark.entites.Skills;
 
@@ -85,7 +90,8 @@ public class CommunityTopPlayerAdapter extends RecyclerView.Adapter<CommunityTop
     }
 
     public class CommunityTopPlayerHolder extends RecyclerView.ViewHolder {
-        ImageView playerImage,countryImage,start_one,start_two,start_three,start_four,start_five;
+        ImageButton playerImage;
+        ImageView countryImage,start_one,start_two,start_three,start_four,start_five;
         TextView playerName,role;
         public CommunityTopPlayerHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,6 +104,14 @@ public class CommunityTopPlayerAdapter extends RecyclerView.Adapter<CommunityTop
             start_five = itemView.findViewById(R.id.start_five);
             playerName = itemView.findViewById(R.id.playerName);
             role = itemView.findViewById(R.id.role);
+            playerImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext,PlayerProfileActvity.class);
+                    intent.putExtra("playerId",players.get(getAdapterPosition()).getId());
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 }

@@ -45,6 +45,8 @@ public class TopTeamFragment extends Fragment implements IRepository {
     boolean teamsGenerated=false;
     //Adapters
     CommunityTopTeamsAdapter communityTopTeamsAdapter;
+    private static final String FRAGMENT_NAME = "topTeam";
+
     public TopTeamFragment() {
         // Required empty public constructor
     }

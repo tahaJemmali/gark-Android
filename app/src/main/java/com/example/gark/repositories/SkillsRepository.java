@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -12,6 +13,7 @@ import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Nationality;
 import com.example.gark.entites.Role;
 import com.example.gark.entites.Skills;
+import com.example.gark.entites.Team;
 import com.example.gark.entites.User;
 
 import org.json.JSONArray;
@@ -27,6 +29,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     private IRepository iRepository;
     private static SkillsRepository instance;
     public static  ArrayList<Skills> players;
+    public static Skills player;
 
     public static SkillsRepository getInstance() {
         if (instance==null)
@@ -97,6 +100,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonTag = jsonArray.getJSONObject(i);
                                 players.add( convertJsonToObject(jsonTag));
+                                Log.e("TAG", "onResponse: "+convertJsonToObject(jsonTag) );
                             }
                             iRepository.doAction();
                             iRepository.dismissLoadingButton();
@@ -111,24 +115,56 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                 Log.e("TAG", "onResponse: "+IRepository.baseURL + "/top_players");
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
+    }
+
+    @Override
+    public void findById(Context mContext,String id) {
+        iRepository.showLoadingButton();
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findByIdskills/"+id, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        player = convertJsonToObjectDeepPopulate(response);
+                        iRepository.doAction();
+                        iRepository.dismissLoadingButton();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/findByIdskills"+id);
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
     @Override
     public Skills convertJsonToObject(JSONObject jsonTag) {
         try {
-        return new Skills(jsonTag.getString("_id"),
-                (byte)jsonTag.getInt("pace"),
-                (byte)jsonTag.getInt("shooting"),
-                (byte)jsonTag.getInt("passing"),
-                (byte)jsonTag.getInt("dribbling"),
-                (byte)jsonTag.getInt("defending"),
-                (byte)jsonTag.getInt("physical"),
-                (byte)jsonTag.getInt("score"),
-                (byte)jsonTag.getInt("goals"),
+        Skills skills= new Skills(jsonTag.getString("_id"),
+                jsonTag.getInt("pace"),
+                jsonTag.getInt("shooting"),
+                jsonTag.getInt("passing"),
+                jsonTag.getInt("dribbling"),
+                jsonTag.getInt("defending"),
+                jsonTag.getInt("physical"),
+                jsonTag.getInt("score"),
+                jsonTag.getInt("goals"),
                 Role.valueOf(jsonTag.getString("role")),
                 UserRepository.getInstance().convertJsonToObject((JSONObject)jsonTag.get("player")),
-                (Nationality.valueOf(jsonTag.getString("nationality"))),jsonTag.getInt("rating"));
+                (Nationality.valueOf(jsonTag.getString("nationality"))),jsonTag.getInt("rating")
+                ,jsonTag.getString("description"),jsonTag.getInt("age"));
+        if(jsonTag.has("team")){
+            skills.setTeam(new Team(jsonTag.getString("team")));
+        }
+        return skills;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -150,5 +186,38 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     @Override
     public void setiRepository(IRepository iRepository) {
         this.iRepository = iRepository;
+    }
+
+    @Override
+    public Skills convertJsonToObjectDeepPopulate(JSONObject jsonTag) {
+        try {
+            Skills skills= new Skills(jsonTag.getString("_id"),
+                    jsonTag.getInt("pace"),
+                    jsonTag.getInt("shooting"),
+                    jsonTag.getInt("passing"),
+                    jsonTag.getInt("dribbling"),
+                    jsonTag.getInt("defending"),
+                    jsonTag.getInt("physical"),
+                    jsonTag.getInt("score"),
+                    jsonTag.getInt("goals"),
+                    Role.valueOf(jsonTag.getString("role")),
+                    UserRepository.getInstance().convertJsonToObject((JSONObject)jsonTag.get("player")),
+                    (Nationality.valueOf(jsonTag.getString("nationality"))),jsonTag.getInt("rating")
+                    ,jsonTag.getString("description"),jsonTag.getInt("age"));
+            if(jsonTag.has("team")){
+                skills.setTeam(TeamRepository.getInstance().convertJsonToObject((JSONObject)jsonTag.get("team")));
+            }
+            return skills;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Skills getElement() {
+        if (player==null)
+            player = new Skills();
+        return player;
     }
 }

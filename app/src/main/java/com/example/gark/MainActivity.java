@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     //already generated
     boolean alreadyGenerated=false;
     boolean alreadyGeneratedCommunity=false;
+
 
     public static User getCurrentLoggedInUser(){
         return CurrentLoggedInUser;
@@ -79,16 +81,31 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     @Override
-    public void openFragment(String name) {
+    public void openFragmentOrActivity(String name) {
+        switch (name){
+            case "acceuil":acceuilFragement();
+                break;
+            case "community":showCommunityFragment();
+                break;
+            case "topPlayer": CommunityFragment.showAllTeams=false;
+                CommunityFragment.showAllPlayer=true;
+                showCommunityFragment();
+                break;
+            case "topTeam": CommunityFragment.showAllTeams=true;
+                CommunityFragment.showAllPlayer=false;
+                showCommunityFragment();
+                break;
+            case ""://TODO addProgressStatFragment(null);
+                break;
 
+        }
     }
 
     @Override
     public void popBackb() {
 
     }
-
-    public void addCommunityFragment(View view) {
+    public void showCommunityFragment(){
         fragmentTransaction = fragmentManager.beginTransaction();
         if(!alreadyGeneratedCommunity){
             communityFragment = new CommunityFragment();
@@ -99,15 +116,39 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         fragmentTransaction.commit();
     }
 
+    public void addCommunityFragment(View view) {
+        showCommunityFragment();
+    }
+
     public void addNotificationFragment(View view) {
+        Log.e("TAG", "showNotificationFragment: " );
     }
 
     public void addCurrentUserProfileFragment(View view) {
+        Log.e("TAG", "showCurrentUserProfileFragment: " );
     }
 
     public void addMessengerFragment(View view) {
+        Log.e("TAG", "showMessengerFragment: " );
     }
 
     public void addTopViewedStories(View view) {
+        Log.e("TAG", "showTopViewedStoriesFragment: " );
+    }
+
+    public void showTopPlayers(View view) {
+        openFragmentOrActivity("topPlayer");
+    }
+
+    public void showTopTeams(View view) {
+        openFragmentOrActivity("topTeam");
+    }
+
+    public void showMostLikedPosts(View view) {
+        Log.e("TAG", "showMostLikedPostsFragment: " );
+    }
+
+    public void greenAddButton(View view) {
+        Log.e("TAG", "greenAddButton: " );
     }
 }

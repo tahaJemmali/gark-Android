@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlayerProfileActvity">
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#80000000"
+        android:elevation="20dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:onClick="getBack"
+            android:clickable="true"
+            android:background="@drawable/ic_baseline_arrow_back_24" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_weight="2" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="showCard"
+            android:clickable="true"
+            android:background="@drawable/small_shield" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="350dp">
+
+                <ImageView
+                    android:id="@+id/playerImage"
+                    android:layout_width="match_parent"
+                    android:scaleType="centerCrop"
+                    android:layout_height="300dp"
+                    android:background="@drawable/navbar"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="220dp"
+                    android:layout_height="110dp"
+                    android:layout_marginLeft="95dp"
+                    android:layout_marginTop="220dp"
+                    android:elevation="20dp"
+                    app:cardCornerRadius="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="8dp"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:id="@+id/playerNom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/arial_rounded"
+                                android:text="Foulen Ben Foulen"
+                                android:layout_weight="1"
+                                android:textColor="@color/black"
+                                android:textSize="20dp" />
+
+
+
+                            <ImageView
+                                android:id="@+id/nationality"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/france" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:orientation="horizontal"
+                            android:weightSum="1">
+
+                            <TextView
+                                android:id="@+id/age"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/arial_rounded"
+                                android:text="26 year"
+                                android:layout_weight="1"
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
+
+
+                            <TextView
+                                android:id="@+id/rolePlayer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/arial_rounded"
+                                android:text="CB"
+                                android:textSize="12dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="20dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="5">
+
+                            <ImageView
+                                android:id="@+id/start_one"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/rating_start_unchecked" />
+
+                            <ImageView
+                                android:id="@+id/start_two"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/rating_start_unchecked" />
+
+                            <ImageView
+                                android:id="@+id/start_three"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/rating_start_unchecked" />
+
+                            <ImageView
+                                android:id="@+id/start_four"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/rating_start_unchecked" />
+
+                            <ImageView
+                                android:id="@+id/start_five"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:src="@drawable/rating_start_unchecked" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arial_rounded"
+                    android:text="Description"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+                <TextView
+                    android:id="@+id/descriptionPlayer"
+                    android:layout_marginVertical="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arial_rounded"
+                    android:text="@string/lorem"
+                    android:textSize="13dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arial_rounded"
+                    android:text="Skills"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+                <androidx.cardview.widget.CardView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_gravity="center"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="10dp"
+                    android:layout_margin="5dp"
+                    android:elevation="10dp">
+                <com.ultramegasoft.radarchart.RadarView
+                    android:id="@+id/radar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true" />
+                </androidx.cardview.widget.CardView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/skillsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/arial_rounded"
+                    android:text="Posts"
+                    android:layout_marginHorizontal="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="15dp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/postRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_marginVertical="10dp"
+                    android:layout_height="wrap_content">
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+            <Button
+                android:onClick="contact"
+                android:layout_weight="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="28dp"
+                android:fontFamily="@font/arial_rounded"
+                android:text="Contact"
+                android:background="@drawable/gradian_btn"
+                android:textColor="#FFF" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,8 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.gark.entites.Team;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -17,10 +19,14 @@ public interface CRUDRepository<T> {
     public void delete(final Context mcontext, String id, final ProgressDialog dialog);
     public void update(final Context mcontext, T t, String id);
     public void getAll(final Context mContext, final ProgressDialog dialogg);
+    public void findById(final Context mContext,String id);
     public T convertJsonToObject(JSONObject object);
     public JSONObject convertObjectToJson(T t);
     public ArrayList<T> getList();
     public void setiRepository(IRepository iRepository);
+    public T convertJsonToObjectDeepPopulate(JSONObject jsonTag);
+    public T getElement();
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public static Date getDate(String key){
         Date date = null;
         try {

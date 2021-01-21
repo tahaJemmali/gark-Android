@@ -4,19 +4,21 @@ import java.io.Serializable;
 
 public class Skills implements Serializable{
     String id;
-    byte pace=50;
-    byte shooting=50;
-    byte passing=50;
-    byte dribbling=50;
-    byte defending=50;
-    byte physical=50;
-    byte score=50;
+    int pace=50;
+    int shooting=50;
+    int passing=50;
+    int dribbling=50;
+    int defending=50;
+    int physical=50;
+    int score=50;
     int rating=0;
     int goals=0;
     Role role;
     User player;
     Nationality nationality=Nationality.tunisia;
-
+    Team team;
+    String description;
+    int age;
     public Skills(){
          pace=50;
          shooting=50;
@@ -27,6 +29,7 @@ public class Skills implements Serializable{
          score=50;
          goals=0;
          nationality=Nationality.tunisia;
+         team=new Team();
     }
 
     public Skills(Role role,User player) {
@@ -34,8 +37,10 @@ public class Skills implements Serializable{
         this.role = role;
         this.player=player;
     }
-
-    public Skills(String id, byte pace, byte shooting, byte passing, byte dribbling, byte defending, byte physical, byte score, int goals, Role role, User player, Nationality nationality,int rating) {
+    public Skills(String userId) {
+        this.id=userId;
+    }
+    public Skills(String id, int pace, int shooting, int passing, int dribbling, int defending, int physical, int score, int goals, Role role, User player, Nationality nationality,int rating,String description,int age) {
         this.id = id;
         this.pace = pace;
         this.shooting = shooting;
@@ -49,61 +54,63 @@ public class Skills implements Serializable{
         this.player = player;
         this.nationality = nationality;
         this.rating = rating;
+        this.description=description;
+        this.age=age;
     }
 
-    public byte getPace() {
+    public int getPace() {
         return pace;
     }
 
-    public void setPace(byte pace) {
+    public void setPace(int pace) {
         this.pace = pace;
     }
 
-    public byte getShooting() {
+    public int getShooting() {
         return shooting;
     }
 
-    public void setShooting(byte shooting) {
+    public void setShooting(int shooting) {
         this.shooting = shooting;
     }
 
-    public byte getPassing() {
+    public int getPassing() {
         return passing;
     }
 
-    public void setPassing(byte passing) {
+    public void setPassing(int passing) {
         this.passing = passing;
     }
 
-    public byte getDribbling() {
+    public int getDribbling() {
         return dribbling;
     }
 
-    public void setDribbling(byte dribbling) {
+    public void setDribbling(int dribbling) {
         this.dribbling = dribbling;
     }
 
-    public byte getDefending() {
+    public int getDefending() {
         return defending;
     }
 
-    public void setDefending(byte defending) {
+    public void setDefending(int defending) {
         this.defending = defending;
     }
 
-    public byte getPhysical() {
+    public int getPhysical() {
         return physical;
     }
 
-    public void setPhysical(byte physical) {
+    public void setPhysical(int physical) {
         this.physical = physical;
     }
 
-    public byte getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(byte score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -155,6 +162,30 @@ public class Skills implements Serializable{
         this.rating = rating;
     }
 
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "Skills{" +
@@ -171,6 +202,9 @@ public class Skills implements Serializable{
                 ", player=" + player +
                 ", nationality=" + nationality +
                 ", rating=" + rating +
+                ", team=" + team +
+                ", age=" + age +
+                ", description=" + description +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.example.gark.entites;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class Team implements Serializable {
@@ -15,22 +16,30 @@ public class Team implements Serializable {
     int defeats=0;
     int points=0;
     int rating=0;
-
+    Nationality nationality=Nationality.tunisia;
+    String description;
+    Date date_created;
+    int draws=0;
 
     public Team(){
 
     }
+    public Team(String id){
+    this.id=id;
+    }
 
-    public Team(String name, String image,String categorie, Skills capitaine, List<Skills> titulares, List<Skills> substitutes) {
+    public Team(String name, String image,String categorie, Skills capitaine, List<Skills> titulares, List<Skills> substitutes,Nationality nationality) {
         this.name = name;
         this.image = image;
         this.categorie = categorie;
         this.capitaine = capitaine;
         this.titulares = titulares;
         this.substitutes = substitutes;
+        this.nationality = nationality;
     }
 
-    public Team(String id, String name, String image, Skills capitaine, List<Skills> titulares, List<Skills> substitutes, int victories, int defeats, int points, int rating,String categorie) {
+    public Team(String id, String name, String image, Skills capitaine, List<Skills> titulares, List<Skills> substitutes, int victories, int defeats, int points, int rating,String categorie,
+                Nationality nationality,String description,Date date_created,int draws) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -42,6 +51,10 @@ public class Team implements Serializable {
         this.points = points;
         this.rating = rating;
         this.categorie = categorie;
+        this.nationality = nationality;
+        this.description = description;
+        this.date_created = date_created;
+        this.draws = draws;
     }
 
     public String getId() {
@@ -132,6 +145,38 @@ public class Team implements Serializable {
         this.rating = rating;
     }
 
+    public Nationality getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(Nationality nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getDate_created() {
+        return date_created;
+    }
+
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
+    }
+
+    public int getDraws() {
+        return draws;
+    }
+
+    public void setDraws(int draws) {
+        this.draws = draws;
+    }
+
     @Override
     public String toString() {
         return "Team{" +
@@ -146,6 +191,10 @@ public class Team implements Serializable {
                 ", defeats=" + defeats +
                 ", categorie=" + categorie +
                 ", rating=" + rating +
+                ", nationality=" + nationality +
+                ", description=" + description +
+                ", date_created=" + date_created +
+                ", draws=" + draws +
                 '}';
     }
 }

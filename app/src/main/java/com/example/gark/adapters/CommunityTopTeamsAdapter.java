@@ -1,14 +1,17 @@
 package com.example.gark.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gark.R;
+import com.example.gark.TeamProfileActivity;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 
@@ -50,8 +54,8 @@ public class CommunityTopTeamsAdapter extends RecyclerView.Adapter<CommunityTopT
         Bitmap bitmap = getBitmapFromString(team.getImage());
         Drawable d = new BitmapDrawable(mContext.getResources(), bitmap);
         holder.playerImage.setBackground(d);
-        holder.countryImage.setImageResource(mContext.getResources().getIdentifier(team.getCapitaine().getNationality().toString(), "drawable", mContext.getPackageName()));
-        holder.role.setText(team.getCapitaine().getRole().toString());
+        holder.countryImage.setImageResource(mContext.getResources().getIdentifier(team.getNationality().toString(), "drawable", mContext.getPackageName()));
+        holder.role.setText(team.getCategorie().toString());
         holder.playerName.setText(team.getName());
         switch (team.getRating()) {
             case 1:
@@ -91,7 +95,8 @@ public class CommunityTopTeamsAdapter extends RecyclerView.Adapter<CommunityTopT
     }
 
     public class CommunityTopTeamsHolder extends RecyclerView.ViewHolder {
-        ImageView playerImage, countryImage, start_one, start_two, start_three, start_four, start_five;
+        ImageButton playerImage;
+        ImageView countryImage, start_one, start_two, start_three, start_four, start_five;
         TextView playerName, role;
 
         public CommunityTopTeamsHolder(@NonNull View itemView) {
@@ -105,6 +110,14 @@ public class CommunityTopTeamsAdapter extends RecyclerView.Adapter<CommunityTopT
             start_five = itemView.findViewById(R.id.start_five);
             playerName = itemView.findViewById(R.id.playerName);
             role = itemView.findViewById(R.id.role);
+            playerImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext, TeamProfileActivity.class);
+                    intent.putExtra("teamId",teams.get(getAdapterPosition()).getId());
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 }

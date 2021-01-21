@@ -55,6 +55,11 @@ public class CommunityFragment extends Fragment {
     //already generated
     boolean playerGenerated=false;
     boolean teamGenerated=false;
+    ///statitc bool for mainActivity smooth navigation
+    public static boolean showAllTeams=false;
+    public static boolean showAllPlayer=false;
+    private static final String FRAGMENT_NAME = "community";
+
     public CommunityFragment() {
         // Required empty public constructor
     }
@@ -67,6 +72,11 @@ public class CommunityFragment extends Fragment {
         view =  inflater.inflate(R.layout.fragment_community, container, false);
         mContext = getContext();
         initUI();
+
+        if (showAllPlayer)
+            addTopPlayerFragment();
+        if(showAllTeams)
+            addTopTeamFragment();
 
         // This callback will only be called when MyFragment is at least Started.
         OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
@@ -96,9 +106,9 @@ public class CommunityFragment extends Fragment {
 
     void initUI() {
         fragmentManager = getChildFragmentManager();
-        addTopTeamFragment();
         buttonTeams =view.findViewById(R.id.buttonTeams);
         buttonPlayers =view.findViewById(R.id.buttonPlayers);
+        addTopTeamFragment();
     }
 
 
@@ -106,6 +116,8 @@ public class CommunityFragment extends Fragment {
 
     public void addTopPlayerFragment(){
         fragmentTransaction = fragmentManager.beginTransaction();
+        buttonTeams.setChecked(false);
+        buttonPlayers.setChecked(true);
         if (!playerGenerated){
             topPlayerFragment = new TopPlayerFragment();
             playerGenerated=true;
@@ -116,6 +128,8 @@ public class CommunityFragment extends Fragment {
     }
     public void addTopTeamFragment(){
         fragmentTransaction = fragmentManager.beginTransaction();
+        buttonTeams.setChecked(true);
+        buttonPlayers.setChecked(false);
         if(!teamGenerated){
            topTeamFragment = new TopTeamFragment();
             teamGenerated=true;

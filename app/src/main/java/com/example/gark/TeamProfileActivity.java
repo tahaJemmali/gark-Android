@@ -149,4 +149,8 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
         byte[] bytes = Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
+
+    public void getBack(View view) {
+        super.onBackPressed();
+    }
 }

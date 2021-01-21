@@ -3,9 +3,10 @@ package com.example.gark.entites;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Parcelable {
+public class User implements Parcelable, Serializable {
 
     String id;
     String firstName;

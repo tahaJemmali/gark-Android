@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -163,9 +164,13 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
     public void showCard(View view) {
+      Intent intent = new Intent(PlayerProfileActvity.this,CardActivity.class);
+        intent.putExtra("player",player);
+        startActivity(intent);
     }
 
     public void getBack(View view) {
+        super.onBackPressed();
     }
 
     public void contact(View view) {

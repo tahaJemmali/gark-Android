@@ -11,7 +11,8 @@
         android:roundIcon="@drawable/gark_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CardActivity"></activity>
+        <activity android:name=".StoryActivity"></activity>
+        <activity android:name=".CardActivity" />
         <activity android:name=".TeamProfileActivity" />
         <activity android:name=".PlayerProfileActvity" />
         <activity android:name=".login.SignUpActivity" />

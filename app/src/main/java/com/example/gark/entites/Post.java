@@ -3,7 +3,7 @@ package com.example.gark.entites;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Post implements Serializable {
+public class Post implements Serializable,Cloneable {
     String id;
     String title;
     String description;
@@ -14,6 +14,11 @@ public class Post implements Serializable {
     Date date_created=new Date();
     public Post(){
 
+    }
+    public Object clone() throws
+            CloneNotSupportedException
+    {
+        return super.clone();
     }
 
     public Post(String title, String description, String image, User creator) {

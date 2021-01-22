@@ -25,6 +25,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
+            android:backgroundTint="@drawable/close_effect"
             android:background="@drawable/ic_baseline_close_24"
             android:onClick="getBack" />
 
@@ -52,21 +53,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="45dp"
             android:orientation="horizontal"
             android:weightSum="3">
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="207dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:orientation="vertical">
+
                 <TextView
                     android:id="@+id/score"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arial_rounded"
-                    android:text="93"
+                    android:gravity="center"
+                    android:text="100"
                     android:textSize="45dp" />
+
                 <TextView
                     android:id="@+id/role"
                     android:layout_width="wrap_content"
@@ -75,35 +79,36 @@
                     android:fontFamily="@font/arial_rounded"
                     android:text="CB"
                     android:textSize="30dp" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="50dp"
                     android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="10dp"
+                    android:elevation="10dp"
                     app:cardCornerRadius="15dp"
-                    android:layout_gravity="center"
-                    android:layout_marginVertical="5dp"
-                    app:cardElevation="10dp"
-                    android:elevation="10dp">
-                <ImageView
-                    android:id="@+id/teamImage"
-                    android:layout_width="wrap_content"
-                    android:scaleType="centerCrop"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                   />
+                    app:cardElevation="10dp">
+
+                    <ImageView
+                        android:id="@+id/teamImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:scaleType="centerCrop" />
                 </androidx.cardview.widget.CardView>
+
                 <ImageView
                     android:id="@+id/countryImage"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/tunisia"/>
+                    android:src="@drawable/tunisia" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="48dp"
                 android:orientation="vertical">
                 <androidx.cardview.widget.CardView
                     android:layout_width="153dp"

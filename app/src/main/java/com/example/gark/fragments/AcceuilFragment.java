@@ -2,6 +2,7 @@ package com.example.gark.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -13,8 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.gark.R;
+import com.example.gark.StoryActivity;
 import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.PostAdapter;
 import com.example.gark.adapters.TeamsAdapter;
@@ -39,6 +42,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
     View view;
     Context mContext;
     CallBackInterface callBackInterface;
+    TextView showAllLikedPosts;
     //UI
     RecyclerView recycleViewTopPlayers;
     RecyclerView recycleViewTeams;
@@ -47,7 +51,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
     //VAR
     ArrayList<Skills> players;
     ArrayList<Team> teams;
-    ArrayList<Post> posts;
+    public static ArrayList<Post> posts;
     //Adapters
     TopPlayersAdapter topPlayersAdapter;
     TeamsAdapter teamsAdapter;
@@ -85,6 +89,15 @@ public class AcceuilFragment extends Fragment implements IRepository {
         recycleViewTopPlayers=view.findViewById(R.id.recycleViewTopPlayers);
         recycleViewTeams=view.findViewById(R.id.recycleViewTeams);
         recycleViewPosts=view.findViewById(R.id.recycleViewPosts);
+        showAllLikedPosts=view.findViewById(R.id.showAllLikedPosts);
+        showAllLikedPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), StoryActivity.class);
+                intent.putExtra("size",posts.size());
+                mContext.startActivity(intent);
+            }
+        });
         if (!generated){
             dialogg = ProgressDialog.show(mContext
                     , "","Loading Data ..Wait.." , true);
@@ -150,6 +163,8 @@ public class AcceuilFragment extends Fragment implements IRepository {
         posts= PostRepository.getInstance().getList();
         postAdapter = new PostAdapter(mContext, posts);
         recycleViewPosts.setAdapter(postAdapter);
+
+
     }
 
     @Override

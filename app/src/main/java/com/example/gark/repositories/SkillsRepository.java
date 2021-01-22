@@ -100,7 +100,6 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonTag = jsonArray.getJSONObject(i);
                                 players.add( convertJsonToObject(jsonTag));
-                                Log.e("TAG", "onResponse: "+convertJsonToObject(jsonTag) );
                             }
                             iRepository.doAction();
                             iRepository.dismissLoadingButton();

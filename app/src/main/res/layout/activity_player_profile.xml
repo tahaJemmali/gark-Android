@@ -25,6 +25,7 @@
             android:layout_gravity="center"
             android:onClick="getBack"
             android:clickable="true"
+            android:backgroundTint="@drawable/close_effect"
             android:background="@drawable/ic_baseline_arrow_back_24" />
 
         <View
@@ -38,6 +39,7 @@
             android:layout_gravity="center"
             android:onClick="showCard"
             android:clickable="true"
+            android:backgroundTint="@drawable/close_effect"
             android:background="@drawable/small_shield" />
     </LinearLayout>
 

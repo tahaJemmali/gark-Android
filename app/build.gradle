@@ -51,4 +51,6 @@ dependencies {
     compileOnly 'com.google.android.wearable:wearable:2.6.0'
     //Radar spider chart
     implementation 'com.ultramegasoft.radarchart:radar-chart:0.1.5'
+    //stories
+    implementation 'com.github.shts:StoriesProgressView:3.0.0'
 }

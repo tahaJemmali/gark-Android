@@ -152,6 +152,7 @@
                     android:textSize="22dp" />
 
                 <TextView
+                    android:id="@+id/showAllLikedPosts"
                     android:clickable="true"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
@@ -159,7 +160,6 @@
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="right"
                     android:text="Show All"
-                    android:onClick="showMostLikedPosts"
                     android:textColor="@drawable/label_bg"
                     android:textSize="15dp" />
             </LinearLayout>

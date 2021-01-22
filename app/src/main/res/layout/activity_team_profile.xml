@@ -20,6 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
+            android:backgroundTint="@drawable/close_effect"
             android:onClick="getBack"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -32,6 +33,7 @@
             android:layout_weight="2" />
 
         <ImageButton
+            android:backgroundTint="@drawable/close_effect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

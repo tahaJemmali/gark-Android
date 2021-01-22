@@ -144,9 +144,6 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         openFragmentOrActivity("topTeam");
     }
 
-    public void showMostLikedPosts(View view) {
-        Log.e("TAG", "showMostLikedPostsFragment: " );
-    }
 
     public void greenAddButton(View view) {
         Log.e("TAG", "greenAddButton: " );

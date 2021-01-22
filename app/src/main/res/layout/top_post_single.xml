@@ -7,10 +7,26 @@
     app:cardCornerRadius="25dp"
     android:layout_marginHorizontal="12dp"
     android:elevation="10dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/imageContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_post_image"/>
+    <View
+        android:id="@+id/overlay_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000"
+        android:alpha="0.7"
+    />
+</RelativeLayout>
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/home_post_image">
+    android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"

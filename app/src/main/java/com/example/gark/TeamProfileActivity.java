@@ -132,7 +132,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
                     break;
             }
             teamName.setText(team.getName());
-            teamCategorie.setText(team.getCategorie());
+            teamCategorie.setText(team.getCategorie().toString());
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
             dateCreatedTeam.setText(formatter.format(team.getDate_created()));

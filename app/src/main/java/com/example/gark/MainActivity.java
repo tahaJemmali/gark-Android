@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.TeamsAdapter;
@@ -30,6 +34,7 @@ import java.util.Collections;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements CallBackInterface {
+    ImageView currentUserImage;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     private static User CurrentLoggedInUser;
@@ -57,9 +62,22 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         initUI();
     }
     public void initUI(){
+        currentUserImage=findViewById(R.id.currentUserImage);
+        currentUserImage.setImageBitmap(getBitmapFromString(getCurrentLoggedInUser().getPhoto()));
         acceuilFragement();
+        currentUserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("TAG", "onClick: "+"profiel clicked" );
+            }
+        });
     }
 
+    private Bitmap getBitmapFromString(String image) {
+
+        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
 
     public void addAcceuilFragment(View view) {
     acceuilFragement();
@@ -146,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
 
     public void greenAddButton(View view) {
-        Log.e("TAG", "greenAddButton: " );
+        Intent intent = new Intent(this,AddTeamActivity.class);
+        startActivity(intent);
     }
 }

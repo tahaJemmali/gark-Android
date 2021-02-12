@@ -131,6 +131,29 @@ public class SkillsRepository implements CRUDRepository<Skills> {
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
+    public void findPlayerById(Context mContext,String id) {
+        iRepository.showLoadingButton();
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findPlayerByIdskills/"+id, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        player = convertJsonToObjectDeepPopulate(response);
+                        iRepository.doAction();
+                        iRepository.dismissLoadingButton();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/findByIdskills"+id);
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
+    }
+
     @Override
     public Skills convertJsonToObject(JSONObject jsonTag) {
         try {

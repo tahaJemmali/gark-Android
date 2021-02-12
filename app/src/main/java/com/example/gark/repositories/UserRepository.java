@@ -89,7 +89,7 @@ public class UserRepository {
 
     private void loadUserFromJson(String email, Context context) {
         String url = baseURL+"/getUser"+"/"+email;
-
+        iRepository.showLoadingButton();
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)

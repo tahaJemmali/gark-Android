@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.Utils.VolleyInstance;
+import com.example.gark.entites.Categorie;
 import com.example.gark.entites.Nationality;
 import com.example.gark.entites.Role;
 import com.example.gark.entites.Skills;
@@ -41,7 +42,31 @@ public class TeamRepository implements CRUDRepository<Team> {
 
     @Override
     public void add(Context mcontext, Team team, ProgressDialog dialog) {
-
+        iRepository.showLoadingButton();
+        final String url = iRepository.baseURL + "/add_team";
+        Log.e("TAG", "add: "+team );
+        JSONObject object = new JSONObject();
+        convertObjectToJson(object,team);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,object,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Log.e("TAG", "add team message: "+response.getString("message"));
+                            iRepository.doAction();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }finally {
+                            iRepository.dismissLoadingButton();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", "fail: "+error);
+            }
+        });
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
     @Override
@@ -138,7 +163,7 @@ public class TeamRepository implements CRUDRepository<Team> {
                     jsonTag.getInt("defeats"),
                     jsonTag.getInt("points"),
                     jsonTag.getInt("rating"),
-                    jsonTag.getString("categorie"),
+                    (Categorie.valueOf(jsonTag.getString("categorie"))),
                     (Nationality.valueOf(jsonTag.getString("nationality"))),jsonTag.getString("description"),
                     date,
                     jsonTag.getInt("draws"));
@@ -174,7 +199,7 @@ public class TeamRepository implements CRUDRepository<Team> {
                     jsonTag.getInt("defeats"),
                     jsonTag.getInt("points"),
                     jsonTag.getInt("rating"),
-                    jsonTag.getString("categorie"),
+                    (Categorie.valueOf(jsonTag.getString("categorie"))),
                     (Nationality.valueOf(jsonTag.getString("nationality"))),
                     jsonTag.getString("description"),date,
                     jsonTag.getInt("draws"));
@@ -203,7 +228,24 @@ public class TeamRepository implements CRUDRepository<Team> {
 
     @Override
     public JSONObject convertObjectToJson(JSONObject object,Team team) {
-        return null;
+        try {
+            object.put("name", team.getName());
+            object.put("image", team.getImage());
+            object.put("categorie", team.getCategorie().toString());
+            object.put("capitaine", team.getCapitaine().getId());
+            object.put("titulares", team.getTitulares());
+            object.put("substitutes", team.getSubstitutes());
+            object.put("victories",0);
+            object.put("defeats", 0);
+            object.put("points", 0);
+            object.put("rating", 0);
+            object.put("nationality", team.getNationality().toString());
+            object.put("description",team.getDescription());
+            object.put("draws",0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
     }
 
     @Override

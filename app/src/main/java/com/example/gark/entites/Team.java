@@ -9,26 +9,31 @@ public class Team implements Serializable {
     String name;
     String image;
     Skills capitaine;
-    String categorie;
+    Categorie categorie;
     List<Skills> titulares;
     List<Skills> substitutes;
     int victories=0;
     int defeats=0;
     int points=0;
     int rating=0;
+    int draws=0;
     Nationality nationality=Nationality.tunisia;
     String description;
     Date date_created;
-    int draws=0;
+
 
     public Team(){
-
+         victories=0;
+         defeats=0;
+         points=0;
+         rating=0;
+         draws=0;
     }
     public Team(String id){
     this.id=id;
     }
 
-    public Team(String name, String image,String categorie, Skills capitaine, List<Skills> titulares, List<Skills> substitutes,Nationality nationality) {
+    public Team(String name, String image,Categorie categorie, Skills capitaine, List<Skills> titulares, List<Skills> substitutes,Nationality nationality) {
         this.name = name;
         this.image = image;
         this.categorie = categorie;
@@ -38,7 +43,7 @@ public class Team implements Serializable {
         this.nationality = nationality;
     }
 
-    public Team(String id, String name, String image, Skills capitaine, List<Skills> titulares, List<Skills> substitutes, int victories, int defeats, int points, int rating,String categorie,
+    public Team(String id, String name, String image, Skills capitaine, List<Skills> titulares, List<Skills> substitutes, int victories, int defeats, int points, int rating,Categorie categorie,
                 Nationality nationality,String description,Date date_created,int draws) {
         this.id = id;
         this.name = name;
@@ -129,11 +134,11 @@ public class Team implements Serializable {
         this.points = points;
     }
 
-    public String getCategorie() {
+    public Categorie getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(String categorie) {
+    public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
     }
 

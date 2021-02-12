@@ -44,9 +44,8 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:onClick="addMessengerFragment"
-                android:src="@drawable/ic_baseline_mail_outline_24"
-                android:tint="@drawable/image_btn_clicked"
-                android:background="#FFF"
+                android:background="@drawable/ic_baseline_message_24"
+                android:elevation="10dp"
                 />
         </LinearLayout>
 
@@ -57,11 +56,13 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <ImageButton
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/currentUserImage"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:onClick="addCurrentUserProfileFragment"
                 android:layout_gravity="center"
+                android:clickable="true"
                 android:background="@drawable/small_image" />
         </LinearLayout>
     </LinearLayout>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/scrollView"
+android:layout_width="match_parent"
+android:background="@drawable/gradian"
+android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+tools:context=".tutorial.DescriptionActivity">
+    <TextView
+        android:id="@+id/tvLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0"
+        android:fontFamily="@font/arial_rounded"
+        android:includeFontPadding="false"
+        android:text="informations"
+        android:textColor="@android:color/white"
+        android:textSize="35sp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userImage"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_user"
+        android:layout_marginHorizontal="10dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_marginHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:weightSum="100">
+
+
+
+            <TextView
+                android:id="@+id/roleImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_gravity="center"
+                android:textColor="@color/dark_green"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Role" />
+
+                <Spinner
+                    android:id="@+id/rolePicker"
+                    android:layout_width="fill_parent"
+                    android:layout_height="47dp"
+                    android:drawSelectorOnTop="true"
+                    android:backgroundTintMode="screen"
+                    android:backgroundTint="@color/dark_green"
+                    />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/arial_rounded"
+            android:layout_gravity="center"
+            android:textColor="@color/dark_green"
+            android:textSize="20dp"
+            android:text="Nationality" />
+
+        <LinearLayout
+            android:id="@+id/relativeLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/nationalityImage"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_user" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/nationalityImage">
+                <Spinner
+                    android:id="@+id/nationalityPicker"
+                    android:layout_width="fill_parent"
+                    android:layout_height="47dp"
+                    android:drawSelectorOnTop="true"
+                    android:backgroundTintMode="screen"
+                    android:backgroundTint="@color/dark_green"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:fontFamily="@font/arial_rounded"
+            android:layout_gravity="center"
+            android:textColor="@color/dark_green"
+            android:textSize="20dp"
+            android:text="Description" />
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:hint="description"
+                    android:includeFontPadding="false"
+                    android:padding="15dp"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/arial_rounded"/>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/proceed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradian_btn"
+            android:text="Yalla !"
+            android:onClick="procede"
+            android:fontFamily="@font/arial_rounded"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="23sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -145,7 +145,7 @@ public class PostRepository implements CRUDRepository<Post>  {
     }
 
     @Override
-    public JSONObject convertObjectToJson(Post post) {
+    public JSONObject convertObjectToJson(JSONObject object,Post post) {
         return null;
     }
 

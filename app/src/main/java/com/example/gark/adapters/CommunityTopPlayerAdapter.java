@@ -42,9 +42,13 @@ public class CommunityTopPlayerAdapter extends RecyclerView.Adapter<CommunityTop
     @Override
     public void onBindViewHolder(@NonNull CommunityTopPlayerHolder holder, int position) {
         player = players.get(position);
-        Bitmap bitmap = getBitmapFromString(player.getPlayer().getPhoto());
-        Drawable d = new BitmapDrawable(mContext.getResources(), bitmap);
-        holder.playerImage.setBackground(d);
+        if (player.getPlayer().getPhoto().equals("Not mentioned")){
+            holder.playerImage.setImageResource(R.drawable.ic_default_user);
+        }else {
+            Bitmap bitmap = getBitmapFromString(player.getPlayer().getPhoto());
+            Drawable d = new BitmapDrawable(mContext.getResources(), bitmap);
+            holder.playerImage.setBackground(d);
+        }
         holder.countryImage.setImageResource(mContext.getResources().getIdentifier(player.getNationality().toString(),"drawable",mContext.getPackageName()));
         holder.role.setText(player.getRole().toString());
         holder.playerName.setText(player.getPlayer().getFirstName()+" "+player.getPlayer().getLastName());

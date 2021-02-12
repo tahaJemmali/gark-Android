@@ -20,9 +20,24 @@ public class User implements Parcelable, Serializable {
     Date birth_date;
     String signed_up_with;
     Date sign_up_date;
+    Boolean completedInformation;
+    Boolean activation;
 
+    public Boolean getActivation() {
+        return activation;
+    }
 
+    public void setActivation(Boolean activation) {
+        this.activation = activation;
+    }
 
+    public Boolean getCompletedInformation() {
+        return completedInformation;
+    }
+
+    public void setCompletedInformation(Boolean completedInformation) {
+        this.completedInformation = completedInformation;
+    }
 
     public Date getLast_login_date() {
         return last_login_date;

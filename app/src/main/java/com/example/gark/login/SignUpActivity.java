@@ -2,6 +2,7 @@ package com.example.gark.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.example.gark.R;
 import com.example.gark.entites.User;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.UserRepository;
+import com.example.gark.tutorial.WelcomeActivity;
 
 public class SignUpActivity extends AppCompatActivity  implements IRepository {
     //UI
@@ -27,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
     Button signUpBtn;
     EditText edtFistName,edtLastName,edtEmail,edtPassword,edtConfirmPassword,edtAddress,edtPhone;
     Intent intent;
+    ProgressDialog dialogg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,20 +184,21 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
 
     @Override
     public void showLoadingButton() {
-
+        dialogg = ProgressDialog.show(this, "", "Registration in progress  ...", true);
+        dialogg.show();
     }
 
     @Override
     public void doAction() {
-        Toast.makeText(this,"Welcome !",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, MainActivity.class);
+        Toast.makeText(this,"Registration succeeded please verify your mail !",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
 
     @Override
     public void dismissLoadingButton() {
-
+        dialogg.dismiss();
     }
 
 }

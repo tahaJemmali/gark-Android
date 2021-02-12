@@ -17,6 +17,7 @@ import com.example.gark.R;
 import com.example.gark.entites.User;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.UserRepository;
+import com.example.gark.tutorial.WelcomeActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +38,6 @@ public class LoginActivity extends AppCompatActivity implements IRepository {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String CHECKBOX = "cbRememberMe";
-    public static final String TUTORIAL = "tutorial";
     String email ;
     String password;
     boolean cbState ;
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity implements IRepository {
 
     public void clearData(){
         SharedPreferences sharedPreferences = this.getSharedPreferences(SHARED_PREFS,MODE_PRIVATE);
-        sharedPreferences.edit().clear().apply();
+        sharedPreferences.edit().remove(EMAIL).remove(PASSWORD).remove(CHECKBOX).apply();
     }
     public void forgetPassword(View view) {
         Log.e("TAG", "forgetPassword: ");
@@ -121,7 +121,13 @@ public class LoginActivity extends AppCompatActivity implements IRepository {
     @Override
     public void doAction() {
         Toast.makeText(this,"Welcome !",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent=null;
+        if (!MainActivity.getCurrentLoggedInUser().getCompletedInformation()){
+             intent = new Intent(this, WelcomeActivity.class);
+        }else{
+             intent = new Intent(this,MainActivity.class);
+        }
+
         startActivity(intent);
         finish();
     }

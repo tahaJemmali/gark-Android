@@ -108,6 +108,8 @@ public class UserRepository {
                             user.setAddress(jsonObject.getString("address"));
                             user.setPhone(jsonObject.getString("phone"));
                             user.setPhoto(jsonObject.getString("photo"));
+                            user.setActivation(jsonObject.getBoolean("activation"));
+                            user.setCompletedInformation(jsonObject.getBoolean("completedInformation"));
 
                             user.setSign_up_date(getDate(jsonObject.getString("sign_up_date")));
                             if (jsonObject.has("birth_date")){
@@ -159,7 +161,6 @@ public class UserRepository {
                             String message = response.getString("message");
                             u.setId(message);
                             Toast.makeText(context,"Registration success",Toast.LENGTH_SHORT).show();
-                            SkillsRepository.getInstance().add(context,new Skills(Role.AM,u),null);
                             iRepository.doAction();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -324,19 +325,19 @@ public class UserRepository {
 
     public void updateUser(User user,final Context context) {
         String url = baseURL+"/updateUser";
-
+        iRepository.showLoadingButton();
         JSONObject object = new JSONObject();
         try {
-            if (user.getBirth_date()!=null) object.put("birth_date",user.getBirth_date());
-            if (user.getFirstName()!=null) object.put("firstName",user.getFirstName());
-            if (user.getLastName()!=null) object.put("lastName",user.getLastName());
+            //if (user.getBirth_date()!=null) object.put("birth_date",user.getBirth_date());
+            //if (user.getFirstName()!=null) object.put("firstName",user.getFirstName());
+            //if (user.getLastName()!=null) object.put("lastName",user.getLastName());
             if (user.getEmail()!=null) object.put("user_email",user.getEmail());
-            if (user.getAddress()!=null) object.put("address",user.getAddress());
-            if (user.getPhone()!=null) object.put("phone",user.getPhone());
+            //if (user.getAddress()!=null) object.put("address",user.getAddress());
+            if (user.getPhoto()!=null) object.put("photo",user.getPhoto());
+            object.put("completedInformation",true);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, object,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -349,6 +350,8 @@ public class UserRepository {
                                 default:
                                     break;
                             }
+                            iRepository.doAction();
+                            iRepository.dismissLoadingButton();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }finally{

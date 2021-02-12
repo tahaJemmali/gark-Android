@@ -21,7 +21,7 @@ public interface CRUDRepository<T> {
     public void getAll(final Context mContext, final ProgressDialog dialogg);
     public void findById(final Context mContext,String id);
     public T convertJsonToObject(JSONObject object);
-    public JSONObject convertObjectToJson(T t);
+    public JSONObject convertObjectToJson(JSONObject object,T t);
     public ArrayList<T> getList();
     public void setiRepository(IRepository iRepository);
     public T convertJsonToObjectDeepPopulate(JSONObject jsonTag);

@@ -39,22 +39,9 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     @Override
     public void add(Context mcontext, Skills skills, ProgressDialog dialog) {
         final String url = iRepository.baseURL + "/add_skills";
+        Log.e("TAG", "add Skills: "+skills );
         JSONObject object = new JSONObject();
-        try {
-            object.put("pace", skills.getPace());
-            object.put("shooting", skills.getShooting());
-            object.put("passing", skills.getPassing());
-            object.put("dribbling", skills.getDribbling());
-            object.put("defending", skills.getDefending());
-            object.put("physical", skills.getPhysical());
-            object.put("score", skills.getScore());
-            object.put("goals", skills.getGoals());
-            object.put("role", skills.getRole().toString());
-            object.put("player", skills.getPlayer().getId());
-            object.put("nationality", skills.getNationality().toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        convertObjectToJson(object,skills);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,object,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -171,8 +158,27 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     }
 
     @Override
-    public JSONObject convertObjectToJson(Skills skills) {
-        return null;
+    public JSONObject convertObjectToJson(JSONObject object ,Skills skills) {
+        try {
+            object.put("pace", skills.getPace());
+            object.put("shooting", skills.getShooting());
+            object.put("passing", skills.getPassing());
+            object.put("dribbling", skills.getDribbling());
+            object.put("defending", skills.getDefending());
+            object.put("physical", skills.getPhysical());
+            object.put("rating",skills.getRating());
+            object.put("score", skills.getScore());
+            object.put("goals", skills.getGoals());
+            object.put("role", skills.getRole().toString());
+            object.put("player", skills.getPlayer().getId());
+            object.put("nationality", skills.getNationality().toString());
+            object.put("team",skills.getTeam());
+            object.put("age",skills.getAge());
+            object.put("description",skills.getDescription());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
     }
 
     @Override

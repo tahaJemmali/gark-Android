@@ -49,8 +49,13 @@ public class TopPlayersAdapter  extends RecyclerView.Adapter<TopPlayersAdapter.T
     @Override
     public void onBindViewHolder(@NonNull TopPlayerHolder holder, int position) {
         player = players.get(position);
-        Bitmap bitmap = getBitmapFromString(player.getPlayer().getPhoto());
-        holder.topPlayerImage.setImageBitmap(bitmap);
+        if (player.getPlayer().getPhoto().equals("Not mentioned")){
+            holder.topPlayerImage.setImageResource(R.drawable.ic_default_user);
+        }else {
+            Bitmap bitmap = getBitmapFromString(player.getPlayer().getPhoto());
+            holder.topPlayerImage.setImageBitmap(bitmap);
+        }
+
         if (player.getId().equals(captinId)){
             holder.captinBadge.setVisibility(View.VISIBLE);
         }

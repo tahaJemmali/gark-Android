@@ -202,7 +202,7 @@ public class TeamRepository implements CRUDRepository<Team> {
     }
 
     @Override
-    public JSONObject convertObjectToJson(Team team) {
+    public JSONObject convertObjectToJson(JSONObject object,Team team) {
         return null;
     }
 

@@ -3,6 +3,9 @@
     package="com.example.gark">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +14,9 @@
         android:roundIcon="@drawable/gark_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StoryActivity"></activity>
+        <activity android:name=".tutorial.DescriptionActivity"></activity>
+        <activity android:name=".tutorial.WelcomeActivity" />
+        <activity android:name=".StoryActivity" />
         <activity android:name=".CardActivity" />
         <activity android:name=".TeamProfileActivity" />
         <activity android:name=".PlayerProfileActvity" />

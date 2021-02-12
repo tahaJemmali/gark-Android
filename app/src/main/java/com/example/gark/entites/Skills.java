@@ -4,15 +4,15 @@ import java.io.Serializable;
 
 public class Skills implements Serializable{
     String id;
-    int pace=50;
-    int shooting=50;
-    int passing=50;
-    int dribbling=50;
-    int defending=50;
-    int physical=50;
-    int score=50;
-    int rating=0;
-    int goals=0;
+    int pace;
+    int shooting;
+    int passing;
+    int dribbling;
+    int defending;
+    int physical;
+    int score;
+    int rating;
+    int goals;
     Role role;
     User player;
     Nationality nationality=Nationality.tunisia;
@@ -28,12 +28,15 @@ public class Skills implements Serializable{
          physical=50;
          score=50;
          goals=0;
+         rating=0;
          nationality=Nationality.tunisia;
-         team=new Team();
+         team=null;
+        description=" ";
+        age=18;
     }
 
     public Skills(Role role,User player) {
-        super();
+        this();
         this.role = role;
         this.player=player;
     }

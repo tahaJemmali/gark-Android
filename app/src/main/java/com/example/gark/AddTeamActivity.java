@@ -5,8 +5,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -19,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
@@ -28,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.gark.adapters.TopPlayersAdapter;
 import com.example.gark.entites.Categorie;
 import com.example.gark.entites.Nationality;
 import com.example.gark.entites.Role;
@@ -57,8 +62,9 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
     Nationality selectedNationality;
     Skills currentUserSkills;
     Boolean addTeamClicked=false;
-
-
+    ArrayList<Skills> returnInvited;
+    RecyclerView teamMemberRecyclerView;
+    TopPlayersAdapter topPlayersAdapter;
 
     //permissions constants
     private static final int CAMERA_REQUEST_CODE = 100;
@@ -86,6 +92,8 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
 
     ///send data
     void initUI() {
+        returnInvited=new ArrayList<Skills>();
+        teamMemberRecyclerView=findViewById(R.id.teamMemberRecyclerView);
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         nationalityPicker=findViewById(R.id.nationalityPicker);
@@ -94,6 +102,7 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
         userImage=findViewById(R.id.userImage);
         TeamName=findViewById(R.id.TeamName);
         editDescription=findViewById(R.id.editDescription);
+        teamMemberRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         //get skills of current user
         SkillsRepository.getInstance().setiRepository(this);
         SkillsRepository.getInstance().findPlayerById(this,MainActivity.getCurrentLoggedInUser().getId());
@@ -142,6 +151,7 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
 
     @Override
     public void doAction() {
+
         currentUserSkills=SkillsRepository.getInstance().getElement();
         if(addTeamClicked)
         {
@@ -158,6 +168,17 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                returnInvited= (ArrayList<Skills>) data.getSerializableExtra("result");
+                topPlayersAdapter = new TopPlayersAdapter(this,returnInvited);
+                teamMemberRecyclerView.setAdapter(topPlayersAdapter);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+    else {
         if (resultCode == RESULT_OK){
 
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
@@ -185,6 +206,8 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
     }
     private void sendImage(Bitmap image) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -282,6 +305,8 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
             team.setTitulares(null);
             team.setName(TeamName.getText().toString());
             team.setDescription(editDescription.getText().toString());
+            if (returnInvited.size()>0)
+                team.setTitulares(returnInvited);
             //add team
             team.setNationality(selectedNationality);
             team.setCategorie(Categorie.valueOf(categoriePicker.getSelectedItem().toString()));
@@ -300,7 +325,8 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
     }
 
     public void inviteMembers(View view) {
-        Intent intent = new Intent(this,AddTeamMembersActivity.class);
-        startActivity(intent);
+        int LAUNCH_SECOND_ACTIVITY = 1;
+        Intent i = new Intent(this, AddTeamMembersActivity.class);
+        startActivityForResult(i, LAUNCH_SECOND_ACTIVITY);
     }
 }

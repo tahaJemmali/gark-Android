@@ -43,7 +43,7 @@ public class TopPlayerFragment extends Fragment implements IRepository {
     RecyclerView topPlayerRecyclerView;
     TextView playerNumbers;
     //VAR
-    ArrayList<Skills> players;
+    static ArrayList<Skills> players;
     boolean playerGenerated=false;
     //Adapters
     CommunityTopPlayerAdapter communityTopPlayerAdapter;

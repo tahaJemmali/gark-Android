@@ -57,6 +57,7 @@ public class TopPlayersAdapter  extends RecyclerView.Adapter<TopPlayersAdapter.T
         }
 
         if (player.getId().equals(captinId)){
+            Log.e("TAG", "onBindViewHolder: "+"capitain" );
             holder.captinBadge.setVisibility(View.VISIBLE);
         }
     }

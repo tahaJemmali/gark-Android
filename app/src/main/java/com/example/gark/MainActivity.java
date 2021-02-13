@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.TeamsAdapter;
 import com.example.gark.adapters.TopPlayersAdapter;
+import com.example.gark.chat.ChatActivity;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.entites.User;
@@ -147,7 +148,8 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addMessengerFragment(View view) {
-        Log.e("TAG", "showMessengerFragment: " );
+        Intent intent = new Intent(this, ChatActivity.class);
+        startActivity(intent);
     }
 
     public void addTopViewedStories(View view) {

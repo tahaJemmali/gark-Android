@@ -41,7 +41,7 @@ public class TopTeamFragment extends Fragment implements IRepository {
     RecyclerView topTeamsRecyclerView;
     TextView teamNumbers;
     //VAR
-    ArrayList<Team> teams;
+    static ArrayList<Team> teams;
     boolean teamsGenerated=false;
     //Adapters
     CommunityTopTeamsAdapter communityTopTeamsAdapter;

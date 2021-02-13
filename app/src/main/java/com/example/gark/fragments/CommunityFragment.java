@@ -11,16 +11,20 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.example.gark.R;
 import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.CommunityTopPlayerAdapter;
 import com.example.gark.adapters.CommunityTopTeamsAdapter;
+import com.example.gark.adapters.InviteTeamAdapter;
 import com.example.gark.adapters.TeamsAdapter;
 import com.example.gark.adapters.TopPlayersAdapter;
 import com.example.gark.entites.Post;
@@ -45,10 +49,11 @@ public class CommunityFragment extends Fragment {
     FragmentTransaction fragmentTransaction;
     //UI
     RadioButton buttonTeams;
+    EditText search_bar_community;
     RadioButton buttonPlayers;
     //VAR
-    ArrayList<Skills> players;
-    ArrayList<Team> teams;
+    ArrayList<Skills> searchPlayers;
+    ArrayList<Team> searchTeams;
     //fragment
     TopPlayerFragment topPlayerFragment;
     TopTeamFragment topTeamFragment;
@@ -56,7 +61,7 @@ public class CommunityFragment extends Fragment {
     boolean playerGenerated=false;
     boolean teamGenerated=false;
     ///statitc bool for mainActivity smooth navigation
-    public static boolean showAllTeams=false;
+    public static boolean showAllTeams=true;
     public static boolean showAllPlayer=false;
     private static final String FRAGMENT_NAME = "community";
 
@@ -92,12 +97,16 @@ public class CommunityFragment extends Fragment {
         buttonPlayers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showAllTeams=false;
+                showAllPlayer=true;
                 addTopPlayerFragment();
             }
         });
         buttonTeams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showAllTeams=true;
+                showAllPlayer=false;
                 addTopTeamFragment();
             }
         });
@@ -108,10 +117,54 @@ public class CommunityFragment extends Fragment {
         fragmentManager = getChildFragmentManager();
         buttonTeams =view.findViewById(R.id.buttonTeams);
         buttonPlayers =view.findViewById(R.id.buttonPlayers);
+        search_bar_community=view.findViewById(R.id.search_bar_community);
+        searchTeams=new ArrayList<Team>();
+        searchPlayers=new ArrayList<Skills>();
+        search_bar_community.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                find(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         addTopTeamFragment();
     }
 
+    void find(CharSequence charSequence){
+        if (showAllTeams){
+            searchTeams.clear();
+            for (Team row:topTeamFragment.teams){
+                if (row.getName().contains(charSequence)){
+                    searchTeams.add(row);
+                }
+            }
+            topTeamFragment.teamNumbers.setText(searchTeams.size()+" teams");
+                topTeamFragment.communityTopTeamsAdapter =  new CommunityTopTeamsAdapter(mContext, searchTeams);
 
+            topTeamFragment.topTeamsRecyclerView.setAdapter(topTeamFragment.communityTopTeamsAdapter);
+        }else{
+            Log.e("TAG", "find: " );
+            searchPlayers.clear();
+            for (Skills row:topPlayerFragment.players){
+                if (row.getPlayer().getFirstName().contains(charSequence)||row.getPlayer().getLastName().contains(charSequence)){
+                    searchPlayers.add(row);
+                }
+            }
+            topPlayerFragment.playerNumbers.setText(searchPlayers.size()+" teams");
+            topPlayerFragment.communityTopPlayerAdapter =  new CommunityTopPlayerAdapter(mContext, searchPlayers);
+            topPlayerFragment.topPlayerRecyclerView.setAdapter(topPlayerFragment.communityTopPlayerAdapter);
+        }
+
+    }
 
 
     public void addTopPlayerFragment(){

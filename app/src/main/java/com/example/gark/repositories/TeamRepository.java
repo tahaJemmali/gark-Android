@@ -228,13 +228,26 @@ public class TeamRepository implements CRUDRepository<Team> {
 
     @Override
     public JSONObject convertObjectToJson(JSONObject object,Team team) {
+        JSONArray jsonArrayTitulares = new JSONArray();
+        JSONArray jsonArraySubstitutes = new JSONArray();
+        JSONObject objectTMP = new JSONObject();
+        if (team.getTitulares()!=null){
+            for (Skills row:team.getTitulares()){
+                jsonArrayTitulares.put(row.getId());
+            }
+        }
+        if (team.getSubstitutes()!=null) {
+            for (Skills row : team.getSubstitutes()) {
+                jsonArraySubstitutes.put(row.getId());
+            }
+        }
         try {
             object.put("name", team.getName());
             object.put("image", team.getImage());
             object.put("categorie", team.getCategorie().toString());
             object.put("capitaine", team.getCapitaine().getId());
-            object.put("titulares", team.getTitulares());
-            object.put("substitutes", team.getSubstitutes());
+            object.put("titulares", jsonArrayTitulares);
+            object.put("substitutes", jsonArraySubstitutes);
             object.put("victories",0);
             object.put("defeats", 0);
             object.put("points", 0);

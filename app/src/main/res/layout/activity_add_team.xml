@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".AddTeamActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="200dp"
     >
     <ImageButton
         android:layout_width="100dp"
@@ -92,7 +95,7 @@
                 <EditText
                     android:id="@+id/editDescription"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="63dp"
                     android:completionHint="yourhint"
                     android:dropDownHeight="match_parent"
                     android:fontFamily="@font/arial_rounded"
@@ -185,6 +188,19 @@
             android:background="@drawable/ic_baseline_group_add_24"
             />
         </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial_rounded"
+            android:text="Teams"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/teamMemberRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_marginVertical="10dp"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
         <Button
             android:id="@+id/signUpBtn"
             android:layout_width="match_parent"
@@ -197,6 +213,8 @@
             android:textColor="@android:color/white"
             android:layout_marginTop="20dp"
             android:textSize="23sp"
+            android:layout_marginBottom="10dp"
             android:textStyle="bold" />
     </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

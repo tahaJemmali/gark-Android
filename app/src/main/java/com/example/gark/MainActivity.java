@@ -66,12 +66,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         currentUserImage=findViewById(R.id.currentUserImage);
         currentUserImage.setImageBitmap(getBitmapFromString(getCurrentLoggedInUser().getPhoto()));
         acceuilFragement();
-        currentUserImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("TAG", "onClick: "+"profiel clicked" );
-            }
-        });
+
     }
 
     private Bitmap getBitmapFromString(String image) {
@@ -144,7 +139,8 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addCurrentUserProfileFragment(View view) {
-        Log.e("TAG", "showCurrentUserProfileFragment: " );
+        Intent intent = new Intent(this,ProfileActivity.class);
+        startActivity(intent);
     }
 
     public void addMessengerFragment(View view) {
@@ -153,7 +149,10 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addTopViewedStories(View view) {
-        Log.e("TAG", "showTopViewedStoriesFragment: " );
+
+        Intent intent = new Intent(this, StoryActivity.class);
+        intent.putExtra("size",AcceuilFragment.posts.size());
+        startActivity(intent);
     }
 
     public void showTopPlayers(View view) {
@@ -166,7 +165,6 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
 
     public void greenAddButton(View view) {
-        Intent intent = new Intent(this,AddTeamActivity.class);
-        startActivity(intent);
+        Log.e("TAG", "greenAddButton: Tournement BTN" );
     }
 }

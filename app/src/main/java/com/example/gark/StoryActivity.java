@@ -82,7 +82,26 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
 
                 }
             });
-        }else{
+        }else if(getIntent().hasExtra("sizeTen")){
+            posts= AcceuilFragment.topTen;
+            showView(counter);
+            numberOfStories=posts.size();
+            reverse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    storiesProgressView.reverse();
+                }
+            });
+
+            skip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    storiesProgressView.skip();
+
+                }
+            });
+        }
+        else{
             post = PostAdapter.selectedPost;
             numberOfStories=1;
             //set content

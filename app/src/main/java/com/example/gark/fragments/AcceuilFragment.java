@@ -58,6 +58,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
     PostAdapter postAdapter;
    //boolean
     boolean generated=false;
+   public static ArrayList<Post> topTen;
     private static final String FRAGMENT_NAME = "acceuil";
     public AcceuilFragment() {
         // Required empty public constructor
@@ -94,7 +95,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), StoryActivity.class);
-                intent.putExtra("size",posts.size());
+                intent.putExtra("sizeTen",topTen.size());
                 mContext.startActivity(intent);
             }
         });
@@ -112,6 +113,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
             TeamRepository.getInstance().getAll(mContext,null);
             //posts
             posts=new  ArrayList<Post>();
+            topTen=new  ArrayList<Post>();
             PostRepository.getInstance().setiRepository(this);
             PostRepository.getInstance().getAll(mContext,null);
             generated=true;
@@ -125,7 +127,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
     private void initUIRecycleViewerPosts() {
 
         recycleViewPosts.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        postAdapter = new PostAdapter(mContext, posts);
+        postAdapter = new PostAdapter(mContext, topTen);
         recycleViewPosts.setAdapter(postAdapter);
     }
 
@@ -161,7 +163,17 @@ public class AcceuilFragment extends Fragment implements IRepository {
         recycleViewTeams.setAdapter(teamsAdapter);
         /////posts
         posts= PostRepository.getInstance().getList();
-        postAdapter = new PostAdapter(mContext, posts);
+        int i=0;
+        for (Post row:posts){
+            if(i<5){
+                topTen.add(row);
+                i++;
+            }else {
+                break;
+            }
+
+        }
+        postAdapter = new PostAdapter(mContext, topTen);
         recycleViewPosts.setAdapter(postAdapter);
 
 

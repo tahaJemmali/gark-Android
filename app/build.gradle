@@ -55,4 +55,6 @@ dependencies {
     implementation 'com.github.shts:StoriesProgressView:3.0.0'
     //code verif
     implementation "com.github.fraggjkee:sms-confirmation-view:1.1"
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

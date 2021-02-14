@@ -2,6 +2,7 @@ package com.example.gark.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -13,8 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.gark.AddTeamActivity;
 import com.example.gark.R;
 import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.CommunityTopPlayerAdapter;
@@ -40,6 +43,7 @@ public class TopTeamFragment extends Fragment implements IRepository {
     //UI
     RecyclerView topTeamsRecyclerView;
     TextView teamNumbers;
+    ImageButton addTeam;
     //VAR
     static ArrayList<Team> teams;
     boolean teamsGenerated=false;
@@ -78,6 +82,14 @@ public class TopTeamFragment extends Fragment implements IRepository {
     void initUI(){
         topTeamsRecyclerView=view.findViewById(R.id.topTeamsRecyclerView);
         teamNumbers=view.findViewById(R.id.teamNumbers);
+        addTeam=view.findViewById(R.id.addTeam);
+        addTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddTeamActivity.class);
+                startActivity(intent);
+            }
+        });
         if (!teamsGenerated){
             reloadData();
             teamsGenerated=true;

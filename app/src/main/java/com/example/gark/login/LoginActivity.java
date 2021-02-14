@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.gark.ForgotPasswordActivity;
 import com.example.gark.MainActivity;
 import com.example.gark.R;
 import com.example.gark.entites.User;
@@ -105,7 +106,8 @@ public class LoginActivity extends AppCompatActivity implements IRepository {
         sharedPreferences.edit().remove(EMAIL).remove(PASSWORD).remove(CHECKBOX).apply();
     }
     public void forgetPassword(View view) {
-        Log.e("TAG", "forgetPassword: ");
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
+        startActivity(intent);
     }
 
     public void signUp(View view) {

@@ -15,7 +15,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.MainActivity;
+import com.example.gark.ResetPasswordActivity;
 import com.example.gark.Utils.VolleyInstance;
+import com.example.gark.VerifyCodeActivity;
 import com.example.gark.entites.Nationality;
 import com.example.gark.entites.Role;
 import com.example.gark.entites.Skills;
@@ -256,11 +258,17 @@ public class UserRepository {
 
                             switch (message){
                                 case "verification code":
+                                    VerifyCodeActivity.code = response.getString("code");
+                                    ResetPasswordActivity.email = response.getString("email");
                                     iRepository.doAction();
                                     break;
                                 case "Email does not exist":
                                     iRepository.showLoadingButton();
                                     Toast.makeText(context,"Email does not exist",Toast.LENGTH_SHORT).show();
+                                    break;
+                                case "Please login with your facebook account":
+                                    iRepository.showLoadingButton();
+                                    Toast.makeText(context,"Please login with your facebook account",Toast.LENGTH_SHORT).show();
                                     break;
                                 default:
                                     break;

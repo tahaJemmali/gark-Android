@@ -116,17 +116,18 @@ tools:context=".tutorial.DescriptionActivity">
             android:textColor="@color/dark_green"
             android:textSize="20dp"
             android:text="Description" />
-                <EditText
-                    android:id="@+id/description"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:hint="description"
-                    android:includeFontPadding="false"
-                    android:padding="15dp"
-                    android:gravity="center"
-                    android:visibility="visible"
-                    android:textSize="15dp"
-                    android:fontFamily="@font/arial_rounded"/>
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="107dp"
+            android:fontFamily="@font/arial_rounded"
+            android:gravity="center"
+            android:hint="description"
+            android:includeFontPadding="false"
+            android:padding="15dp"
+            android:textSize="15dp"
+            android:visibility="visible" />
 
         <Button
             android:layout_marginTop="20dp"

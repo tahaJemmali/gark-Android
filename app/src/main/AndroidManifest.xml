@@ -14,7 +14,10 @@
         android:roundIcon="@drawable/gark_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".chat.GroupListActivity"></activity>
+        <activity android:name=".ResetPasswordActivity"></activity>
+        <activity android:name=".VerifyCodeActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".chat.GroupListActivity" />
         <activity android:name=".chat.ChatActivity" />
         <activity android:name=".AddTeamMembersActivity" />
         <activity android:name=".AddTeamActivity" />

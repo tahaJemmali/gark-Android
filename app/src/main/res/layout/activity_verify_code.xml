@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_green"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:weightSum="80"
+        tools:context=".VerifyCodeActivity">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+
+        <TextView
+            android:id="@+id/tvLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:fontFamily="@font/arial_rounded"
+            android:includeFontPadding="false"
+            android:text="Verify Code"
+            android:textColor="@android:color/white"
+            android:textSize="35sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:background="@android:color/transparent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="570dp"
+            android:layout_weight="10"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:weightSum="100">
+
+
+            <ImageView
+                android:id="@+id/imageViewVerifyCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="40"
+                android:elevation="10dp"
+                android:src="@drawable/image_verify" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:background="@android:color/transparent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:fontFamily="@font/arial_rounded"
+                android:text="Put your verification code :"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:background="@android:color/transparent" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <com.fraggjkee.smsconfirmationview.SmsConfirmationView
+                    android:id="@+id/code_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:scv_codeLength="6"
+                    app:scv_symbolsSpacing="8dp"
+                    app:scv_symbolTextColor="@color/black"
+                    app:scv_symbolTextSize="30dp"
+                    app:scv_symbolBackgroundColor="@color/white"
+                    app:scv_symbolBorderColor="@color/dark_green"
+                    />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="20"
+                android:background="@android:color/transparent" />
+
+            <Button
+                android:id="@+id/nextBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:background="@drawable/gradian_btn"
+                android:text="Next"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="23sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
+
+    </LinearLayout>

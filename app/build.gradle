@@ -53,5 +53,6 @@ dependencies {
     implementation 'com.ultramegasoft.radarchart:radar-chart:0.1.5'
     //stories
     implementation 'com.github.shts:StoriesProgressView:3.0.0'
-
+    //code verif
+    implementation "com.github.fraggjkee:sms-confirmation-view:1.1"
 }

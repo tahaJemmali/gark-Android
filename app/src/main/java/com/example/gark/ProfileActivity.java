@@ -221,11 +221,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         dialogg.dismiss();
     }
 
-    public void logout(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        MainActivity.setCurrentLoggedInUser(null);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+
+
+    public void settings(View view) {
+    Intent intent= new Intent(this,SettingActivity.class);
+    startActivity(intent);
     }
 }

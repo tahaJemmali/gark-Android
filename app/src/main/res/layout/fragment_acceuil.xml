@@ -9,7 +9,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:paddingBottom="70dp"
-        android:paddingTop="50dp"
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -39,7 +39,6 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:fontFamily="@font/arial_rounded"
                         android:text="Man Of the Tournement"
                         android:textColor="#FFF"
@@ -105,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:orientation="horizontal"
+                android:layout_marginTop="20dp"
                 android:weightSum="2">
 
                 <TextView
@@ -133,11 +133,13 @@
                 android:id="@+id/recycleViewTopPlayers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 
@@ -154,6 +156,7 @@
                 <TextView
                     android:id="@+id/showAllLikedPosts"
                     android:clickable="true"
+                    android:layout_gravity="center"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -167,6 +170,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleViewPosts"
                 android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"/>
 
@@ -174,6 +178,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -314,6 +319,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
                 android:orientation="horizontal"
+                android:layout_marginTop="20dp"
                 android:weightSum="3">
 
                 <TextView
@@ -342,6 +348,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleViewTeams"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"/>

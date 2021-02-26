@@ -82,7 +82,11 @@ public class User implements Parcelable, Serializable {
 
     public User(){}
 
-    public User(String firstName, String lastName, String email, String address, String phone,String photo) {
+    public User(String id) {
+        this.id = id;
+    }
+
+    public User(String firstName, String lastName, String email, String address, String phone, String photo) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

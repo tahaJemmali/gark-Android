@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -14,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Post;
+import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.entites.User;
 
@@ -22,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PostRepository implements CRUDRepository<Post>  {
     private IRepository iRepository;
@@ -85,6 +88,36 @@ public class PostRepository implements CRUDRepository<Post>  {
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
+    public void likePost( Context context,String postId,String userId){
+        String url = IRepository.baseURL + "/like_post"+"/"+postId+"/"+userId;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String message = response.getString("message");
+                            Log.e("TAG", "onResponse: "+message );
+                    } catch (JSONException e) {
+                            e.printStackTrace();
+                        }finally{
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        VolleyInstance.getInstance(context).addToRequestQueue(request);
+    }
+    public void disLikePost(String postId,String userId){
+
+    }
+    public void viewPost(String postId,String userId){
+
+    }
+
     public void findByCreator(Context mContext, String id) {
         iRepository.showLoadingButton();
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findByCreatorpost/"+id, null,
@@ -129,14 +162,24 @@ public class PostRepository implements CRUDRepository<Post>  {
     @Override
     public Post convertJsonToObject(JSONObject object) {
         try {
-         return new Post(object.getString("_id"),
+            List<User> likes = new ArrayList<>();
+            List<User> views = new ArrayList<>();
+            JSONArray jsonArrayTitulares = object.getJSONArray("likes");
+            for (int i = 0; i < jsonArrayTitulares.length(); i++) {
+                likes.add(new User(jsonArrayTitulares.getString(i)));
+            }
+            JSONArray jsonArraySubstitutes = object.getJSONArray("views");
+            for (int i = 0; i < jsonArraySubstitutes.length(); i++) {
+                views.add(new User(jsonArrayTitulares.getString(i)));
+            }
+            return new Post(object.getString("_id"),
                 object.getString("title"),
                 object.getString("description"),
                 object.getString("image"),
                 UserRepository.getInstance().convertJsonToObject((JSONObject)object.get("creator")),
-                object.getInt("likes"),
                 CRUDRepository.getDate(object.getString("date_created")) ,
-                object.getInt("views")
+                    likes,
+                views
                 );
         } catch (JSONException e) {
             e.printStackTrace();

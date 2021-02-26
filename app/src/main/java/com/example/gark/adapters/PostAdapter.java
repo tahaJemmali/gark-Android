@@ -49,11 +49,11 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.PostHolder> {
          bitmap = getBitmapFromString(post.getImage());
         holder.imageContent.setImageBitmap(bitmap);
         holder.creatorName.setText(post.getCreator().getFirstName()+" "+post.getCreator().getLastName() );
-        if (post.getLikes()>=1000)
+        if (post.getLikes().size()>=1000)
         {
-            holder.views.setText((post.getLikes()/1000)+"K likes");
+            holder.views.setText((post.getLikes().size()/1000)+"K likes");
         }else {
-            holder.views.setText(post.getLikes()+" likes");
+            holder.views.setText(post.getLikes().size()+" likes");
         }
         holder.post_title.setText(post.getTitle() );
 

@@ -33,6 +33,7 @@
             android:layout_weight="2" />
 
         <ImageButton
+            android:id="@+id/addFavoirs"
             android:backgroundTint="@drawable/close_effect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

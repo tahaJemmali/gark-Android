@@ -2,6 +2,7 @@ package com.example.gark.entites;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Post implements Serializable,Cloneable {
     String id;
@@ -9,8 +10,8 @@ public class Post implements Serializable,Cloneable {
     String description;
     String image;
     User creator;
-    int likes=0;
-    int views=0;
+    List<User> likes;
+    List<User> views;
     Date date_created=new Date();
     public Post(){
 
@@ -28,7 +29,7 @@ public class Post implements Serializable,Cloneable {
         this.creator = creator;
     }
 
-    public Post(String id, String title, String description, String image, User creator, int likes, Date date_created,int views) {
+    public Post(String id, String title, String description, String image, User creator, Date date_created, List<User> likes, List<User> views) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -36,7 +37,7 @@ public class Post implements Serializable,Cloneable {
         this.creator = creator;
         this.likes = likes;
         this.views = views;
-        this.date_created = date_created;
+        this.date_created=date_created;
     }
 
     public String getId() {
@@ -79,13 +80,6 @@ public class Post implements Serializable,Cloneable {
         this.creator = creator;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
 
     public Date getDate_created() {
         return date_created;
@@ -95,11 +89,19 @@ public class Post implements Serializable,Cloneable {
         this.date_created = date_created;
     }
 
-    public int getViews() {
+    public List<User> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<User> likes) {
+        this.likes = likes;
+    }
+
+    public List<User> getViews() {
         return views;
     }
 
-    public void setViews(int views) {
+    public void setViews(List<User> views) {
         this.views = views;
     }
 

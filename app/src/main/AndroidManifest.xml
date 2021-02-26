@@ -14,7 +14,9 @@
         android:roundIcon="@drawable/gark_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddPostActivity"></activity>
+        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".FavorisTeamActivity" />
+        <activity android:name=".AddPostActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".VerifyCodeActivity" />

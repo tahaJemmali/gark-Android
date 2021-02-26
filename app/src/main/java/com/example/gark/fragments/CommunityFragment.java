@@ -2,6 +2,7 @@ package com.example.gark.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -18,8 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 
+import com.example.gark.FavorisTeamActivity;
 import com.example.gark.R;
 import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.CommunityTopPlayerAdapter;
@@ -51,6 +54,7 @@ public class CommunityFragment extends Fragment {
     RadioButton buttonTeams;
     EditText search_bar_community;
     RadioButton buttonPlayers;
+    ImageButton showFavoirs;
     //VAR
     ArrayList<Skills> searchPlayers;
     ArrayList<Team> searchTeams;
@@ -118,6 +122,15 @@ public class CommunityFragment extends Fragment {
         buttonTeams =view.findViewById(R.id.buttonTeams);
         buttonPlayers =view.findViewById(R.id.buttonPlayers);
         search_bar_community=view.findViewById(R.id.search_bar_community);
+        showFavoirs=view.findViewById(R.id.showFavoirs);
+        showFavoirs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, FavorisTeamActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
         searchTeams=new ArrayList<Team>();
         searchPlayers=new ArrayList<Skills>();
         search_bar_community.addTextChangedListener(new TextWatcher() {

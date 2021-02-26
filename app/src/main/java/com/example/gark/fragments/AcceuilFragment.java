@@ -163,16 +163,19 @@ public class AcceuilFragment extends Fragment implements IRepository {
         recycleViewTeams.setAdapter(teamsAdapter);
         /////posts
         posts= PostRepository.getInstance().getList();
-        int i=0;
-        for (Post row:posts){
-            if(i<5){
-                topTen.add(row);
-                i++;
-            }else {
-                break;
-            }
+        if (topTen.isEmpty()){
+            int i=0;
+            for (Post row:posts){
+                if(i<5){
+                    topTen.add(row);
+                    i++;
+                }else {
+                    break;
+                }
 
+            }
         }
+
         postAdapter = new PostAdapter(mContext, topTen);
         recycleViewPosts.setAdapter(postAdapter);
 

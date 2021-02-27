@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
     RecyclerView recycleViewTeams;
     RecyclerView recycleViewPosts;
     ProgressDialog dialogg;
+    SwipeRefreshLayout swipe_container;
     //VAR
     ArrayList<Skills> players;
     ArrayList<Team> teams;
@@ -58,6 +60,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
     PostAdapter postAdapter;
    //boolean
     boolean generated=false;
+    boolean refresh= false;
    public static ArrayList<Post> topTen;
     private static final String FRAGMENT_NAME = "acceuil";
     public AcceuilFragment() {
@@ -91,6 +94,16 @@ public class AcceuilFragment extends Fragment implements IRepository {
         recycleViewTeams=view.findViewById(R.id.recycleViewTeams);
         recycleViewPosts=view.findViewById(R.id.recycleViewPosts);
         showAllLikedPosts=view.findViewById(R.id.showAllLikedPosts);
+        swipe_container=view.findViewById(R.id.swipe_container);
+        swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                generated = false;
+                refresh =true;
+                loadData();
+                swipe_container.setRefreshing(false);
+            }
+        });
         showAllLikedPosts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +112,10 @@ public class AcceuilFragment extends Fragment implements IRepository {
                 mContext.startActivity(intent);
             }
         });
+        loadData();
+    }
+
+     void loadData(){
         if (!generated){
             dialogg = ProgressDialog.show(mContext
                     , "","Loading Data ..Wait.." , true);
@@ -106,7 +123,6 @@ public class AcceuilFragment extends Fragment implements IRepository {
             players=new  ArrayList<Skills>();
             SkillsRepository.getInstance().setiRepository(this);
             SkillsRepository.getInstance().getAll(mContext,null);
-
             //teams
             teams=new  ArrayList<Team>();
             TeamRepository.getInstance().setiRepository(this);
@@ -117,12 +133,10 @@ public class AcceuilFragment extends Fragment implements IRepository {
             PostRepository.getInstance().setiRepository(this);
             PostRepository.getInstance().getAll(mContext,null);
             generated=true;
+            initUIRecycleViewerTopPlayers();
+            initUIRecycleViewerTopRatedTeams();
+            initUIRecycleViewerPosts();
         }
-
-
-        initUIRecycleViewerTopPlayers();
-        initUIRecycleViewerTopRatedTeams();
-        initUIRecycleViewerPosts();
     }
     private void initUIRecycleViewerPosts() {
 
@@ -163,6 +177,11 @@ public class AcceuilFragment extends Fragment implements IRepository {
         recycleViewTeams.setAdapter(teamsAdapter);
         /////posts
         posts= PostRepository.getInstance().getList();
+        if (refresh){
+            topTen.clear();
+            refresh= false;
+        }
+
         if (topTen.isEmpty()){
             int i=0;
             for (Post row:posts){

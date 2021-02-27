@@ -111,11 +111,51 @@ public class PostRepository implements CRUDRepository<Post>  {
         });
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
-    public void disLikePost(String postId,String userId){
+    public void disLikePost(Context context,String postId,String userId){
+        String url = IRepository.baseURL + "/dislike_post"+"/"+postId+"/"+userId;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String message = response.getString("message");
+                            Log.e("TAG", "onResponse: "+message );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }finally{
 
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
-    public void viewPost(String postId,String userId){
+    public void viewPost(Context context,String postId,String userId){
+        String url = IRepository.baseURL + "/view_post"+"/"+postId+"/"+userId;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String message = response.getString("message");
+                            Log.e("TAG", "onResponse: "+message );
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }finally{
 
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
     public void findByCreator(Context mContext, String id) {
@@ -164,13 +204,20 @@ public class PostRepository implements CRUDRepository<Post>  {
         try {
             List<User> likes = new ArrayList<>();
             List<User> views = new ArrayList<>();
-            JSONArray jsonArrayTitulares = object.getJSONArray("likes");
-            for (int i = 0; i < jsonArrayTitulares.length(); i++) {
-                likes.add(new User(jsonArrayTitulares.getString(i)));
+
+            JSONArray jsonArrayLikes = object.getJSONArray("likes");
+            JSONArray jsonArrayViews = object.getJSONArray("views");
+
+            Log.e("TAG", "convertJsonToObject: "+ jsonArrayLikes.length()+"/"+jsonArrayViews.length());
+
+            for (int i = 0; i < jsonArrayLikes.length(); i++) {
+                Log.e("TAG", "likes: "+ i);
+                likes.add(new User(jsonArrayLikes.getString(i)));
             }
-            JSONArray jsonArraySubstitutes = object.getJSONArray("views");
-            for (int i = 0; i < jsonArraySubstitutes.length(); i++) {
-                views.add(new User(jsonArrayTitulares.getString(i)));
+
+            for (int i = 0; i < jsonArrayViews.length(); i++) {
+                Log.e("TAG", "views: "+ jsonArrayViews.getString(i));
+                views.add(new User(jsonArrayViews.getString(i)));
             }
             return new Post(object.getString("_id"),
                 object.getString("title"),

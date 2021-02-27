@@ -13,12 +13,10 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.gark.adapters.PostAdapter;
 import com.example.gark.entites.Post;
 import com.example.gark.entites.User;
@@ -138,6 +136,18 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
         storiesProgressView.setStoriesListener(StoryActivity.this); // <- set listener
         storiesProgressView.startStories(counter); // <- start progress
       //  counter++;
+        boolean alreadySeenPost = false;
+        for (User u : post.getViews()){
+            if (u.getId().equals(MainActivity.getCurrentLoggedInUser().getId()))
+            {
+                alreadySeenPost=true;
+            }
+        }
+        if (!alreadySeenPost){
+            PostRepository.getInstance().viewPost(StoryActivity.this,post.getId(),MainActivity.getCurrentLoggedInUser().getId());
+            post.getViews().add(MainActivity.getCurrentLoggedInUser());
+            seen_number.setText(""+post.getViews().size());
+        }
 
         mainView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -175,7 +185,13 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
                                         avd2.start();
                                     }
                                 }else{
-                                    PostRepository.getInstance().disLikePost(post.getId(),MainActivity.getCurrentLoggedInUser().getId());
+                                    PostRepository.getInstance().disLikePost(StoryActivity.this,post.getId(),MainActivity.getCurrentLoggedInUser().getId());
+                                    for (User u : post.getLikes()){
+                                        if (u.getId().equals(MainActivity.getCurrentLoggedInUser().getId()))
+                                        {
+                                            post.getLikes().remove(u);
+                                        }
+                                    }
                                     post.getLikes().remove(MainActivity.getCurrentLoggedInUser());
                                     Toast.makeText(StoryActivity.this, "You disliked this post", Toast.LENGTH_SHORT).show();
                                 }

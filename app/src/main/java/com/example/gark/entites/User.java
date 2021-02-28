@@ -22,6 +22,7 @@ public class User implements Parcelable, Serializable {
     Date sign_up_date;
     Boolean completedInformation;
     Boolean activation;
+    Boolean online;
 
     public Boolean getActivation() {
         return activation;
@@ -151,7 +152,13 @@ public class User implements Parcelable, Serializable {
         this.photo = photo;
     }
 
+    public Boolean getOnline() {
+        return online;
+    }
 
+    public void setOnline(Boolean online) {
+        this.online = online;
+    }
 
     @Override
     public int describeContents() {

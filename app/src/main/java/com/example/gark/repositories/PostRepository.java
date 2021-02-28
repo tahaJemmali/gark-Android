@@ -208,15 +208,11 @@ public class PostRepository implements CRUDRepository<Post>  {
             JSONArray jsonArrayLikes = object.getJSONArray("likes");
             JSONArray jsonArrayViews = object.getJSONArray("views");
 
-            Log.e("TAG", "convertJsonToObject: "+ jsonArrayLikes.length()+"/"+jsonArrayViews.length());
-
             for (int i = 0; i < jsonArrayLikes.length(); i++) {
-                Log.e("TAG", "likes: "+ i);
                 likes.add(new User(jsonArrayLikes.getString(i)));
             }
 
             for (int i = 0; i < jsonArrayViews.length(); i++) {
-                Log.e("TAG", "views: "+ jsonArrayViews.getString(i));
                 views.add(new User(jsonArrayViews.getString(i)));
             }
             return new Post(object.getString("_id"),

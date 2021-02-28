@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "712014035733",
+    "project_id": "gark-project",
+    "storage_bucket": "gark-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712014035733:android:d04ef3ead9af18f441871c",
+        "android_client_info": {
+          "package_name": "com.example.gark"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712014035733-bfm9v3p7h8hdbg02998urh56pved9h1s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gark",
+            "certificate_hash": "0993034447f626c827dde8e55dd89720b196d61e"
+          }
+        },
+        {
+          "client_id": "712014035733-9tn6am7gtatrlmp0rfs7p3p1eb11lmpg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBT0KicvPdO2uyhzqqjbQAj6UZgfp3ntN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712014035733-9tn6am7gtatrlmp0rfs7p3p1eb11lmpg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

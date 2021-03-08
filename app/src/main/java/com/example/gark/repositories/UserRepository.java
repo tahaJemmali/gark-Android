@@ -33,7 +33,7 @@ public class UserRepository {
     private static UserRepository instance;
 
     private String baseURL = IRepository.baseURL;
-
+    public User user;
     private IRepository iRepository;
 
     public static UserRepository getInstance() {
@@ -42,6 +42,33 @@ public class UserRepository {
         return instance;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void getUserById(Context mContext, String id){
+        iRepository.showLoadingButton();
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findByIduser/"+id, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("TAG", "onResponse: "+response );
+                        user = convertJsonToObject(response);
+                        iRepository.doAction();
+                        iRepository.dismissLoadingButton();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/findByIduser"+id);
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
+    }
     public void setiRepository(IRepository iRepository){
         this.iRepository = iRepository;
     }

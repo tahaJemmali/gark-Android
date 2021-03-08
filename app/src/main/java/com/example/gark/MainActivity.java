@@ -20,12 +20,14 @@ import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.TeamsAdapter;
 import com.example.gark.adapters.TopPlayersAdapter;
 import com.example.gark.chat.ChatActivity;
+import com.example.gark.chat.GroupListActivity;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.entites.User;
 import com.example.gark.fragments.AcceuilFragment;
 import com.example.gark.fragments.CommunityFragment;
 import com.example.gark.repositories.IRepository;
+import com.example.gark.repositories.MessageRepository;
 import com.example.gark.repositories.SkillsRepository;
 import com.example.gark.repositories.TeamRepository;
 import com.example.gark.repositories.UserRepository;
@@ -144,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addMessengerFragment(View view) {
-        Intent intent = new Intent(this, ChatActivity.class);
+        Intent intent = new Intent(this, GroupListActivity.class);
         startActivity(intent);
     }
 

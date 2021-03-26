@@ -204,6 +204,7 @@
                 android:weightSum="3">
 
                 <LinearLayout
+                    android:id="@+id/rapidTournement"
                     android:layout_width="134dp"
                     android:layout_height="130dp"
                     android:layout_marginHorizontal="5dp"
@@ -232,6 +233,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/beastTournement"
                     android:layout_width="134dp"
                     android:layout_height="130dp"
                     android:layout_marginHorizontal="5dp"
@@ -241,6 +243,7 @@
                     android:orientation="vertical">
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arial_rounded"
@@ -261,6 +264,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ultimateTournement"
                     android:layout_width="134dp"
                     android:layout_height="130dp"
                     android:layout_marginHorizontal="5dp"
@@ -292,6 +296,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/superLeagueTournement"
                 android:layout_width="360dp"
                 android:layout_height="130dp"
                 android:layout_gravity="center"

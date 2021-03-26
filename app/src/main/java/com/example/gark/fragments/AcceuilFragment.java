@@ -15,10 +15,12 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.gark.R;
 import com.example.gark.StoryActivity;
+import com.example.gark.TournamentActivity;
 import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.PostAdapter;
 import com.example.gark.adapters.TeamsAdapter;
@@ -50,6 +52,10 @@ public class AcceuilFragment extends Fragment implements IRepository {
     RecyclerView recycleViewPosts;
     ProgressDialog dialogg;
     SwipeRefreshLayout swipe_container;
+    LinearLayout rapidTournement;
+    LinearLayout beastTournement;
+    LinearLayout ultimateTournement;
+    LinearLayout superLeagueTournement;
     //VAR
     ArrayList<Skills> players;
     ArrayList<Team> teams;
@@ -95,6 +101,46 @@ public class AcceuilFragment extends Fragment implements IRepository {
         recycleViewPosts=view.findViewById(R.id.recycleViewPosts);
         showAllLikedPosts=view.findViewById(R.id.showAllLikedPosts);
         swipe_container=view.findViewById(R.id.swipe_container);
+        //tournement
+        rapidTournement=view.findViewById(R.id.rapidTournement);
+        beastTournement=view.findViewById(R.id.beastTournement);
+        ultimateTournement=view.findViewById(R.id.ultimateTournement);
+        superLeagueTournement=view.findViewById(R.id.superLeagueTournement);
+
+        rapidTournement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), TournamentActivity.class);
+                intent.putExtra("tournement","rapid");
+                startActivity(intent);
+            }
+        });
+        beastTournement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), TournamentActivity.class);
+                intent.putExtra("tournement","beast");
+                startActivity(intent);
+            }
+        });
+        ultimateTournement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), TournamentActivity.class);
+                intent.putExtra("tournement","ultimate");
+                startActivity(intent);
+            }
+        });
+        superLeagueTournement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), TournamentActivity.class);
+                intent.putExtra("tournement","superLeague");
+                startActivity(intent);
+            }
+        });
+        //\tournement
+
         swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

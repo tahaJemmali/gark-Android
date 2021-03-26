@@ -15,11 +15,12 @@ public class Challenge implements Serializable {
     Team winner;
     float prize;
     String location;
+    String link;
 
     public Challenge() {
     }
 
-    public Challenge(String name, Date start_date, Date end_date, int maxNumberOfTeams, List<Team> teams, List<Match> matches, Team winner, float prize,String location) {
+    public Challenge(String name, Date start_date, Date end_date, int maxNumberOfTeams, List<Team> teams, List<Match> matches, Team winner, float prize,String location,String link) {
         this.name = name;
         this.start_date = start_date;
         this.end_date = end_date;
@@ -29,6 +30,7 @@ public class Challenge implements Serializable {
         this.winner = winner;
         this.prize = prize;
         this.location=location;
+        this.link=link;
     }
 
     public String getId() {
@@ -111,6 +113,14 @@ public class Challenge implements Serializable {
         this.location = location;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     @Override
     public String toString() {
         return "Challenge{" +
@@ -124,6 +134,7 @@ public class Challenge implements Serializable {
                 ", winner=" + winner +
                 ", location=" + location +
                 ", prize=" + prize +
+                ", link=" + link +
                 '}';
     }
 }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".TournamentActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/backgroundImage"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/alexander_big"
+        >
+        <Button
+            android:id="@+id/subscribe"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Subscribe"
+            android:background="@drawable/gradian_btn"
+            android:textColor="#FFF"
+            android:fontFamily="@font/arial_rounded"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:layout_width="110dp"
+            android:layout_alignParentRight="true"
+            android:layout_height="30dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/text_holder"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/typeTournement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#Rapid"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:fontFamily="@font/arial_rounded"
+                android:textSize="70dp"
+                />
+            <TextView
+                android:id="@+id/link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="gark//pck-yndb-mge"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:textSize="35dp"
+                android:fontFamily="@font/arial_rounded"
+                android:background="@drawable/text_holder"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_location_on_24"
+                android:layout_gravity="center" />
+            <TextView
+                android:id="@+id/locationIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Grand Tunis"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:fontFamily="@font/arial_rounded"
+                android:textSize="50dp"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/bottom_sheet"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

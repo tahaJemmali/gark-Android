@@ -13,7 +13,12 @@ public class Terrain implements Serializable {
     public Terrain(){
 
     }
-    public Terrain(String nom,String localisation,List <Availability> availabilities){
+
+    public Terrain(String id) {
+        this.id = id;
+    }
+
+    public Terrain(String nom, String localisation, List <Availability> availabilities){
         this.nom=nom;
         this.localisation=localisation;
         this.availabilities=availabilities;

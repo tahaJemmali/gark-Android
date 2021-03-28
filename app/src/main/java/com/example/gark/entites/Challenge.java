@@ -9,28 +9,39 @@ public class Challenge implements Serializable {
     String name;
     Date start_date;
     Date end_date;
+    Date date_created;
     int maxNumberOfTeams;
     List<Team> teams;
     List<Match> matches;
     Team winner;
     float prize;
     String location;
-    String link;
+    String description;
+    String image;
+    User creator;
+    Terrain terrain;
+    ChallengeType type;
+
 
     public Challenge() {
     }
 
-    public Challenge(String name, Date start_date, Date end_date, int maxNumberOfTeams, List<Team> teams, List<Match> matches, Team winner, float prize,String location,String link) {
+    public Challenge(String name, Date start_date, Date end_date, Date date_created, int maxNumberOfTeams, List<Team> teams, List<Match> matches, Team winner, float prize, String location, String description, String image, User creator, Terrain terrain, ChallengeType type) {
         this.name = name;
         this.start_date = start_date;
         this.end_date = end_date;
+        this.date_created = date_created;
         this.maxNumberOfTeams = maxNumberOfTeams;
         this.teams = teams;
         this.matches = matches;
         this.winner = winner;
         this.prize = prize;
-        this.location=location;
-        this.link=link;
+        this.location = location;
+        this.description = description;
+        this.image = image;
+        this.creator = creator;
+        this.terrain = terrain;
+        this.type = type;
     }
 
     public String getId() {
@@ -63,6 +74,14 @@ public class Challenge implements Serializable {
 
     public void setEnd_date(Date end_date) {
         this.end_date = end_date;
+    }
+
+    public Date getDate_created() {
+        return date_created;
+    }
+
+    public void setDate_created(Date date_created) {
+        this.date_created = date_created;
     }
 
     public int getMaxNumberOfTeams() {
@@ -113,12 +132,44 @@ public class Challenge implements Serializable {
         this.location = location;
     }
 
-    public String getLink() {
-        return link;
+    public String getDescription() {
+        return description;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }
+
+    public ChallengeType getType() {
+        return type;
+    }
+
+    public void setType(ChallengeType type) {
+        this.type = type;
     }
 
     @Override
@@ -128,13 +179,18 @@ public class Challenge implements Serializable {
                 ", name='" + name + '\'' +
                 ", start_date=" + start_date +
                 ", end_date=" + end_date +
+                ", date_created=" + date_created +
                 ", maxNumberOfTeams=" + maxNumberOfTeams +
                 ", teams=" + teams +
                 ", matches=" + matches +
                 ", winner=" + winner +
-                ", location=" + location +
                 ", prize=" + prize +
-                ", link=" + link +
+                ", location='" + location + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", creator=" + creator +
+                ", terrain=" + terrain +
+                ", type=" + type +
                 '}';
     }
 }

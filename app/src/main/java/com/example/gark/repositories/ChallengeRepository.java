@@ -14,7 +14,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Challenge;
+import com.example.gark.entites.ChallengeType;
+import com.example.gark.entites.Match;
 import com.example.gark.entites.Team;
+import com.example.gark.entites.Terrain;
+import com.example.gark.entites.User;
 
 
 import org.json.JSONArray;
@@ -50,13 +54,44 @@ public class ChallengeRepository {
 
     }
 
-    public void addTeamToChallenge(Context mcontext, String challenge_id, String team_id){
+    public void addChallengeToChallenge(Context mcontext, String challenge_id, String Challenge_id){
 
     }
 
 
     public void getAll(Context mContext, ProgressDialog dialogg) {
+        iRepository.showLoadingButton();
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/all_challenges", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            challenges=new ArrayList<Challenge>();
+                            String message = response.getString("message");
+                            JSONArray jsonArray = response.getJSONArray("challenges");
 
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonTag = jsonArray.getJSONObject(i);
+                                challenges.add( convertJsonToObject(jsonTag));
+
+                            }
+                            iRepository.doAction();
+                            iRepository.dismissLoadingButton();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/all_challenges");
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
     public void findByName(Context mContext, String challengeType) {
@@ -96,24 +131,30 @@ public class ChallengeRepository {
             if (object.has("teams")){
                 JSONArray jsonArrayTeams = object.getJSONArray("teams");
                 for (int i = 0; i < jsonArrayTeams.length(); i++) {
-                    teams.add(new TeamRepository().convertJsonToObject((JSONObject) jsonArrayTeams.get(i)));
+                    teams.add(new Team( jsonArrayTeams.getString(i)));
                 }
             }
             Team winner=null;
             if (!object.getString("winner").equals("null")){
                 winner=TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("winner"));
             }
+
             Log.e("TAG", "convertJsonToObject: "+ object.getString("name"));
             return new Challenge(object.getString("name"),
                     getDate(object.getString("start_date")),
                     getDate(object.getString("end_date")),
+                    getDate(object.getString("date_created")),
                     object.getInt("maxNumberOfTeams"),
                     teams,
                     null,
                     winner,
                     object.getInt("prize"),
-                    object.getString("prize"),
-                    object.getString("link"));
+                    object.getString("location"),
+                    object.getString("description"),
+                    object.getString("image"),
+                    new User(object.getString("creator")),
+                            new Terrain(object.getString("terrain")),
+                            ChallengeType.valueOf(object.getString("type")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -127,7 +168,7 @@ public class ChallengeRepository {
 
 
     public ArrayList<Challenge> getList() {
-        return null;
+        return challenges;
     }
 
 
@@ -135,8 +176,40 @@ public class ChallengeRepository {
         this.iRepository = iRepository;
     }
 
-    public Challenge convertJsonToObjectDeepPopulate(JSONObject jsonTag) {
-        return null;
+    public Challenge convertJsonToObjectDeepPopulate(JSONObject object) {
+        try {
+            List<Team> teams = new ArrayList<Team>();
+
+            if (object.has("teams")){
+                JSONArray jsonArrayTeams = object.getJSONArray("teams");
+                for (int i = 0; i < jsonArrayTeams.length(); i++) {
+                    teams.add(new TeamRepository().convertJsonToObject((JSONObject) jsonArrayTeams.get(i)));
+                }
+            }
+            Team winner=null;
+            if (!object.getString("winner").equals("null")){
+                winner=TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("winner"));
+            }
+            Log.e("TAG", "convertJsonToObject: "+ object.getString("name"));
+            return new Challenge(object.getString("name"),
+                    getDate(object.getString("start_date")),
+                    getDate(object.getString("end_date")),
+                    getDate(object.getString("date_created")),
+                    object.getInt("maxNumberOfTeams"),
+                    teams,
+                    null,
+                    winner,
+                    object.getInt("prize"),
+                    object.getString("location"),
+                    object.getString("description"),
+                    object.getString("image"),
+                    new User(object.getString("creator")),
+                    new Terrain(object.getString("terrain")),
+                    ChallengeType.valueOf(object.getString("type")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 
 

@@ -74,7 +74,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
 
     @Override
     public void getAll(Context mContext, ProgressDialog dialogg) {
-        iRepository.showLoadingButton();
+      //  iRepository.showLoadingButton();
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/top_players", null,
                 new Response.Listener<JSONObject>() {
                     @Override

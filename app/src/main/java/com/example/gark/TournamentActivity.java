@@ -58,28 +58,8 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
     }
 
     void setTournement(String tournement){
-        Drawable drawable ;
-        switch (tournement){
-            case "superLeague":
-                drawable = this.getResources().getDrawable(R.drawable.stade_big);
-                typeTournement.setText("#SuperLeague");
-                backgroundImage.setBackground(drawable);
-                break;
-            case "beast":
-                drawable = this.getResources().getDrawable(R.drawable.zlatan_big);
-                typeTournement.setText("#Beast");
-                backgroundImage.setBackground(drawable);
-                break;
-            case "ultimate":
-                drawable = this.getResources().getDrawable(R.drawable.ronaldo_big);
-                typeTournement.setText("#Ultimate");
-                backgroundImage.setBackground(drawable);
-                break;
-            default:
-                break;
-        }
         location.setText(challenge.getLocation());
-        link.setText(challenge.getLink());
+        link.setText(challenge.getDescription());
         teamNumber.setText(challenge.getTeams().size()+" / "+challenge.getMaxNumberOfTeams()+" Teams");
 
     }

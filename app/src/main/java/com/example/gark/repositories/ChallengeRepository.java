@@ -127,6 +127,7 @@ public class ChallengeRepository {
 
     public Challenge convertJsonToObject(JSONObject object) {
         try {
+            //TEAMS
             List<Team> teams = new ArrayList<Team>();
 
             if (object.has("teams")){
@@ -135,6 +136,16 @@ public class ChallengeRepository {
                     teams.add(new Team( jsonArrayTeams.getString(i)));
                 }
             }
+            //MATCHES
+            List<Match> matches = new ArrayList<Match>();
+
+            if (object.has("matches")){
+                JSONArray jsonArrayTeams = object.getJSONArray("matches");
+                for (int i = 0; i < jsonArrayTeams.length(); i++) {
+                    //matches.add(new Match( jsonArrayTeams.getString(i)));
+                }
+            }
+
             Team winner=null;
             if (!object.getString("winner").equals("null")){
                 winner=TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("winner"));
@@ -147,7 +158,7 @@ public class ChallengeRepository {
                     getDate(object.getString("date_created")),
                     object.getInt("maxNumberOfTeams"),
                     teams,
-                    null,
+                    matches,
                     winner,
                     object.getInt("prize"),
                     object.getString("location"),

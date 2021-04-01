@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".TournamentActivity"></activity>
-        <activity android:name=".chat.MentorChatActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".FavorisTeamActivity" />
         <activity android:name=".AddPostActivity" />

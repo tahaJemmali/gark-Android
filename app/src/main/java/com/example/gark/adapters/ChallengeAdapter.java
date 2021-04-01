@@ -1,6 +1,7 @@
 package com.example.gark.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gark.R;
+import com.example.gark.StoryActivity;
+import com.example.gark.TournamentActivity;
 import com.example.gark.entites.Challenge;
 
 import java.util.ArrayList;
@@ -71,7 +74,11 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
             backgroundImageChallenge.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.e("TAG", "onClick: "+"challenge Holder" );
+                    Intent intent=new Intent(mContext, TournamentActivity.class);
+                    challenge=challenges.get(getAdapterPosition());
+                    intent.putExtra("tournement",challenge.getName());
+                    mContext.startActivity(intent);
+
                 }
             });
         }

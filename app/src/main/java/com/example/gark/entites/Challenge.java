@@ -21,12 +21,12 @@ public class Challenge implements Serializable {
     User creator;
     Terrain terrain;
     ChallengeType type;
-
+    ChallengeState state;
 
     public Challenge() {
     }
 
-    public Challenge(String name, Date start_date, Date end_date, Date date_created, int maxNumberOfTeams, List<Team> teams, List<Match> matches, Team winner, float prize, String location, String description, String image, User creator, Terrain terrain, ChallengeType type) {
+    public Challenge(String name, Date start_date, Date end_date, Date date_created, int maxNumberOfTeams, List<Team> teams, List<Match> matches, Team winner, float prize, String location, String description, String image, User creator, Terrain terrain, ChallengeType type,ChallengeState state) {
         this.name = name;
         this.start_date = start_date;
         this.end_date = end_date;
@@ -42,6 +42,7 @@ public class Challenge implements Serializable {
         this.creator = creator;
         this.terrain = terrain;
         this.type = type;
+        this.state=state;
     }
 
     public String getId() {
@@ -172,6 +173,14 @@ public class Challenge implements Serializable {
         this.type = type;
     }
 
+    public ChallengeState getState() {
+        return state;
+    }
+
+    public void setState(ChallengeState state) {
+        this.state = state;
+    }
+
     @Override
     public String toString() {
         return "Challenge{" +
@@ -191,6 +200,7 @@ public class Challenge implements Serializable {
                 ", creator=" + creator +
                 ", terrain=" + terrain +
                 ", type=" + type +
+                ", state=" + state +
                 '}';
     }
 }

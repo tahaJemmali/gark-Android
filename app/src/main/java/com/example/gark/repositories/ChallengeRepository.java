@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Challenge;
+import com.example.gark.entites.ChallengeState;
 import com.example.gark.entites.ChallengeType;
 import com.example.gark.entites.Match;
 import com.example.gark.entites.Team;
@@ -154,7 +155,8 @@ public class ChallengeRepository {
                     object.getString("image"),
                     new User(object.getString("creator")),
                             new Terrain(object.getString("terrain")),
-                            ChallengeType.valueOf(object.getString("type")));
+                            ChallengeType.valueOf(object.getString("type")),
+                                    ChallengeState.valueOf(object.getString("state")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -205,7 +207,8 @@ public class ChallengeRepository {
                     object.getString("image"),
                     new User(object.getString("creator")),
                     new Terrain(object.getString("terrain")),
-                    ChallengeType.valueOf(object.getString("type")));
+                    ChallengeType.valueOf(object.getString("type")),
+                    ChallengeState.valueOf(object.getString("state")));
         } catch (JSONException e) {
             e.printStackTrace();
         }

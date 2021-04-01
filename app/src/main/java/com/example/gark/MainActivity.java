@@ -25,6 +25,7 @@ import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.entites.User;
 import com.example.gark.fragments.AcceuilFragment;
+import com.example.gark.fragments.ChallengeFragment;
 import com.example.gark.fragments.CommunityFragment;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MessageRepository;
@@ -44,9 +45,11 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     //fragment
     AcceuilFragment acceuilFragment;
     CommunityFragment communityFragment;
+    ChallengeFragment challengeFragment;
     //already generated
     boolean alreadyGenerated=false;
     boolean alreadyGeneratedCommunity=false;
+    boolean alreadyGeneratedChallenges=false;
 
 
     public static User getCurrentLoggedInUser(){
@@ -91,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         fragmentTransaction.replace(R.id.fragment_container,acceuilFragment);
         fragmentTransaction.commit();
     }
+
     @Override
     public void popBack() {
 
@@ -111,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
                 CommunityFragment.showAllPlayer=false;
                 showCommunityFragment();
                 break;
-            case ""://TODO addProgressStatFragment(null);
+            case "challenge":
+                challengeFragement();
                 break;
 
         }
@@ -120,6 +125,16 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     @Override
     public void popBackb() {
 
+    }
+    public void challengeFragement(){
+        fragmentTransaction = fragmentManager.beginTransaction();
+        if(!alreadyGeneratedChallenges){
+            challengeFragment = new ChallengeFragment();
+            challengeFragment.setCallBackInterface(this);
+            alreadyGeneratedChallenges=true;
+        }
+        fragmentTransaction.replace(R.id.fragment_container,challengeFragment);
+        fragmentTransaction.commit();
     }
     public void showCommunityFragment(){
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -168,5 +183,9 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
     public void greenAddButton(View view) {
         Log.e("TAG", "greenAddButton: Tournement BTN" );
+    }
+
+    public void showTChallenges(View view) {
+        openFragmentOrActivity("challenge");
     }
 }

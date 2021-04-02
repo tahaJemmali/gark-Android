@@ -139,7 +139,7 @@ public class UserRepository {
                             user.setPhoto(jsonObject.getString("photo"));
                             user.setActivation(jsonObject.getBoolean("activation"));
                             user.setCompletedInformation(jsonObject.getBoolean("completedInformation"));
-
+                            //user.setRole(jsonObject.getString("role"));
                             user.setSign_up_date(getDate(jsonObject.getString("sign_up_date")));
                             if (jsonObject.has("birth_date")){
                                 user.setBirth_date(getDate(jsonObject.getString("birth_date")));
@@ -411,7 +411,7 @@ public class UserRepository {
             user.setAddress(jsonObject.getString("address"));
             user.setPhone(jsonObject.getString("phone"));
             user.setPhoto(jsonObject.getString("photo"));
-
+        //    user.setRole(jsonObject.getString("role"));
             user.setSign_up_date(getDate(jsonObject.getString("sign_up_date")));
             if (jsonObject.has("birth_date")){
                 user.setBirth_date(getDate(jsonObject.getString("birth_date")));

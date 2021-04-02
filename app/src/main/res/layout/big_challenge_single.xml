@@ -6,19 +6,22 @@
     android:layout_height="160dp"
     android:elevation="30dp">
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:cardCornerRadius="15dp"
         android:layout_margin="5dp">
         <ImageButton
-            android:id="@+id/commTopPlayerImage"
+            android:id="@+id/challengeImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:src="#80000000"
             android:background="@drawable/man_of_turnement_image" />
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -28,69 +31,76 @@
                 android:layout_margin="10dp"
                 android:layout_gravity="center"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/playerName"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:orientation="vertical">
+                <TextView
+                    android:id="@+id/challengeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
                     android:fontFamily="@font/arial_rounded"
-                    android:text="Khaled"
+                    android:text="#Rapid"
                     android:textColor="#FFF"
                     android:textSize="35dp" />
+                    <TextView
+                        android:id="@+id/challengeType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:fontFamily="@font/arial_rounded"
+                        android:text="Academy"
+                        android:textColor="#FFF"
+                        android:textSize="15dp" />
+                </LinearLayout>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/teamNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/arial_rounded"
+        android:text="10/16"
+        android:textColor="#FFF"
+        android:textSize="25dp" />
+    <TextView
+        android:id="@+id/challengeStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial_rounded"
+        android:layout_gravity="center"
+        android:text="22-04-2021"
+        android:textColor="#FFF"
+        android:textSize="15dp" />
+</LinearLayout>
 
-                <ImageView
-                    android:id="@+id/countryImage"
-                    android:layout_width="60dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/tunisia" />
             </LinearLayout>
-            <TextView
-                android:id="@+id/role"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CB"
-                android:textColor="@color/white"
-                android:fontFamily="@font/arial_rounded"
-                android:textSize="25dp"
-                android:gravity="center"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="5"
-                android:layout_marginHorizontal="80dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center">
                 <ImageView
-                    android:id="@+id/start_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/rating_start_unchecked"/>
-                <ImageView
-                    android:id="@+id/start_two"
+                    android:src="@drawable/ic_baseline_location_on_24"/>
+                <TextView
+                    android:id="@+id/terrainName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/rating_start_unchecked"/>
-                <ImageView
-                    android:id="@+id/start_three"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/rating_start_unchecked"/>
-                <ImageView
-                    android:id="@+id/start_four"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/rating_start_unchecked"/>
-                <ImageView
-                    android:id="@+id/start_five"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@drawable/rating_start_unchecked"/>
+                    android:fontFamily="@font/arial_rounded"
+                    android:text="iFoot"
+                    android:textColor="#FFF"
+                    android:textSize="35dp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

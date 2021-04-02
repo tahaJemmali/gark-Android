@@ -45,6 +45,24 @@ public class Challenge implements Serializable {
         this.state=state;
     }
 
+    public Challenge(String name, Date start_date, Date end_date, Date date_created, int maxNumberOfTeams, List<Team> teams, List<Match> matches, int prize, String location, String description, String image, User creator, ChallengeType type, ChallengeState state) {
+        this.name = name;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.date_created = date_created;
+        this.maxNumberOfTeams = maxNumberOfTeams;
+        this.teams = teams;
+        this.matches = matches;
+        this.prize = prize;
+        this.location = location;
+        this.description = description;
+        this.image = image;
+        this.creator = creator;
+        this.type = type;
+        this.state=state;
+    }
+
+
     public String getId() {
         return id;
     }

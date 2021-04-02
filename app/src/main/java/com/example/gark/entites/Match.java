@@ -11,7 +11,6 @@ public class Match implements Serializable {
     Team team2;
     int goals=0;
     int point=0;
-    Terrain terrain;
     boolean finished=false;
 
     public Match(){
@@ -19,12 +18,11 @@ public class Match implements Serializable {
     }
 
     //Start match
-    public Match(String name, String start_time, Team team1, Team team2,Terrain terrain) {
+    public Match(String name, String start_time, Team team1, Team team2) {
         this.name = name;
         this.start_time = start_time;
         this.team1 = team1;
         this.team2 = team2;
-        this.terrain=terrain;
     }
 
     public String getId() {
@@ -99,13 +97,6 @@ public class Match implements Serializable {
         this.finished = finished;
     }
 
-    public Terrain getTerrain() {
-        return terrain;
-    }
-
-    public void setTerrain(Terrain terrain) {
-        this.terrain = terrain;
-    }
 
     @Override
     public String toString() {
@@ -118,7 +109,6 @@ public class Match implements Serializable {
                 ", team2=" + team2 +
                 ", goals=" + goals +
                 ", point=" + point +
-                ", terrain=" + terrain +
                 ", finished=" + finished +
                 '}';
     }

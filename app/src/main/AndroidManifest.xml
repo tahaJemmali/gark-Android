@@ -14,7 +14,8 @@
         android:roundIcon="@drawable/gark_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TournamentActivity"></activity>
+        <activity android:name=".AddChallengeActivity"></activity>
+        <activity android:name=".TournamentActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".FavorisTeamActivity" />
         <activity android:name=".AddPostActivity" />

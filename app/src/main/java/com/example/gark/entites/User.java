@@ -23,6 +23,7 @@ public class User implements Parcelable, Serializable {
     Boolean completedInformation;
     Boolean activation;
     Boolean online;
+    String role;
 
     public Boolean getActivation() {
         return activation;
@@ -158,6 +159,14 @@ public class User implements Parcelable, Serializable {
 
     public void setOnline(Boolean online) {
         this.online = online;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

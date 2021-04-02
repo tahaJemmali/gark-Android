@@ -57,8 +57,8 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournament);
-      //  tournementType=getIntent().getStringExtra("tournement");
-        tournementType="rapid";
+        tournementType=getIntent().getStringExtra("tournement");
+       // tournementType="rapid";
         ChallengeRepository.getInstance().setiRepository(this);
         initUI();
         ChallengeRepository.getInstance().findByName(this,tournementType);

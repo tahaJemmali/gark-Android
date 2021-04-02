@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AddChallengeActivity"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:background="@color/transparent"
+        android:weightSum="2">
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:backgroundTint="@drawable/close_effect"
+            android:onClick="getBack" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="2"
+            android:src="@drawable/gark_logo" />
+</LinearLayout>
+<ScrollView
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".AddChallengeActivity"
+android:orientation="vertical"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        >
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:onClick="addImage"
+            android:background="@drawable/ic_baseline_add_a_photo_24"
+            android:elevation="5dp"/>
+        <ImageView
+            android:id="@+id/challengeImage"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent"
+
+            android:src="@drawable/ic_launcher_background" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:background="@drawable/rounded_edittext"
+        android:orientation="vertical"
+        android:padding="15dp">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgViewFirstName"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_sports_soccer_24" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imgViewFirstName">
+
+                <EditText
+                    android:id="@+id/challengeNameET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:completionHint="yourhint"
+                    android:dropDownHeight="match_parent"
+                    android:fontFamily="@font/arial_rounded"
+                    android:hint="Challenge Name"
+                    android:includeFontPadding="false"
+                    android:inputType="textEmailAddress"
+                    android:padding="15dp"
+                    android:textSize="15dp"
+                    android:visibility="visible" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgViewEmail"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_short_text_24" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imgViewEmail">
+
+                <EditText
+                    android:id="@+id/editDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="63dp"
+                    android:completionHint="yourhint"
+                    android:dropDownHeight="match_parent"
+                    android:fontFamily="@font/arial_rounded"
+                    android:hint="Description"
+                    android:includeFontPadding="false"
+                    android:inputType="textEmailAddress"
+                    android:padding="15dp"
+                    android:textSize="15dp"
+                    android:visibility="visible" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/rr"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_attach_money_24" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/rr">
+
+                <EditText
+                    android:id="@+id/prizeET"
+                    android:layout_width="match_parent"
+                    android:layout_height="63dp"
+                    android:inputType="number|text"
+                    android:completionHint="yourhint"
+                    android:dropDownHeight="match_parent"
+                    android:fontFamily="@font/arial_rounded"
+                    android:hint="prize"
+                    android:includeFontPadding="false"
+                    android:padding="15dp"
+                    android:textSize="15dp"
+                    android:visibility="visible" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ww"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_location_on_24"
+                android:tint="#707070"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ww">
+
+                <EditText
+                    android:id="@+id/locationET"
+                    android:layout_width="match_parent"
+                    android:layout_height="63dp"
+                    android:completionHint="yourhint"
+                    android:dropDownHeight="match_parent"
+                    android:fontFamily="@font/arial_rounded"
+                    android:hint="location"
+                    android:includeFontPadding="false"
+                    android:padding="15dp"
+                    android:textSize="15dp"
+                    android:visibility="visible" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:fontFamily="@font/arial_rounded"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_marginVertical="5dp"
+            />
+        <DatePicker
+            android:id="@+id/startdateET"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:backgroundTintMode="screen"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End"
+            android:fontFamily="@font/arial_rounded"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_marginVertical="5dp"
+            />
+        <DatePicker
+            android:id="@+id/enddateET"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_weight="1"
+            android:backgroundTintMode="screen"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="number of teams"
+            android:fontFamily="@font/arial_rounded"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:layout_marginVertical="5dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_groups_24" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/teams14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="14 teams"
+                    />
+                <RadioButton
+                    android:id="@+id/teams16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="16 teams"/>
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/categorieImage"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_fingerprint_24" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_toRightOf="@+id/categorieImage">
+                <Spinner
+                    android:id="@+id/typePicker"
+                    android:layout_width="fill_parent"
+                    android:layout_height="47dp"
+                    android:drawSelectorOnTop="true"
+                    android:backgroundTintMode="screen"
+                    android:backgroundTint="@color/dark_green"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_challenge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradian_btn"
+            android:fontFamily="@font/arial_rounded"
+            android:text="Add Challenge"
+            android:textAllCaps="false"
+            android:onClick="addChallenge"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp"
+            android:textSize="23sp"
+            android:layout_marginBottom="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
+
+
+
+</ScrollView>
+</LinearLayout>

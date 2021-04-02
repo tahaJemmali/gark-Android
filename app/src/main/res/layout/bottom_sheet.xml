@@ -81,7 +81,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewTeams"
         android:layout_width="match_parent"
-        android:layout_height="34dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="5dp"
         android:orientation="horizontal"
@@ -229,7 +229,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/matchRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="5dp"
         android:orientation="vertical"

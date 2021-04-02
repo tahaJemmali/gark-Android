@@ -155,9 +155,7 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
         currentUserSkills=SkillsRepository.getInstance().getElement();
         if(addTeamClicked)
         {
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
-            finish();
+            super.onBackPressed();
         }
     }
 
@@ -289,6 +287,11 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
         });
 
         builder.create().show();
+    }
+
+
+    public void getBack(View view) {
+        super.onBackPressed();
     }
 
     public void addImage(View view) {

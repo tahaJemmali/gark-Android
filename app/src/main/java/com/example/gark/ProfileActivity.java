@@ -86,7 +86,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     RecyclerView recycleViewPosts;
     TeamsAdapter teamsAdapter;
     Boolean generated = false;
-
+    Boolean updateUser = false;
     //permissions constants
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 200;
@@ -256,6 +256,13 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             generated=true;
         }
 
+        if(updateUser){
+            Toast.makeText(ProfileActivity.this,"User Image Updated Sucessfully !",Toast.LENGTH_SHORT).show();
+            updateUser=false;
+            MainActivity.setUserImage();
+            super.onBackPressed();
+        }
+
     }
     
     @Override
@@ -306,13 +313,12 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         image.compress(Bitmap.CompressFormat.JPEG, 50, outputStream);
         this.image = Base64.encodeToString(outputStream.toByteArray(),Base64.DEFAULT);
         //update image
-        User user = MainActivity.getCurrentLoggedInUser();
-
-        if (!this.image.equals("noImage"))
-            user.setPhoto(this.image);
-
-        UserRepository.getInstance().setiRepository(this);
-        UserRepository.getInstance().updateUser(user,this);
+        if (!this.image.equals("noImage")){
+            MainActivity.getCurrentLoggedInUser().setPhoto(this.image);
+            UserRepository.getInstance().setiRepository(this);
+            updateUser=true;
+            UserRepository.getInstance().updateUser(MainActivity.getCurrentLoggedInUser(),this);
+        }
     }
 
     public String GetFileExtension(Uri uri)

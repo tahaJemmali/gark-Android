@@ -13,7 +13,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.gark.MainActivity;
 import com.example.gark.Utils.VolleyInstance;
+import com.example.gark.entites.Match;
 import com.example.gark.entites.Post;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
@@ -24,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PostRepository implements CRUDRepository<Post>  {
@@ -39,7 +42,31 @@ public class PostRepository implements CRUDRepository<Post>  {
 
     @Override
     public void add(Context mcontext, Post post, ProgressDialog dialog) {
-
+        iRepository.showLoadingButton();
+        final String url = iRepository.baseURL + "/add_post";
+        Log.e("TAG", "add: "+post );
+        JSONObject object = new JSONObject();
+        convertObjectToJson(object,post);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,object,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Log.e("TAG", "add post message: "+response.getString("message"));
+                            iRepository.doAction();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }finally {
+                            iRepository.dismissLoadingButton();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", "fail: "+error);
+            }
+        });
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
     @Override
@@ -232,7 +259,35 @@ public class PostRepository implements CRUDRepository<Post>  {
 
     @Override
     public JSONObject convertObjectToJson(JSONObject object,Post post) {
-        return null;
+        JSONArray jsonArrayLikes = new JSONArray();
+        JSONArray jsonArrayView = new JSONArray();
+        if (post.getViews()!=null){
+            for (User row:post.getViews()){
+                jsonArrayView.put(row.getId());
+            }
+        }else {
+            jsonArrayView.put(MainActivity.getCurrentLoggedInUser().getId());
+        }
+        if (post.getLikes()!=null){
+            for (User row:post.getLikes()){
+                jsonArrayLikes.put(row.getId());
+            }
+        }else {
+            jsonArrayLikes.put(MainActivity.getCurrentLoggedInUser().getId());
+        }
+
+        try {
+            object.put("title", post.getTitle());
+            object.put("image", post.getImage());
+            object.put("description", post.getDescription());
+            object.put("likes", jsonArrayLikes);
+            object.put("views", jsonArrayView);
+            object.put("creator", post.getCreator().getId());
+            object.put("date_created", new Date());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
     }
 
     @Override

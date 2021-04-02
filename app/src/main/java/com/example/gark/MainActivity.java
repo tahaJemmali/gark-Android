@@ -38,7 +38,7 @@ import java.util.Collections;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements CallBackInterface {
-    ImageView currentUserImage;
+    public static ImageView currentUserImage;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     private static User CurrentLoggedInUser;
@@ -71,10 +71,12 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         currentUserImage=findViewById(R.id.currentUserImage);
         currentUserImage.setImageBitmap(getBitmapFromString(getCurrentLoggedInUser().getPhoto()));
         acceuilFragement();
-
+    }
+    public static void setUserImage(){
+        currentUserImage.setImageBitmap(getBitmapFromString(getCurrentLoggedInUser().getPhoto()));
     }
 
-    private Bitmap getBitmapFromString(String image) {
+    public static Bitmap getBitmapFromString(String image) {
 
         byte[] bytes = Base64.decode(image, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
@@ -44,6 +45,7 @@ public class ChallengeRepository {
         return instance;
     }
 
+
     public void add(Context mcontext, Challenge challenge, ProgressDialog dialog) {
         iRepository.showLoadingButton();
         final String url = iRepository.baseURL + "/add_challenge";
@@ -77,12 +79,33 @@ public class ChallengeRepository {
     }
 
     public void update(Context mcontext, Challenge challenge, String id) {
-
+        iRepository.showLoadingButton();
+        final String url=iRepository.baseURL  + "/update_challenge/"+id;
+        this.challenge=challenge;
+        JSONObject object = new JSONObject();
+        convertObjectToJson(object,challenge);
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.e("TAG", "done: "+response.getString("message"));
+                    iRepository.doAction();
+                    iRepository.dismissLoadingButton();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+url);
+            }
+        });
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
-    public void addChallengeToChallenge(Context mcontext, String challenge_id, String Challenge_id){
 
-    }
 
 
     public void getAll(Context mContext, ProgressDialog dialogg) {
@@ -188,18 +211,59 @@ public class ChallengeRepository {
 
             Log.e("TAG", "convertJsonToObject: "+tmp );
             if (object.has("winner")){
+                if(!object.get("winner").equals("null"))
                 tmp.setWinner(TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("winner")));
             }
             if (object.has("terrain")){
               //  tmp.setTerrain(TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("terrain")));
             }
-            Log.e("TAG", "convertJsonToObject: "+tmp );
+            tmp.setId(object.getString("_id"));
             return tmp;
         } catch (JSONException e) {
-            Log.e("TAG", "convertJsonToObject: "+"tmp" );
             e.printStackTrace();
         }
         return  null;
+    }
+    public void removeTeamFromChallenge( Context context,String challengeId,String teamId){
+        iRepository.showLoadingButton();
+        String url = IRepository.baseURL + "/remove_team_challenge"+"/"+challengeId+"/"+teamId;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        iRepository.doAction();
+                        Toast.makeText(context,"Your team have been removed sucessfully from the challenge !",Toast.LENGTH_LONG).show();
+                        iRepository.dismissLoadingButton();
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        VolleyInstance.getInstance(context).addToRequestQueue(request);
+    }
+
+    public void addTeamToChallenge( Context context,String challengeId,String teamId){
+        iRepository.showLoadingButton();
+        String url = IRepository.baseURL + "/add_team_challenge"+"/"+challengeId+"/"+teamId;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                            iRepository.doAction();
+                        Toast.makeText(context,"Your team have been added sucessfully to the challenge !",Toast.LENGTH_LONG).show();
+                            iRepository.dismissLoadingButton();
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
 
@@ -209,6 +273,7 @@ public class ChallengeRepository {
         if (challenge.getTeams()!=null){
             for (Team row:challenge.getTeams()){
                 jsonArrayTeams.put(row.getId());
+                Log.e("TAG", "convertObjectToJson: "+row.getId() );
             }
         }
         if (challenge.getMatches()!=null) {
@@ -220,7 +285,9 @@ public class ChallengeRepository {
         try {
             object.put("name", challenge.getName());
             object.put("image", challenge.getImage());
-            object.put("winner", challenge.getWinner().getId());
+            if(challenge.getWinner()!=null){
+                object.put("winner", challenge.getWinner().getId());
+            }
             object.put("teams", jsonArrayMatches);
             object.put("matches", jsonArrayMatches);
             object.put("type", challenge.getType().toString());
@@ -231,7 +298,9 @@ public class ChallengeRepository {
             object.put("date_created", challenge.getDate_created());
             object.put("creator",challenge.getCreator().getId());
             object.put("prize",challenge.getPrize());
+            if(challenge.getTerrain()!=null){
             object.put("terrain",challenge.getTerrain().getId());
+            }
             object.put("location",challenge.getLocation());
             object.put("maxNumberOfTeams",challenge.getMaxNumberOfTeams());
         } catch (JSONException e) {
@@ -287,11 +356,13 @@ public class ChallengeRepository {
                     ChallengeType.valueOf(object.getString("type")),
                     ChallengeState.valueOf(object.getString("state")));
             if (object.has("winner")){
+                if(!object.get("winner").equals("null"))
                 tmp.setWinner(TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("winner")));
             }
             if (object.has("terrain")){
                 //  tmp.setTerrain(TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("terrain")));
             }
+            tmp.setId(object.getString("_id"));
             return tmp;
         } catch (JSONException e) {
             e.printStackTrace();

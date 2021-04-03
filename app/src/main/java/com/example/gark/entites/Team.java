@@ -3,6 +3,7 @@ package com.example.gark.entites;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Team implements Serializable {
     String id;
@@ -202,4 +203,13 @@ public class Team implements Serializable {
                 ", draws=" + draws +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Team team = (Team) o;
+        return id.equals(team.id);
+    }
+
 }

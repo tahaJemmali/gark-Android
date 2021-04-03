@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class SkillsRepository implements CRUDRepository<Skills> {
     private IRepository iRepository;
@@ -157,7 +158,16 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     @Override
     public Skills convertJsonToObject(JSONObject jsonTag) {
         try {
-        Skills skills= new Skills(jsonTag.getString("_id"),
+            List<Team> teams = new ArrayList<Team>();
+
+            if (jsonTag.has("teams")){
+                JSONArray jsonArrayTeams = jsonTag.getJSONArray("teams");
+                for (int i = 0; i < jsonArrayTeams.length(); i++) {
+                    teams.add(new Team( jsonArrayTeams.getString(i)));
+                }
+            }
+
+            Skills skills= new Skills(jsonTag.getString("_id"),
                 jsonTag.getInt("pace"),
                 jsonTag.getInt("shooting"),
                 jsonTag.getInt("passing"),
@@ -170,9 +180,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                 UserRepository.getInstance().convertJsonToObject((JSONObject)jsonTag.get("player")),
                 (Nationality.valueOf(jsonTag.getString("nationality"))),jsonTag.getInt("rating")
                 ,jsonTag.getString("description"),jsonTag.getInt("age"));
-        if(jsonTag.has("team")){
-            skills.setTeam(new Team(jsonTag.getString("team")));
-        }
+            skills.setTeams(teams);
         return skills;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -183,6 +191,13 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     @Override
     public JSONObject convertObjectToJson(JSONObject object ,Skills skills) {
         try {
+            JSONArray jsonArrayTeams = new JSONArray();
+            if (skills.getTeams()!=null){
+                for (Team row:skills.getTeams()){
+                    jsonArrayTeams.put(row.getId());
+                }
+            }
+
             object.put("pace", skills.getPace());
             object.put("shooting", skills.getShooting());
             object.put("passing", skills.getPassing());
@@ -195,7 +210,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
             object.put("role", skills.getRole().toString());
             object.put("player", skills.getPlayer().getId());
             object.put("nationality", skills.getNationality().toString());
-            object.put("team",skills.getTeam());
+            object.put("teams",jsonArrayTeams);
             object.put("age",skills.getAge());
             object.put("description",skills.getDescription());
         } catch (JSONException e) {
@@ -219,6 +234,15 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     @Override
     public Skills convertJsonToObjectDeepPopulate(JSONObject jsonTag) {
         try {
+            List<Team> teams = new ArrayList<Team>();
+
+            if (jsonTag.has("teams")){
+                JSONArray jsonArrayTeams = jsonTag.getJSONArray("teams");
+                for (int i = 0; i < jsonArrayTeams.length(); i++) {
+                    teams.add(new TeamRepository().convertJsonToObject((JSONObject) jsonArrayTeams.get(i)));
+                }
+            }
+
             Skills skills= new Skills(jsonTag.getString("_id"),
                     jsonTag.getInt("pace"),
                     jsonTag.getInt("shooting"),
@@ -232,9 +256,9 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                     UserRepository.getInstance().convertJsonToObject((JSONObject)jsonTag.get("player")),
                     (Nationality.valueOf(jsonTag.getString("nationality"))),jsonTag.getInt("rating")
                     ,jsonTag.getString("description"),jsonTag.getInt("age"));
-            if(jsonTag.has("team")){
-                skills.setTeam(TeamRepository.getInstance().convertJsonToObject((JSONObject)jsonTag.get("team")));
-            }
+
+                skills.setTeams(teams);
+
             return skills;
         } catch (JSONException e) {
             e.printStackTrace();

@@ -41,14 +41,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <Button
-            android:id="@+id/joinBtn"
+            android:id="@+id/join"
             android:text="Join"
             android:background="@drawable/gradian_btn"
             android:textColor="#FFF"
             android:fontFamily="@font/arial_rounded"
             android:layout_weight="1"
+
+            android:onClick="addTeamTotournement"
             android:layout_gravity="center"
             android:layout_width="20dp"
+            android:layout_height="30dp"/>
+        <Button
+            android:id="@+id/dont"
+            android:text="discredit"
+
+            android:background="@drawable/red_gradian"
+            android:textColor="#FFF"
+            android:fontFamily="@font/arial_rounded"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:onClick="removeTeamfromtournement"
+            android:layout_gravity="center"
+            android:layout_width="80dp"
             android:layout_height="30dp"/>
     </LinearLayout>
     <LinearLayout

@@ -41,11 +41,13 @@ import com.example.gark.adapters.PostAdapter;
 import com.example.gark.adapters.ProfileListAdapter;
 import com.example.gark.adapters.TeamsAdapter;
 import com.example.gark.entites.Post;
+import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.entites.User;
 import com.example.gark.login.LoginActivity;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.PostRepository;
+import com.example.gark.repositories.SkillsRepository;
 import com.example.gark.repositories.TeamRepository;
 import com.example.gark.repositories.UserRepository;
 import com.example.gark.tutorial.DescriptionActivity;
@@ -82,11 +84,15 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     //Recycler View
     public static ArrayList<Post> posts;
+    ArrayList<Team> teams;
+    Skills skills;
     //Recycler View
     RecyclerView recycleViewPosts;
+    RecyclerView recycleViewTeams;
     TeamsAdapter teamsAdapter;
     Boolean generated = false;
     Boolean updateUser = false;
+    Boolean getSkills = false;
     //permissions constants
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 200;
@@ -115,6 +121,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         profileImage = findViewById(R.id.profileImage);
         addPost=findViewById(R.id.addPost);
         recycleViewPosts = findViewById(R.id.recycleViewPosts);
+        recycleViewTeams= findViewById(R.id.recycleViewTeams);
         addPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,6 +154,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         posts=new ArrayList<Post>();
         PostRepository.getInstance().setiRepository(this);
         PostRepository.getInstance().findByCreator(this,MainActivity.getCurrentLoggedInUser().getId());
+        //skills
+        getSkills=true;
+        SkillsRepository.getInstance().setiRepository(this);
+        SkillsRepository.getInstance().findPlayerById(this,MainActivity.getCurrentLoggedInUser().getId());
 
         initUi();
     }
@@ -155,6 +166,13 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         recycleViewPosts.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         postAdapter = new PostAdapter(this, posts);
         recycleViewPosts.setAdapter(postAdapter);
+    }
+
+    private void initUIRecycleViewerTeams() {
+
+        recycleViewTeams.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        teamsAdapter = new TeamsAdapter(this, teams);
+        recycleViewTeams.setAdapter(teamsAdapter);
     }
 
     private Bitmap getBitmapFromString(String image) {
@@ -254,8 +272,13 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             postAdapter = new PostAdapter(this, posts);
             recycleViewPosts.setAdapter(postAdapter);
             generated=true;
-        }
 
+        }
+        if(getSkills){
+            skills=SkillsRepository.getInstance().getElement();
+            teams= (ArrayList<Team>) skills.getTeams();
+            initUIRecycleViewerTeams();
+        }
         if(updateUser){
             Toast.makeText(ProfileActivity.this,"User Image Updated Sucessfully !",Toast.LENGTH_SHORT).show();
             updateUser=false;

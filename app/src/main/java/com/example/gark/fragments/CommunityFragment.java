@@ -9,8 +9,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,15 +26,10 @@ import com.example.gark.R;
 import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.CommunityTopPlayerAdapter;
 import com.example.gark.adapters.CommunityTopTeamsAdapter;
-import com.example.gark.adapters.InviteTeamAdapter;
-import com.example.gark.adapters.TeamsAdapter;
-import com.example.gark.adapters.TopPlayersAdapter;
-import com.example.gark.entites.Post;
+
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
-import com.example.gark.repositories.IRepository;
-import com.example.gark.repositories.SkillsRepository;
-import com.example.gark.repositories.TeamRepository;
+
 
 import java.util.ArrayList;
 

@@ -1,6 +1,7 @@
 package com.example.gark.entites;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Skills implements Serializable{
     String id;
@@ -16,7 +17,7 @@ public class Skills implements Serializable{
     Role role;
     User player;
     Nationality nationality=Nationality.tunisia;
-    Team team;
+    List<Team> teams;
     String description;
     int age;
     public Skills(){
@@ -30,7 +31,6 @@ public class Skills implements Serializable{
          goals=0;
          rating=0;
          nationality=Nationality.tunisia;
-         team=null;
         description=" ";
         age=18;
     }
@@ -165,12 +165,12 @@ public class Skills implements Serializable{
         this.rating = rating;
     }
 
-    public Team getTeam() {
-        return team;
+    public List<Team> getTeams() {
+        return teams;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 
     public String getDescription() {
@@ -205,7 +205,7 @@ public class Skills implements Serializable{
                 ", player=" + player +
                 ", nationality=" + nationality +
                 ", rating=" + rating +
-                ", team=" + team +
+                ", teams=" + teams +
                 ", age=" + age +
                 ", description=" + description +
                 '}';

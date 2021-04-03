@@ -21,13 +21,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gark.adapters.MatchAdapter;
 import com.example.gark.adapters.TeamsAdapter;
 import com.example.gark.dialog.SelectTeamDialog;
 import com.example.gark.entites.Challenge;
+import com.example.gark.entites.ChallengeState;
+import com.example.gark.entites.Match;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.repositories.ChallengeRepository;
 import com.example.gark.repositories.IRepository;
+import com.example.gark.repositories.MatchRepository;
 import com.example.gark.repositories.SkillsRepository;
 
 import java.util.ArrayList;
@@ -62,6 +66,8 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
     String tournementType;
    public static Challenge challenge;
     public static Skills skill;
+    Boolean generateMatches=true;
+    Boolean parseDataInMatches=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,14 +118,16 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         }
     }
 
-    private void initUIRecyclerViewMatches(){
+    private void        initUIRecyclerViewMatches(){
         if (challenge.getMatches().size()==0){
             matchRecyclerView.setVisibility(View.GONE);
             not_yet_match.setVisibility(View.VISIBLE);
         }else{
             matchRecyclerView.setVisibility(View.VISIBLE);
             not_yet_match.setVisibility(View.GONE);
-            matchRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            matchRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            MatchAdapter matchAdapter = new MatchAdapter(this, (ArrayList<Match>) challenge.getMatches());
+            matchRecyclerView.setAdapter(matchAdapter);
         }
     }
 
@@ -177,10 +185,37 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
 
     @Override
     public void doAction() {
-        dialogg.dismiss();
+
         skill=SkillsRepository.getInstance().getElement();
     challenge= ChallengeRepository.getInstance().getElement();
     if(skill!=null && challenge!=null){
+        if(challenge.getTeams().size()==challenge.getMaxNumberOfTeams()){
+            unsubscribe.setVisibility(View.GONE);
+            subscribe.setVisibility(View.GONE);
+            dont.setVisibility(View.GONE);
+            join.setVisibility(View.GONE);
+            if(generateMatches){
+                if(challenge.getMatches().size()==0){
+                    generateMatches();
+                }else if(parseDataInMatches){
+                    for (Match row:challenge.getMatches()){
+                        if (challenge.getTeams().contains(row.getTeam1())){
+                            row.setTeam1(challenge.getTeams().get(challenge.getTeams().indexOf(row.getTeam1())));
+                        }
+                        if (challenge.getTeams().contains(row.getTeam2())){
+                            row.setTeam2(challenge.getTeams().get(challenge.getTeams().indexOf(row.getTeam2())));
+                        }
+                        initUIRecyclerViewMatches();
+                        parseDataInMatches=false;
+                    }
+                }
+                generateMatches=false;
+            }
+            if(MatchRepository.generator==(challenge.getMaxNumberOfTeams()/2)){
+                MatchRepository.generator=0;
+                dialogg.dismiss();
+            }
+        }else{
             for (Team row : challenge.getTeams()){
                 if(skill.getTeams().contains(row)){
                     unsubscribe.setVisibility(View.VISIBLE);
@@ -188,9 +223,32 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
                     dont.setVisibility(View.VISIBLE);
                     join.setVisibility(View.GONE);
                 }
+        }
+
             }
         setTournement();
     }
+    }
+    void generateMatches(){
+        int numberOfMatches =challenge.getMaxNumberOfTeams()/2;
+        Date start_date=challenge.getStart_date();
+        ArrayList<Team> teams = (ArrayList<Team>) challenge.getTeams();
+      //  MatchRepository.getInstance().setiRepository(this);
+        for (int i=0;i<teams.size();i+=2){
+            Match match=new Match(start_date, teams.get(i), teams.get(i+1));
+            challenge.getMatches().add(match);
+            if (challenge.getMatches().size()==(numberOfMatches/2)){
+                Calendar c = Calendar.getInstance();
+                c.setTime(start_date);
+                c.add(Calendar.DATE, 1);
+                start_date = c.getTime();
+            }
+        }
+        MatchRepository.getInstance().setiRepository(this);
+        dialogg.show();
+        for (Match row : challenge.getMatches()){
+            MatchRepository.getInstance().generateMatch(this,row,challenge);
+        }
     }
 
     @Override

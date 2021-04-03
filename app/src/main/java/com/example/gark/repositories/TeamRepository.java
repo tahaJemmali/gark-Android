@@ -44,7 +44,6 @@ public class TeamRepository implements CRUDRepository<Team> {
     public void add(Context mcontext, Team team, ProgressDialog dialog) {
         iRepository.showLoadingButton();
         final String url = iRepository.baseURL + "/add_team";
-        Log.e("TAG", "add: "+team );
         JSONObject object = new JSONObject();
         convertObjectToJson(object,team);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,object,

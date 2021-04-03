@@ -1,28 +1,34 @@
 package com.example.gark.entites;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 public class Match implements Serializable {
     String id;
-    String name;
-    String start_time;
-    String end_time;
+    Date start_date;
+    Date end_date;
     Team team1;
     Team team2;
-    int goals=0;
-    int point=0;
-    boolean finished=false;
+    List<MatchAction> goals;
+    List<MatchAction> yellowCards;
+    List<MatchAction> redCards;
+    Team winner;
+    ChallengeState state=ChallengeState.Pending;
+    MatchType type=MatchType.Round;
 
-    public Match(){
-
+    public Match() {
     }
 
-    //Start match
-    public Match(String name, String start_time, Team team1, Team team2) {
-        this.name = name;
-        this.start_time = start_time;
+    public Match(Date start_date, Team team1, Team team2) {
+        this.start_date = start_date;
         this.team1 = team1;
         this.team2 = team2;
+    }
+
+    public Match(String id) {
+        this.id=id;
     }
 
     public String getId() {
@@ -33,28 +39,12 @@ public class Match implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Date getStart_date() {
+        return start_date;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStart_time() {
-        return start_time;
-    }
-
-    public void setStart_time(String start_time) {
-        this.start_time = start_time;
-    }
-
-    public String getEnd_time() {
-        return end_time;
-    }
-
-    public void setEnd_time(String end_time) {
-        this.end_time = end_time;
+    public void setStart_date(Date start_date) {
+        this.start_date = start_date;
     }
 
     public Team getTeam1() {
@@ -65,6 +55,14 @@ public class Match implements Serializable {
         this.team1 = team1;
     }
 
+    public Date getEnd_date() {
+        return end_date;
+    }
+
+    public void setEnd_date(Date end_date) {
+        this.end_date = end_date;
+    }
+
     public Team getTeam2() {
         return team2;
     }
@@ -73,43 +71,78 @@ public class Match implements Serializable {
         this.team2 = team2;
     }
 
-    public int getGoals() {
+    public List<MatchAction> getGoals() {
         return goals;
     }
 
-    public void setGoals(int goals) {
+    public void setGoals(List<MatchAction> goals) {
         this.goals = goals;
     }
 
-    public int getPoint() {
-        return point;
+    public List<MatchAction> getYellowCards() {
+        return yellowCards;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
+    public void setYellowCards(List<MatchAction> yellowCards) {
+        this.yellowCards = yellowCards;
     }
 
-    public boolean isFinished() {
-        return finished;
+    public List<MatchAction> getRedCards() {
+        return redCards;
     }
 
-    public void setFinished(boolean finished) {
-        this.finished = finished;
+    public void setRedCards(List<MatchAction> redCards) {
+        this.redCards = redCards;
     }
 
+    public Team getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Team winner) {
+        this.winner = winner;
+    }
+
+    public ChallengeState getState() {
+        return state;
+    }
+
+    public void setState(ChallengeState state) {
+        this.state = state;
+    }
+
+    public MatchType getType() {
+        return type;
+    }
+
+    public void setType(MatchType type) {
+        this.type = type;
+    }
 
     @Override
     public String toString() {
         return "Match{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", start_time='" + start_time + '\'' +
-                ", end_time='" + end_time + '\'' +
+                ", start_date=" + start_date +
+                ", end_date=" + end_date +
                 ", team1=" + team1 +
                 ", team2=" + team2 +
                 ", goals=" + goals +
-                ", point=" + point +
-                ", finished=" + finished +
+                ", yellowCards=" + yellowCards +
+                ", redCards=" + redCards +
+                ", winner=" + winner +
+                ", state=" + state +
+                ", type=" + type +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return Objects.equals(id, match.id);
+    }
+
+
 }

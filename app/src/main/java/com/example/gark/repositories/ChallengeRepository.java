@@ -173,57 +173,6 @@ public class ChallengeRepository {
     }
 
 
-    public Challenge convertJsonToObject(JSONObject object) {
-        try {
-            //TEAMS
-            List<Team> teams = new ArrayList<Team>();
-
-            if (object.has("teams")){
-                JSONArray jsonArrayTeams = object.getJSONArray("teams");
-                for (int i = 0; i < jsonArrayTeams.length(); i++) {
-                    teams.add(new Team( jsonArrayTeams.getString(i)));
-                }
-            }
-            //MATCHES
-            List<Match> matches = new ArrayList<Match>();
-
-            if (object.has("matches")){
-                JSONArray jsonArrayTeams = object.getJSONArray("matches");
-                for (int i = 0; i < jsonArrayTeams.length(); i++) {
-                    //matches.add(new Match( jsonArrayTeams.getString(i)));
-                }
-            }
-
-            Challenge tmp=  new Challenge(object.getString("name"),
-                    getDate(object.getString("start_date")),
-                    getDate(object.getString("end_date")),
-                    getDate(object.getString("date_created")),
-                    object.getInt("maxNumberOfTeams"),
-                    teams,
-                    matches,
-                    object.getInt("prize"),
-                    object.getString("location"),
-                    object.getString("description"),
-                    object.getString("image"),
-                    new User(object.getString("creator")),
-                            ChallengeType.valueOf(object.getString("type")),
-                                    ChallengeState.valueOf(object.getString("state")));
-
-            Log.e("TAG", "convertJsonToObject: "+tmp );
-            if (object.has("winner")){
-                if(!object.get("winner").equals("null"))
-                tmp.setWinner(TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("winner")));
-            }
-            if (object.has("terrain")){
-              //  tmp.setTerrain(TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("terrain")));
-            }
-            tmp.setId(object.getString("_id"));
-            return tmp;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return  null;
-    }
     public void removeTeamFromChallenge( Context context,String challengeId,String teamId){
         iRepository.showLoadingButton();
         String url = IRepository.baseURL + "/remove_team_challenge"+"/"+challengeId+"/"+teamId;
@@ -235,6 +184,23 @@ public class ChallengeRepository {
                         Toast.makeText(context,"Your team have been removed sucessfully from the challenge !",Toast.LENGTH_LONG).show();
                         iRepository.dismissLoadingButton();
 
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        VolleyInstance.getInstance(context).addToRequestQueue(request);
+    }
+
+    public void addMatchToChallenge( Context context,String challengeId,String matchId){
+        String url = IRepository.baseURL + "/add_match_challenge"+"/"+challengeId+"/"+matchId;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.e("TAG", "onResponse: "+"Your match have been added sucessfully to the challenge !" );
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -266,6 +232,56 @@ public class ChallengeRepository {
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
+    public Challenge convertJsonToObject(JSONObject object) {
+        try {
+            //TEAMS
+            List<Team> teams = new ArrayList<Team>();
+
+            if (object.has("teams")){
+                JSONArray jsonArrayTeams = object.getJSONArray("teams");
+                for (int i = 0; i < jsonArrayTeams.length(); i++) {
+                    teams.add(new Team( jsonArrayTeams.getString(i)));
+                }
+            }
+            //MATCHES
+            List<Match> matches = new ArrayList<Match>();
+
+            if (object.has("matches")){
+                JSONArray jsonArrayTeams = object.getJSONArray("matches");
+                for (int i = 0; i < jsonArrayTeams.length(); i++) {
+                    matches.add(new Match( jsonArrayTeams.getString(i)));
+                }
+            }
+
+            Challenge tmp=  new Challenge(object.getString("name"),
+                    getDate(object.getString("start_date")),
+                    getDate(object.getString("end_date")),
+                    getDate(object.getString("date_created")),
+                    object.getInt("maxNumberOfTeams"),
+                    teams,
+                    matches,
+                    object.getInt("prize"),
+                    object.getString("location"),
+                    object.getString("description"),
+                    object.getString("image"),
+                    new User(object.getString("creator")),
+                    ChallengeType.valueOf(object.getString("type")),
+                    ChallengeState.valueOf(object.getString("state")));
+
+            if (object.has("winner")){
+                if(!object.get("winner").equals("null"))
+                    tmp.setWinner(TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("winner")));
+            }
+            if (object.has("terrain")){
+                //  tmp.setTerrain(TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("terrain")));
+            }
+            tmp.setId(object.getString("_id"));
+            return tmp;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return  null;
+    }
 
     public JSONObject convertObjectToJson(JSONObject object, Challenge challenge) {
         JSONArray jsonArrayTeams = new JSONArray();
@@ -273,7 +289,6 @@ public class ChallengeRepository {
         if (challenge.getTeams()!=null){
             for (Team row:challenge.getTeams()){
                 jsonArrayTeams.put(row.getId());
-                Log.e("TAG", "convertObjectToJson: "+row.getId() );
             }
         }
         if (challenge.getMatches()!=null) {
@@ -333,13 +348,12 @@ public class ChallengeRepository {
             List<Match> matches = new ArrayList<Match>();
 
             if (object.has("matches")){
-                JSONArray jsonArrayTeams = object.getJSONArray("matches");
-                for (int i = 0; i < jsonArrayTeams.length(); i++) {
-                    //matches.add(new Match( jsonArrayTeams.getString(i)));
+                JSONArray jsonArrayMatches = object.getJSONArray("matches");
+                for (int i = 0; i < jsonArrayMatches.length(); i++) {
+                    matches.add(MatchRepository.getInstance().convertJsonToObject((JSONObject) jsonArrayMatches.get(i)));
                 }
             }
 
-            Log.e("TAG", "convertJsonToObject: "+ object.getString("name"));
             Challenge tmp= new Challenge(object.getString("name"),
                     getDate(object.getString("start_date")),
                     getDate(object.getString("end_date")),

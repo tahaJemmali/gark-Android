@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    android:orientation="horizontal">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/topPlayerImage"
+        android:layout_gravity="center"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/ic_default_user"
+        android:layout_marginHorizontal="10dp"
+        />
+    <ImageView
+        android:id="@+id/captinBadge"
+        android:layout_width="45dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="6dp"
+        android:visibility="invisible"
+        android:src="@drawable/captin_badge"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial_rounded"
+        android:text="foulen ben foulen"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_weight="1"
+        android:gravity="start"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

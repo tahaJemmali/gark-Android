@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/rounded_edittext"
+    android:layout_marginHorizontal="10dp"
+    tools:context="dialog.VoteDialog">
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="vertical">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/palyerImage"
+            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_default_user"
+            android:layout_marginHorizontal="10dp"
+            />
+        <TextView
+            android:id="@+id/fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/arial_rounded"
+            android:layout_marginVertical="5dp"
+            android:text="foulen ben foueln"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="15dp" />
+    </LinearLayout>
+ <ScrollView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:layout_weight="1"
+                android:text="PAC"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+            <TextView
+                android:id="@+id/paceV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:text="0"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+        </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/paceSB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:max="100"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:layout_weight="1"
+                android:text="SHO"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+            <TextView
+                android:id="@+id/shootingV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:text="0"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+        </LinearLayout>
+    <SeekBar
+        android:id="@+id/shootingSB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:max="100"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:layout_weight="1"
+                android:text="PAS"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+            <TextView
+                android:id="@+id/passingV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:text="0"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+        </LinearLayout>
+    <SeekBar
+        android:id="@+id/passingSB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:max="100"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:layout_weight="1"
+                android:text="DRI"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+            <TextView
+                android:id="@+id/dribblingV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:text="0"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+        </LinearLayout>
+    <SeekBar
+        android:id="@+id/dribblingSB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:max="100"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/arial_rounded"
+                android:text="DEF"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/defendingV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:text="0"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+        </LinearLayout>
+    <SeekBar
+        android:id="@+id/defendingSB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:max="100"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:layout_weight="1"
+                android:text="PHY"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+            <TextView
+                android:id="@+id/physicalV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:text="0"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+        </LinearLayout>
+
+
+    <SeekBar
+        android:id="@+id/physicalSB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:max="100"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:layout_weight="1"
+                android:text="Rating"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+            <TextView
+                android:id="@+id/ratingV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arial_rounded"
+                android:layout_marginVertical="5dp"
+                android:text="1"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="25dp" />
+        </LinearLayout>
+    <SeekBar
+        android:id="@+id/ratingSB"
+        android:layout_marginVertical="5dp"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="5"
+        android:progress="1" />
+
+        <Button
+            android:id="@+id/vote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradian_btn"
+            android:fontFamily="@font/arial_rounded"
+            android:text="Vote"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="23sp"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/gark_logo" />
+    </LinearLayout>
+
+ </ScrollView>
+
+</LinearLayout>

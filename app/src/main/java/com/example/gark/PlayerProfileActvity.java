@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     RecyclerView skillsRecyclerView,postRecyclerView;
     ProgressDialog dialogg;
     RadarView radar;
+    Button contact;
 
     //VAR
     ArrayList<Post> posts;
@@ -65,6 +67,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         skillsRecyclerView=findViewById(R.id.skillsRecyclerView);
         postRecyclerView=findViewById(R.id.postRecyclerView);
         radar=findViewById(R.id.radar);
+        contact=findViewById(R.id.contact);
         SkillsRepository.getInstance().setiRepository(this);
        SkillsRepository.getInstance().findById(this,getIntent().getStringExtra("playerId"));
         postRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -147,6 +150,8 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
             default:
                 break;
         }
+        if (player.getPlayer().getId().equals(MainActivity.getCurrentLoggedInUser().getId()))
+            contact.setVisibility(View.GONE);
         playerNom.setText(player.getPlayer().getFirstName()+" "+player.getPlayer().getLastName());
         rolePlayer.setText(player.getRole().toString());
             age.setText(player.getAge()+" years");

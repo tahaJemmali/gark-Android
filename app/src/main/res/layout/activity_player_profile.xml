@@ -249,6 +249,7 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
             <Button
+                android:id="@+id/contact"
                 android:onClick="contact"
                 android:layout_weight="10"
                 android:layout_width="match_parent"

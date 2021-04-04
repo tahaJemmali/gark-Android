@@ -2,6 +2,7 @@ package com.example.gark.entites;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 public class Skills implements Serializable{
     String id;
@@ -209,5 +210,13 @@ public class Skills implements Serializable{
                 ", age=" + age +
                 ", description=" + description +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Skills skills = (Skills) o;
+        return Objects.equals(id, skills.id);
     }
 }

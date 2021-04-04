@@ -175,6 +175,7 @@ public class MatchRepository implements CRUDRepository<Match> {
 
         try {
             object.put("start_date", match.getStart_date());
+            object.put("end_date", match.getEnd_date());
             object.put("team1", match.getTeam1().getId());
             object.put("team2", match.getTeam2().getId());
             object.put("goals", goals);

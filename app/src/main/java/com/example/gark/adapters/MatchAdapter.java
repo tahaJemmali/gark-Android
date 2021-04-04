@@ -1,6 +1,7 @@
 package com.example.gark.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -14,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.gark.MatchActivity;
 import com.example.gark.R;
+import com.example.gark.StoryActivity;
 import com.example.gark.entites.Match;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +28,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
     private Context mContext;
     private ArrayList<Match> matches;
     Match match;
+    public static Match selectedMatch;
     public MatchAdapter(Context mContext, ArrayList<Match> matches) {
         this.mContext = mContext;
         this.matches = matches;
@@ -80,7 +84,14 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
             team1goals=itemView.findViewById(R.id.team1goals);
             team2goals=itemView.findViewById(R.id.team2goals);
             end_date=itemView.findViewById(R.id.end_date);
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext, MatchActivity.class);
+                    selectedMatch=matches.get(getAdapterPosition());
+                    mContext.startActivity(intent);
+                }
+            });
 
         }
     }

@@ -118,7 +118,7 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         }
     }
 
-    private void        initUIRecyclerViewMatches(){
+    private void initUIRecyclerViewMatches(){
         if (challenge.getMatches().size()==0){
             matchRecyclerView.setVisibility(View.GONE);
             not_yet_match.setVisibility(View.VISIBLE);
@@ -156,7 +156,6 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         calender_date_picker.setHighlightedDays(calendars);
         //calender
         initUIRecycleViewerTeams();
-        initUIRecyclerViewMatches();
     }
 
     private Calendar dateToCalendar(Date date) {
@@ -185,8 +184,7 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
 
     @Override
     public void doAction() {
-
-        skill=SkillsRepository.getInstance().getElement();
+    skill=SkillsRepository.getInstance().getElement();
     challenge= ChallengeRepository.getInstance().getElement();
     if(skill!=null && challenge!=null){
         if(challenge.getTeams().size()==challenge.getMaxNumberOfTeams()){
@@ -229,6 +227,12 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         setTournement();
     }
     }
+    public Date addHoursToJavaUtilDate(Date date, int hours) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY, hours);
+        return calendar.getTime();
+    }
     void generateMatches(){
         int numberOfMatches =challenge.getMaxNumberOfTeams()/2;
         Date start_date=challenge.getStart_date();
@@ -236,6 +240,8 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
       //  MatchRepository.getInstance().setiRepository(this);
         for (int i=0;i<teams.size();i+=2){
             Match match=new Match(start_date, teams.get(i), teams.get(i+1));
+            start_date=addHoursToJavaUtilDate(start_date,2);
+            match.setEnd_date(start_date);
             challenge.getMatches().add(match);
             if (challenge.getMatches().size()==(numberOfMatches/2)){
                 Calendar c = Calendar.getInstance();

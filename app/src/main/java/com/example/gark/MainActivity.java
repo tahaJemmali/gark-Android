@@ -37,11 +37,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity implements CallBackInterface {
+public class MainActivity extends AppCompatActivity implements CallBackInterface,IRepository {
+    ProgressDialog dialogg;
     public static ImageView currentUserImage;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     private static User CurrentLoggedInUser;
+    public static Skills currentPlayerSkills;
     //fragment
     AcceuilFragment acceuilFragment;
     CommunityFragment communityFragment;
@@ -68,9 +70,12 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         initUI();
     }
     public void initUI(){
+        dialogg = ProgressDialog.show(this, "","Loading Data ..." , true);
+        SkillsRepository.getInstance().setiRepository(this);
+        SkillsRepository.getInstance().findPlayerById(this,MainActivity.getCurrentLoggedInUser().getId());
         currentUserImage=findViewById(R.id.currentUserImage);
         currentUserImage.setImageBitmap(getBitmapFromString(getCurrentLoggedInUser().getPhoto()));
-        acceuilFragement();
+
     }
     public static void setUserImage(){
         currentUserImage.setImageBitmap(getBitmapFromString(getCurrentLoggedInUser().getPhoto()));
@@ -189,5 +194,21 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
     public void showTChallenges(View view) {
         openFragmentOrActivity("challenge");
+    }
+
+    @Override
+    public void showLoadingButton() {
+        dialogg.show();
+    }
+
+    @Override
+    public void doAction() {
+    currentPlayerSkills=SkillsRepository.getInstance().getElement();
+        acceuilFragement();
+    }
+
+    @Override
+    public void dismissLoadingButton() {
+    dialogg.dismiss();
     }
 }

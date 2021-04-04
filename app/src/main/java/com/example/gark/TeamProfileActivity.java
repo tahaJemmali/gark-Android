@@ -54,7 +54,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
     Team team;
     StatsAdapter statsAdapter;
     TopPlayersAdapter topPlayersAdapter;
-    Boolean generated=false;
+    int generator=0;
     public static final String TEAMS = "teams";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +119,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
     public void joinTeam(View view) {
     team.getSubstitutes().add(MainActivity.currentPlayerSkills);
     TeamRepository.getInstance().update(this,team,team.getId());
+    SkillsRepository.getInstance().addTeamToPlayer(this,MainActivity.currentPlayerSkills.getId(),team.getId());
         Toast.makeText(TeamProfileActivity.this,"You have joined sucessfully "+team.getName(),Toast.LENGTH_LONG).show();
     }
 
@@ -136,11 +137,15 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
       //player
         players=new ArrayList<Skills>();
             players.add(team.getCapitaine());
-            for (Skills row :team.getTitulares()){
+            if(team.getTitulares().size()>0){
+                for (Skills row :team.getTitulares()){
+                    players.add(row);
+                }
+            }
+        if(team.getSubstitutes().size()>0) {
+            for (Skills row : team.getSubstitutes()) {
                 players.add(row);
             }
-        for (Skills row :team.getSubstitutes()){
-            players.add(row);
         }
         if(players.size()>0){
             if(players.contains(MainActivity.currentPlayerSkills))

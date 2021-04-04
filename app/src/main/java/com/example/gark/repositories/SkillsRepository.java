@@ -96,6 +96,28 @@ public class SkillsRepository implements CRUDRepository<Skills> {
         VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
+    public void addTeamToPlayer( Context context,String challengeId,String matchId){
+        iRepository.showLoadingButton();
+        String url = IRepository.baseURL + "/add_team_player"+"/"+challengeId+"/"+matchId;
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                 //       Log.e("TAG", "onResponse: "+"Your match have been added sucessfully to the challenge !" );
+                        iRepository.dismissLoadingButton();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(context).addToRequestQueue(request);
+    }
+
     @Override
     public void getAll(Context mContext, ProgressDialog dialogg) {
       //  iRepository.showLoadingButton();

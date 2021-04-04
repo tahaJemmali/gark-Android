@@ -98,6 +98,9 @@ public class TeamRepository implements CRUDRepository<Team> {
                 Log.e("TAG", "onResponse: "+url);
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
@@ -172,7 +175,7 @@ public class TeamRepository implements CRUDRepository<Team> {
             }
             JSONArray jsonArraySubstitutes = jsonTag.getJSONArray("substitutes");
             for (int i = 0; i < jsonArraySubstitutes.length(); i++) {
-                titulares.add(new Skills(jsonArrayTitulares.getString(i)));
+                titulares.add(new Skills(jsonArraySubstitutes.getString(i)));
             }
             Date date = this.getDate(jsonTag.getString("date_created"));
             return new Team(jsonTag.getString("_id"),
@@ -207,7 +210,7 @@ public class TeamRepository implements CRUDRepository<Team> {
             }
             JSONArray jsonArraySubstitutes = jsonTag.getJSONArray("substitutes");
             for (int i = 0; i < jsonArraySubstitutes.length(); i++) {
-                JSONObject substitute = jsonArrayTitulares.getJSONObject(i);
+                JSONObject substitute = jsonArraySubstitutes.getJSONObject(i);
                 substitutes.add(SkillsRepository.getInstance().convertJsonToObject(substitute));
             }
             Date date = this.getDate(jsonTag.getString("date_created"));

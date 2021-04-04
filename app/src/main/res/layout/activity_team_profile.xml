@@ -222,6 +222,7 @@
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
             <Button
+                android:id="@+id/joinTeam"
                 android:layout_weight="10"
                 android:onClick="joinTeam"
                 android:layout_width="match_parent"

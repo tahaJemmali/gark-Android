@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ TextView teamName,teamCategorie,dateCreatedTeam,descriptionTeam;
 RecyclerView statRecyclerView,teamMemberRecyclerView;
     ProgressDialog dialogg;
     ImageButton addFavoirs;
+    Button joinTeam;
 //VAR
     ArrayList<Skills> players;
     Team team;
@@ -63,6 +65,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
     void initUI(){
         dialogg = ProgressDialog.show(this
                 , "","Loading Data ..Wait.." , true);
+        joinTeam=findViewById(R.id.joinTeam);
         teamImage=findViewById(R.id.teamImage);
         teamCountry=findViewById(R.id.teamCountry);
         start_one=findViewById(R.id.start_one);
@@ -114,6 +117,9 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
     }
 
     public void joinTeam(View view) {
+    team.getSubstitutes().add(MainActivity.currentPlayerSkills);
+    TeamRepository.getInstance().update(this,team,team.getId());
+        Toast.makeText(TeamProfileActivity.this,"You have joined sucessfully "+team.getName(),Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -136,7 +142,10 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
         for (Skills row :team.getSubstitutes()){
             players.add(row);
         }
-
+        if(players.size()>0){
+            if(players.contains(MainActivity.currentPlayerSkills))
+                joinTeam.setVisibility(View.GONE);
+        }
             topPlayersAdapter = new TopPlayersAdapter(this,players,team.getCapitaine().getId() );
             teamMemberRecyclerView.setAdapter(topPlayersAdapter);
 

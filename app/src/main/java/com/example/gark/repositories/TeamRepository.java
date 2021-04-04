@@ -74,8 +74,31 @@ public class TeamRepository implements CRUDRepository<Team> {
     }
 
     @Override
-    public void update(Context mcontext, Team team, String id) {
-
+    public void update(Context mcontext, Team x, String id) {
+        iRepository.showLoadingButton();
+        final String url=iRepository.baseURL  + "/update_team/"+id;
+        team=x;
+        JSONObject object = new JSONObject();
+        convertObjectToJson(object,team);
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.e("TAG", "done: "+response.getString("message"));
+                    iRepository.doAction();
+                    iRepository.dismissLoadingButton();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+url);
+            }
+        });
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
     @Override

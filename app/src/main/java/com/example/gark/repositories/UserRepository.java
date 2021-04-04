@@ -188,9 +188,14 @@ public class UserRepository {
                     public void onResponse(JSONObject response) {
                         try {
                             String message = response.getString("message");
-                            u.setId(message);
-                            Toast.makeText(context,"Registration success",Toast.LENGTH_SHORT).show();
-                            iRepository.doAction();
+                            if(message!="Registration failed"){
+                                u.setId(message);
+                                Toast.makeText(context,"Registration success",Toast.LENGTH_SHORT).show();
+                                iRepository.doAction();
+                            }else{
+                                Toast.makeText(context,message+" please change your email or your phone number, one of them already exists !",Toast.LENGTH_SHORT).show();
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

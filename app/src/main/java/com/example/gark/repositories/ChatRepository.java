@@ -15,16 +15,16 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.MainActivity;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.chat.Chat;
-import com.example.gark.chat.Message;
+
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+
 import com.google.firebase.firestore.DocumentSnapshot;
+
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +37,7 @@ public class ChatRepository implements CRUDRepository<Chat> {
     private static ChatRepository instance;
     public static  ArrayList<Chat> chats;
     public static  Chat chat;
-    private static CollectionReference myFireBaseDB;
+    public static CollectionReference myFireBaseDB;
     private static final String COLLECTION_NAME = "chats";
 
     public static ChatRepository getInstance() {
@@ -47,6 +47,8 @@ public class ChatRepository implements CRUDRepository<Chat> {
         }
         return instance;
     }
+
+
 
     @Override
     public void add(Context mcontext, Chat chat, ProgressDialog dialog) {
@@ -62,7 +64,6 @@ public class ChatRepository implements CRUDRepository<Chat> {
     public void update(Context mcontext, Chat chat, String id) {
 
     }
-
     public void getAllChatsFromFireBase(Context mContext,ArrayList<Chat> chats){
         MessageRepository.getInstance().setiRepository((IRepository) mContext);
         for (Chat chat1:chats) {

@@ -88,12 +88,6 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<SelectTeamAdapter.Te
             teamNameTextView = itemView.findViewById(R.id.teamNameTextView);
             teamWins = itemView.findViewById(R.id.teamWins);
             radio= itemView.findViewById(R.id.radio);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.e("TAG", "onClick: " );
-                }
-            });
         }
     }
 }

@@ -235,25 +235,16 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
     }
     void generateMatches(){
         int numberOfMatches =challenge.getMaxNumberOfTeams()/2;
-        Date start_date=challenge.getStart_date();
         ArrayList<Team> teams = (ArrayList<Team>) challenge.getTeams();
-      //  MatchRepository.getInstance().setiRepository(this);
         for (int i=0;i<teams.size();i+=2){
-            Match match=new Match(start_date, teams.get(i), teams.get(i+1));
-            start_date=addHoursToJavaUtilDate(start_date,2);
-            match.setEnd_date(start_date);
-            challenge.getMatches().add(match);
-            if (challenge.getMatches().size()==(numberOfMatches/2)){
-                Calendar c = Calendar.getInstance();
-                c.setTime(start_date);
-                c.add(Calendar.DATE, 1);
-                start_date = c.getTime();
-            }
+            challenge.getMatches().get(i).setTeam1(teams.get(i));
+            challenge.getMatches().get(i).setTeam2(teams.get(i+1));
+            challenge.getMatches().get(i).setEnd_date(addHoursToJavaUtilDate(challenge.getMatches().get(i).getStart_date(),2));
         }
         MatchRepository.getInstance().setiRepository(this);
         dialogg.show();
         for (Match row : challenge.getMatches()){
-            MatchRepository.getInstance().generateMatch(this,row,challenge);
+            MatchRepository.getInstance().update(this,row,row.getId(),challenge);
         }
     }
 

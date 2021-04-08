@@ -1,4 +1,5 @@
 package com.example.gark.chat;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,10 @@ import com.example.gark.repositories.ChatRepository;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MessageRepository;
 import com.example.gark.repositories.UserRepository;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +31,7 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
     public static ArrayList<Chat> chats;
     ArrayList<Message> messages;
     boolean getAllMessagesDone=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +48,8 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         listMessageAdapter = new ListMessageAdapter(this,chats );
         chatRecyclerView.setAdapter(listMessageAdapter);
-
     }
+
     @Override
     public void showLoadingButton() {
     dialogg.show();

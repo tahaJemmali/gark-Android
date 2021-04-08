@@ -52,7 +52,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class AddChallengeActivity extends AppCompatActivity implements IRepository {
+public class AddChallengeActivity extends AppCompatActivity {
 //////////////////////////IMAGE
 //permissions constants
 private static final int CAMERA_REQUEST_CODE = 100;
@@ -78,12 +78,10 @@ private static final int CAMERA_REQUEST_CODE = 100;
     EditText editDescription;
     EditText prizeET;
     EditText locationET;
-    DatePicker startdateET;
-    DatePicker enddateET;
-    RadioButton teams14;
+    RadioButton teams8;
     RadioButton teams16;
     Spinner typePicker;
-    ProgressDialog dialogg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,9 +97,8 @@ private static final int CAMERA_REQUEST_CODE = 100;
          editDescription=findViewById(R.id.editDescription);
          prizeET=findViewById(R.id.prizeET);
         locationET=findViewById(R.id.locationET);
-         startdateET=findViewById(R.id.startdateET);
-         enddateET=findViewById(R.id.enddateET);
-         teams14=findViewById(R.id.teams14);
+
+         teams8=findViewById(R.id.teams8);
          teams16=findViewById(R.id.teams16);
          typePicker=findViewById(R.id.typePicker);
         typePicker.setAdapter(new ArrayAdapter<ChallengeType>(this, android.R.layout.simple_spinner_item, ChallengeType.values()));
@@ -128,11 +125,17 @@ private static final int CAMERA_REQUEST_CODE = 100;
             Toast.makeText(AddChallengeActivity.this,"Please set the challenge location !",Toast.LENGTH_LONG).show();
             return false;
         }
-        if (getDateFromDatePicker(startdateET).after(getDateFromDatePicker(enddateET))){
+        try {
+            Float.parseFloat(prizeET.getText().toString());
+        }catch (Exception e){
+            Toast.makeText(AddChallengeActivity.this,"Please chose a valid value for prize !",Toast.LENGTH_LONG).show();
+            return  false;
+        }
+      /*  if (getDateFromDatePicker(startdateET).after(getDateFromDatePicker(enddateET))){
             Toast.makeText(AddChallengeActivity.this,"Start date must not be after the end date !",Toast.LENGTH_LONG).show();
             return false;
-        }
-        if (!teams14.isChecked() && !teams16.isChecked()){
+        }*/
+        if (!teams8.isChecked() && !teams16.isChecked()){
             Toast.makeText(AddChallengeActivity.this,"Please select the challenge capacity of teams !",Toast.LENGTH_LONG).show();
             return false;
         }
@@ -256,16 +259,7 @@ private static final int CAMERA_REQUEST_CODE = 100;
 
         builder.create().show();
     }
-    public Date getDateFromDatePicker(DatePicker datePicker){
-        int day = datePicker.getDayOfMonth();
-        int month = datePicker.getMonth();
-        int year =  datePicker.getYear();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-
-        return calendar.getTime();
-    }
 
 
     public void addImage(View view) {
@@ -275,10 +269,10 @@ private static final int CAMERA_REQUEST_CODE = 100;
     public void addChallenge(View view) {
         if(validator()){
             challenge = new Challenge(challengeNameET.getText().toString(),
-                    getDateFromDatePicker(startdateET),
-                    getDateFromDatePicker(enddateET),
                     new Date(),
-                    teams14.isChecked() ? 14 : 16,
+                   new Date(),
+                    new Date(),
+                    teams8.isChecked() ? 8 : 16,
                     (List<Team>)new ArrayList<Team>(),
                     (List<Match>)new ArrayList<Match>(),
                     new Team(),
@@ -290,9 +284,10 @@ private static final int CAMERA_REQUEST_CODE = 100;
                    new Terrain(),
                     ChallengeType.valueOf(typePicker.getSelectedItem().toString()),
                     ChallengeState.Pending);
-            dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
-            ChallengeRepository.getInstance().setiRepository(this);
-            ChallengeRepository.getInstance().add(this,challenge,null);
+                Intent intent =new Intent(this,AddChallenge2Activity.class);
+                intent.putExtra("challenge",challenge);
+                startActivity(intent);
+                finish();
         }
 
     }
@@ -301,19 +296,5 @@ private static final int CAMERA_REQUEST_CODE = 100;
         super.onBackPressed();
     }
 
-    @Override
-    public void showLoadingButton() {
-        dialogg.show();
-    }
 
-    @Override
-    public void doAction() {
-        Toast.makeText(AddChallengeActivity.this,"Challenge Added Sucessfully !",Toast.LENGTH_LONG).show();
-        super.onBackPressed();
-    }
-
-    @Override
-    public void dismissLoadingButton() {
-    dialogg.dismiss();
-    }
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:background="@drawable/rounded_edittext"
+    tools:context="dialog.AddMatchDialog">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Match 1 in ROUND"
+        android:fontFamily="@font/arial_rounded"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:layout_marginVertical="5dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Date"
+        android:layout_marginHorizontal="10dp"
+        android:fontFamily="@font/arial_rounded"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginVertical="5dp"
+        />
+    <DatePicker
+        android:id="@+id/startDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTintMode="screen"
+        android:layout_gravity="center" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Time"
+        android:layout_marginHorizontal="10dp"
+        android:fontFamily="@font/arial_rounded"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginVertical="5dp"
+        />
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:timePickerMode="spinner" />
+    <Button
+        android:id="@+id/confirm"
+        android:layout_marginTop="10dp"
+        android:text="Add"
+        android:gravity="center"
+        android:background="@drawable/gradian_btn"
+        android:textColor="#FFF"
+        android:fontFamily="@font/arial_rounded"
+        android:layout_marginHorizontal="30dp"
+        android:textSize="30dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+    </ScrollView>
+</LinearLayout>

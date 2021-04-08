@@ -29,12 +29,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MatchRepository implements CRUDRepository<Match> {
+public class MatchRepository {
     private IRepository iRepository;
     private static MatchRepository instance;
     public static ArrayList<Match> matches;
     public static  Match match;
     public static int generator=0;
+    public static int generatorMatches=0;
 
     public static MatchRepository getInstance() {
         if (instance==null){
@@ -43,7 +44,7 @@ public class MatchRepository implements CRUDRepository<Match> {
         return instance;
     }
 
-    @Override
+
     public void setiRepository(IRepository iRepository) {
         this.iRepository = iRepository;
     }
@@ -63,7 +64,7 @@ public class MatchRepository implements CRUDRepository<Match> {
                             Log.e("TAG", "add match message: "+response.getString("message"));
                             String id= response.getString("message");
                             ChallengeRepository.getInstance().addMatchToChallenge(mcontext,challenge.getId(),id);
-                            generator++;
+                            generatorMatches++;
                             iRepository.doAction();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -77,37 +78,68 @@ public class MatchRepository implements CRUDRepository<Match> {
         });
         VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
-    @Override
+
     public void add(Context mcontext, Match match, ProgressDialog dialog) {
 
     }
 
-    @Override
+
     public void delete(Context mcontext, String id, ProgressDialog dialog) {
 
     }
 
-    @Override
-    public void update(Context mcontext, Match match, String id) {
-
+    public void update(Context mcontext, Match match, String id,Challenge challenge) {
+        iRepository.showLoadingButton();
+        final String url=iRepository.baseURL  + "/update_match/"+id;
+        this.match=match;
+        JSONObject object = new JSONObject();
+        convertObjectToJson(object,match);
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.e("TAG", "match updated message: "+response.getString("message"));
+                    ChallengeRepository.getInstance().addMatchToChallenge(mcontext,challenge.getId(),id);
+                    generator++;
+                    iRepository.doAction();
+                    iRepository.dismissLoadingButton();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+url);
+            }
+        });
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
-    @Override
+
     public void getAll(Context mContext, ProgressDialog dialogg) {
 
     }
 
-    @Override
+
     public void findById(Context mContext, String id) {
 
     }
 
-    @Override
+
     public Match convertJsonToObject(JSONObject object) {
         try {
-            Match tmp=  new Match(getDate(object.getString("start_date")),
-                    new Team(object.getString("team1")),
-                    new Team(object.getString("team2")));
+            Match tmp=  new Match();
+            if(object.has("start_date"))
+            tmp.setStart_date(getDate(object.getString("start_date")));
+            if(object.has("team1"))
+            tmp.setTeam1( new Team(object.getString("team1")));
+            if(object.has("team2"))
+            tmp.setTeam2( new Team(object.getString("team2")));
+            if(object.has("end_date"))
+            tmp.setEnd_date(getDate(object.getString("end_date")));
+
             //Goals
             List<MatchAction> goals = new ArrayList<MatchAction>();
 
@@ -151,7 +183,7 @@ public class MatchRepository implements CRUDRepository<Match> {
         return  null;
     }
 
-    @Override
+
     public JSONObject convertObjectToJson(JSONObject object, Match match) {
         JSONArray goals = new JSONArray();
         JSONArray yellowCards = new JSONArray();
@@ -191,19 +223,19 @@ public class MatchRepository implements CRUDRepository<Match> {
         return object;
     }
 
-    @Override
+
     public ArrayList<Match> getList() {
         return matches;
     }
 
 
 
-    @Override
+
     public Match convertJsonToObjectDeepPopulate(JSONObject jsonTag) {
         return null;
     }
 
-    @Override
+
     public Match getElement() {
         return match;
     }

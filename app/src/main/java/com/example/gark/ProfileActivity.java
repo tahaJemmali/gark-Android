@@ -112,7 +112,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         toolbar = findViewById(R.id.toolbar);
         toolbarHeaderView = findViewById(R.id.toolbar_header_view);
         floatHeaderView = findViewById(R.id.float_header_view);

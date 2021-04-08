@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,7 +45,8 @@ public class TeamsAdapter   extends RecyclerView.Adapter<TeamsAdapter.TeamHolder
     public void onBindViewHolder(@NonNull TeamHolder holder, int position) {
         team = teams.get(position);
         Bitmap bitmap = getBitmapFromString(team.getImage());
-        holder.topTeamImage.setImageBitmap(bitmap);
+        Drawable d = new BitmapDrawable(mContext.getResources(), bitmap);
+        holder.topTeamImage.setBackground(d);
         holder.teamNameTextView.setText(team.getName().substring(0,1).toUpperCase() + team.getName().substring(1).toLowerCase());
         holder.teamWins.setText(team.getVictories()+" wins");
     }

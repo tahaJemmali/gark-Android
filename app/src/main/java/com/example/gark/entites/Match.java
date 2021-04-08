@@ -16,7 +16,7 @@ public class Match implements Serializable {
     List<MatchAction> redCards;
     Team winner;
     ChallengeState state=ChallengeState.Pending;
-    MatchType type=MatchType.Round;
+    MatchType type;
 
     public Match() {
     }

@@ -37,7 +37,7 @@ public class ChallengeRepository {
     private static ChallengeRepository instance;
     public static  ArrayList<Challenge> challenges;
     public static  Challenge challenge;
-
+    private String idAddedChallenge="";
     public static ChallengeRepository getInstance() {
         if (instance==null){
             instance = new ChallengeRepository();
@@ -58,6 +58,7 @@ public class ChallengeRepository {
                     public void onResponse(JSONObject response) {
                         try {
                             Log.e("TAG", "add team message: "+response.getString("message"));
+                            idAddedChallenge=response.getString("message");
                             iRepository.doAction();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -76,6 +77,9 @@ public class ChallengeRepository {
 
     public void delete(Context mcontext, String id, ProgressDialog dialog) {
 
+    }
+    public String getAddedChallengeId(){
+        return idAddedChallenge;
     }
 
     public void update(Context mcontext, Challenge challenge, String id) {
@@ -288,11 +292,13 @@ public class ChallengeRepository {
         JSONArray jsonArrayMatches = new JSONArray();
         if (challenge.getTeams()!=null){
             for (Team row:challenge.getTeams()){
+                if(row.getId()!=null)
                 jsonArrayTeams.put(row.getId());
             }
         }
         if (challenge.getMatches()!=null) {
             for (Match row : challenge.getMatches()) {
+                if(row.getId()!=null)
                 jsonArrayMatches.put(row.getId());
             }
         }

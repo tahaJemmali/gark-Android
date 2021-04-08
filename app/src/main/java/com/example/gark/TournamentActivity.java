@@ -38,10 +38,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 
-public class TournamentActivity extends AppCompatActivity implements IRepository,SelectTeamDialog.OnInputSelected{
-//UI
+public class TournamentActivity extends AppCompatActivity implements IRepository, SelectTeamDialog.OnInputSelected {
+    //UI
     TextView location;
     Button subscribe;
     Button unsubscribe;
@@ -61,55 +62,57 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
     TextView endday;
     TextView startdate;
     TextView enddate;
+    TextView locationIn;
     com.applandeo.materialcalendarview.CalendarView calender_date_picker;
-//Var
+    //Var
     String tournementType;
-   public static Challenge challenge;
+    public static Challenge challenge;
     public static Skills skill;
-    Boolean generateMatches=true;
-    Boolean parseDataInMatches=true;
+    Boolean fetchingTournement=false;
+    Boolean removeTeamFromMatches=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournament);
-        tournementType=getIntent().getStringExtra("tournement");
-       // tournementType="rapid";
+        tournementType = getIntent().getStringExtra("tournement");
         initUI();
         ChallengeRepository.getInstance().setiRepository(this);
-        ChallengeRepository.getInstance().findByName(this,tournementType);
-        SkillsRepository.getInstance().setiRepository(this);
-        SkillsRepository.getInstance().findPlayerById(this, MainActivity.getCurrentLoggedInUser().getId());
+        ChallengeRepository.getInstance().findByName(this, tournementType);
+        fetchingTournement=true;
     }
 
-    void initUI(){
+    void initUI() {
         dialogg = ProgressDialog.show(this
-                , "","Loading Data ..Wait.." , true);
-        location=findViewById(R.id.location);
-        subscribe=findViewById(R.id.subscribe);
-        unsubscribe=findViewById(R.id.unsubscribe);
-        join=findViewById(R.id.join);
-        dont=findViewById(R.id.dont);
-        teamNumber=findViewById(R.id.teamNumber);
-        recycleViewTeams=findViewById(R.id.recycleViewTeams);
-        matchRecyclerView=findViewById(R.id.matchRecyclerView);
-        backgroundImage=findViewById(R.id.backgroundImage);
-        academy=findViewById(R.id.link);
-        typeTournement=findViewById(R.id.typeTournement);
-        description=findViewById(R.id.description);
-        not_yet=findViewById(R.id.not_yet);
-        not_yet_match=findViewById(R.id.not_yet_match);
-         startday=findViewById(R.id.startday);
-         endday=findViewById(R.id.endday);
-        startdate=findViewById(R.id.startdate);
-        enddate=findViewById(R.id.enddate);
-         calender_date_picker=findViewById(R.id.calender_date_picker);
+                , "", "Loading Data ..Wait..", true);
+        location = findViewById(R.id.location);
+        subscribe = findViewById(R.id.subscribe);
+        unsubscribe = findViewById(R.id.unsubscribe);
+        join = findViewById(R.id.join);
+        dont = findViewById(R.id.dont);
+        teamNumber = findViewById(R.id.teamNumber);
+        recycleViewTeams = findViewById(R.id.recycleViewTeams);
+        matchRecyclerView = findViewById(R.id.matchRecyclerView);
+        backgroundImage = findViewById(R.id.backgroundImage);
+        academy = findViewById(R.id.link);
+        typeTournement = findViewById(R.id.typeTournement);
+        description = findViewById(R.id.description);
+        not_yet = findViewById(R.id.not_yet);
+        not_yet_match = findViewById(R.id.not_yet_match);
+        startday = findViewById(R.id.startday);
+        endday = findViewById(R.id.endday);
+        locationIn = findViewById(R.id.locationIn);
+
+        startdate = findViewById(R.id.startdate);
+        enddate = findViewById(R.id.enddate);
+        calender_date_picker = findViewById(R.id.calender_date_picker);
     }
 
     private void initUIRecycleViewerTeams() {
-        if (challenge.getTeams().size()==0){
+        if (challenge.getTeams().size() == 0) {
             recycleViewTeams.setVisibility(View.GONE);
             not_yet.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             recycleViewTeams.setVisibility(View.VISIBLE);
             not_yet.setVisibility(View.GONE);
             recycleViewTeams.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -118,11 +121,11 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         }
     }
 
-    private void initUIRecyclerViewMatches(){
-        if (challenge.getMatches().size()==0){
+    private void initUIRecyclerViewMatches() {
+        if (challenge.getMatches().size() == 0) {
             matchRecyclerView.setVisibility(View.GONE);
             not_yet_match.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             matchRecyclerView.setVisibility(View.VISIBLE);
             not_yet_match.setVisibility(View.GONE);
             matchRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -137,10 +140,12 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
-    void setTournement(){
+    void setTournement() {
         location.setText(challenge.getLocation());
         academy.setText(challenge.getType().toString());
-        teamNumber.setText(challenge.getTeams().size()+" / "+challenge.getMaxNumberOfTeams()+" Teams");
+        typeTournement.setText(challenge.getName());
+        locationIn.setText(challenge.getLocation());
+        teamNumber.setText(challenge.getTeams().size() + " / " + challenge.getMaxNumberOfTeams() + " Teams");
         description.setText(challenge.getDescription());
         Bitmap bitmap = getBitmapFromString(challenge.getImage());
         Drawable d = new BitmapDrawable(this.getResources(), bitmap);
@@ -154,7 +159,7 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         calendars.add(dateToCalendar(challenge.getStart_date()));
         calendars.add(dateToCalendar(new Date()));
         calender_date_picker.setHighlightedDays(calendars);
-        //calender
+        initUIRecyclerViewMatches();
         initUIRecycleViewerTeams();
     }
 
@@ -164,17 +169,18 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         return calendar;
     }
 
-    String getDayName(Date date){
+    String getDayName(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
-        String dayWeekText =  new SimpleDateFormat("EEEE" ).format(date);
-        return  dayWeekText;
+        String dayWeekText = new SimpleDateFormat("EEEE").format(date);
+        return dayWeekText;
     }
-    String getDayNumber(Date date){
+
+    String getDayNumber(Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
-        String dayWeekText =  new SimpleDateFormat("dd" ).format(date);
-        return  dayWeekText;
+        String dayWeekText = new SimpleDateFormat("dd").format(date);
+        return dayWeekText;
     }
 
     @Override
@@ -184,73 +190,75 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
 
     @Override
     public void doAction() {
-    skill=SkillsRepository.getInstance().getElement();
-    challenge= ChallengeRepository.getInstance().getElement();
-    if(skill!=null && challenge!=null){
-        if(challenge.getTeams().size()==challenge.getMaxNumberOfTeams()){
+        if (fetchingTournement){
+            skill = MainActivity.currentPlayerSkills;
+            challenge = ChallengeRepository.getInstance().getElement();
+            fetchingTournement=false;
+            verifyCurrentUserTeamExistance();
+            fetchImagesInMatches();
+        }
+        if (challenge.getTeams().size() == challenge.getMaxNumberOfTeams()) {
             unsubscribe.setVisibility(View.GONE);
             subscribe.setVisibility(View.GONE);
             dont.setVisibility(View.GONE);
             join.setVisibility(View.GONE);
-            if(generateMatches){
-                if(challenge.getMatches().size()==0){
-                    generateMatches();
-                }else if(parseDataInMatches){
-                    for (Match row:challenge.getMatches()){
-                        if (challenge.getTeams().contains(row.getTeam1())){
-                            row.setTeam1(challenge.getTeams().get(challenge.getTeams().indexOf(row.getTeam1())));
-                        }
-                        if (challenge.getTeams().contains(row.getTeam2())){
-                            row.setTeam2(challenge.getTeams().get(challenge.getTeams().indexOf(row.getTeam2())));
-                        }
-                        initUIRecyclerViewMatches();
-                        parseDataInMatches=false;
-                    }
-                }
-                generateMatches=false;
-            }
-            if(MatchRepository.generator==(challenge.getMaxNumberOfTeams()/2)){
-                MatchRepository.generator=0;
-                dialogg.dismiss();
-            }
-        }else{
-            for (Team row : challenge.getTeams()){
-                if(skill.getTeams().contains(row)){
-                    unsubscribe.setVisibility(View.VISIBLE);
-                    subscribe.setVisibility(View.GONE);
-                    dont.setVisibility(View.VISIBLE);
-                    join.setVisibility(View.GONE);
-                }
         }
-
-            }
+        if(MatchRepository.generator==(challenge.getMaxNumberOfTeams()/2)){
+            MatchRepository.generator=0;
+            initUIRecyclerViewMatches();
+            dialogg.dismiss();
+        }
         setTournement();
     }
+
+    void verifyCurrentUserTeamExistance(){
+        for (Team row : challenge.getTeams()) {
+            if (skill.getTeams().contains(row)) {
+                unsubscribe.setVisibility(View.VISIBLE);
+                subscribe.setVisibility(View.GONE);
+                dont.setVisibility(View.VISIBLE);
+                join.setVisibility(View.GONE);
+            }
+        }
     }
+
     public Date addHoursToJavaUtilDate(Date date, int hours) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.HOUR_OF_DAY, hours);
         return calendar.getTime();
     }
-    void generateMatches(){
-        int numberOfMatches =challenge.getMaxNumberOfTeams()/2;
-        ArrayList<Team> teams = (ArrayList<Team>) challenge.getTeams();
-        for (int i=0;i<teams.size();i+=2){
-            challenge.getMatches().get(i).setTeam1(teams.get(i));
-            challenge.getMatches().get(i).setTeam2(teams.get(i+1));
-            challenge.getMatches().get(i).setEnd_date(addHoursToJavaUtilDate(challenge.getMatches().get(i).getStart_date(),2));
+
+    void fetchImagesInMatches(){
+        int j=0;
+        for (int i = 0; i < challenge.getTeams().size()-1; i+=2) {
+            challenge.getMatches().get(j).setTeam1(challenge.getTeams().get(i));
+            challenge.getMatches().get(j).setTeam2(challenge.getTeams().get(i + 1));
+            j++;
         }
+        if(removeTeamFromMatches){
+            challenge.getMatches().get(j).setTeam1(null);
+            challenge.getMatches().get(j).setTeam2(null);
+            removeTeamFromMatches=false;
+        }
+        initUIRecyclerViewMatches();
+    }
+    void generateMatchesNow() {
         MatchRepository.getInstance().setiRepository(this);
         dialogg.show();
-        for (Match row : challenge.getMatches()){
-            MatchRepository.getInstance().update(this,row,row.getId(),challenge);
+        int j=0;
+        for (int i = 0; i < challenge.getTeams().size()-1; i+=2) {
+            challenge.getMatches().get(j).setTeam1(challenge.getTeams().get(i));
+            challenge.getMatches().get(j).setTeam2(challenge.getTeams().get(i + 1));
+            challenge.getMatches().get(j).setEnd_date(addHoursToJavaUtilDate(challenge.getMatches().get(j).getStart_date(), 2));
+            MatchRepository.getInstance().update(this, challenge.getMatches().get(j), challenge.getMatches().get(j).getId(), challenge);
+            j++;
         }
     }
 
     @Override
     public void dismissLoadingButton() {
-    dialogg.dismiss();
+        dialogg.dismiss();
     }
 
     public void addTeamTotournement(View view) {
@@ -258,28 +266,35 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         dialog.show(getSupportFragmentManager(), "SelectTeamDialog");
     }
 
-
     @Override
     public void sendInput(Team input) {
         challenge.getTeams().add(input);
-        ChallengeRepository.getInstance().addTeamToChallenge(this,challenge.getId(),input.getId());
+        verifyCurrentUserTeamExistance();
+        if(challenge.getTeams().size()==challenge.getMaxNumberOfTeams()){
+            generateMatchesNow();
+        }else{
+            fetchImagesInMatches();
+        }
+        ChallengeRepository.getInstance().addTeamToChallenge(this, challenge.getId(), input.getId());
     }
 
     public void removeTeamfromtournement(View view) {
-        Team team=null;
-        for (Team row : challenge.getTeams()){
-            if(skill.getTeams().contains(row)){
-                team=row;
+        Team team = null;
+        for (Team row : challenge.getTeams()) {
+            if (skill.getTeams().contains(row)) {
+                team = row;
                 challenge.getTeams().remove(row);
                 break;
             }
         }
-        if (team !=null){
-            ChallengeRepository.getInstance().removeTeamFromChallenge(this,challenge.getId(),team.getId());
+        removeTeamFromMatches=true;
+        if (team != null) {
+            ChallengeRepository.getInstance().removeTeamFromChallenge(this, challenge.getId(), team.getId());
             unsubscribe.setVisibility(View.GONE);
             subscribe.setVisibility(View.VISIBLE);
             dont.setVisibility(View.GONE);
             join.setVisibility(View.VISIBLE);
         }
+        fetchImagesInMatches();
     }
 }

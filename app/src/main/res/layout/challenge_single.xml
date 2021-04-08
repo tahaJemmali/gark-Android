@@ -32,7 +32,7 @@
             android:gravity="center"
             android:text="#Rapid"
             android:textColor="#FFF"
-            android:textSize="30dp" />
+            android:textSize="20sp" />
         <TextView
             android:id="@+id/typeTournement"
             android:layout_width="wrap_content"
@@ -41,17 +41,17 @@
             android:gravity="center"
             android:text="Amateur"
             android:textColor="#FFF"
-            android:textSize="17dp" />
+            android:textSize="13sp" />
 
-        <TextView
-            android:id="@+id/numberOfTeams"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/arial_rounded"
-            android:gravity="center"
-            android:text="16 teams"
-            android:textColor="#FFF"
-            android:textSize="12dp" />
+    <TextView
+        android:id="@+id/numberOfTeams"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial_rounded"
+        android:gravity="center"
+        android:text="6 teams"
+        android:textColor="#FFF"
+        android:textSize="11sp" />
 </LinearLayout>
     </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,69 +13,68 @@
         android:background="@drawable/navbar"
         android:elevation="10dp"
         android:orientation="horizontal"
+        android:weightSum="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:weightSum="10">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_weight="7">
+            android:layout_weight="10">
 
             <ImageButton
                 android:id="@+id/homeBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:onClick="addAcceuilFragment"
-                android:background="@drawable/gark_logo" />
+                android:background="@drawable/gark_logo"
+                android:onClick="addAcceuilFragment" />
         </LinearLayout>
 
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content">
         <ImageButton
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
+            android:layout_marginHorizontal="10dp"
+            android:background="@drawable/notification_icon"
             android:onClick="addNotificationFragment"
-            android:src="@drawable/notification_on"
-            android:tint="@drawable/image_btn_clicked"
-            android:background="#FFF"/>
-
-
-            <ImageButton
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_mail_outline_24"
-                android:tint="@drawable/image_btn_clicked"
-                android:background="#FFF"
-                android:onClick="addMessengerFragment" />
-
+            android:tint="@drawable/image_btn_clicked" />
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/email"
+            android:onClick="addMessengerFragment"
+            android:tint="@drawable/image_btn_clicked" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:gravity="center">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/currentUserImage"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:onClick="addCurrentUserProfileFragment"
                 android:layout_gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/small_image"
                 android:clickable="true"
-                android:background="@drawable/small_image" />
+                android:onClick="addCurrentUserProfileFragment" />
         </LinearLayout>
+</LinearLayout>
     </LinearLayout>
     <!-- BODY -->
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -109,11 +107,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/soccer_field"
-                android:tint="@drawable/image_btn_clicked"
                 android:background="#FFF"
-                />
+                android:src="@drawable/soccer_field"
+                android:tint="@drawable/image_btn_clicked" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,11 +124,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="#FFF"
                 android:onClick="showTChallenges"
                 android:src="@drawable/trophy"
-                android:tint="@drawable/image_btn_clicked"
-                android:background="#FFF"/>
+                android:tint="@drawable/image_btn_clicked" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -141,11 +140,11 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#FFF"
                 android:onClick="addTopViewedStories"
-                android:layout_gravity="center"
                 android:src="@drawable/fire_icon"
-                android:tint="@drawable/image_btn_clicked"
-                android:background="#FFF"/>
+                android:tint="@drawable/image_btn_clicked" />
         </LinearLayout>
 
         <LinearLayout
@@ -159,13 +158,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/friends"
+                android:background="#FFF"
                 android:onClick="addCommunityFragment"
-                android:tint="@drawable/image_btn_clicked"
-                android:background="#FFF"/>
+                android:src="@drawable/friends"
+                android:tint="@drawable/image_btn_clicked" />
         </LinearLayout>
-
-
 
 
     </LinearLayout>
@@ -174,9 +171,9 @@
         android:id="@+id/imageButton"
         android:layout_width="91dp"
         android:layout_height="94dp"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/add_btn"
         android:elevation="20dp"
-        android:layout_marginLeft="15dp"
         android:onClick="greenAddButton"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"

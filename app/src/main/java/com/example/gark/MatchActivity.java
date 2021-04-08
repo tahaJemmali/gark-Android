@@ -30,6 +30,7 @@ import com.example.gark.repositories.TeamRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MatchActivity extends AppCompatActivity implements IRepository {
     //UI
@@ -78,10 +79,27 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         setGameAction=findViewById(R.id.setGameAction);
         team1PlayersRV=findViewById(R.id.team1PlayersRV);
         team2PlayersRV=findViewById(R.id.team2PlayersRV);
-        dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
         match=MatchAdapter.selectedMatch;
-        TeamRepository.getInstance().setiRepository(this);
-        TeamRepository.getInstance().findById(this,match.getTeam1().getId());
+        dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
+        if(!Objects.isNull(match.getTeam1())){
+
+            TeamRepository.getInstance().setiRepository(this);
+            TeamRepository.getInstance().findById(this,match.getTeam1().getId());
+        }else {
+            matchActionTeam1RV.setVisibility(View.GONE);
+            matchActionTeam2RV.setVisibility(View.GONE);
+            team1PlayersRV.setVisibility(View.GONE);
+            team2PlayersRV.setVisibility(View.GONE);
+            setGameAction.setVisibility(View.GONE);
+            not_yet.setVisibility(View.VISIBLE);
+            tournementName.setText(TournamentActivity.challenge.getName());
+            typeMatch.setText(match.getType().toString());
+            team1goals.setText("");
+            team2goals.setText("");
+            end_date.setText(match.getState().toString());
+            dialogg.dismiss();
+        }
+
 
     }
     public void getBack(View view) {
@@ -154,6 +172,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
          team1Image.setImageBitmap(bitmap);
         bitmap = getBitmapFromString(match.getTeam2().getImage());
         team2Image.setImageBitmap(bitmap);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         if (match.getState().equals(ChallengeState.Finished)) {
             int team1goalsNb=0;
             int team2goalsNb=0;
@@ -166,7 +185,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
             }
             team1goals.setText(team1goalsNb);
             team2goals.setText(team2goalsNb);
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
             end_date.setText(formatter.format(match.getEnd_date()));
             if(match.getGoals().size()+match.getRedCards().size()+match.getYellowCards().size()>0){
                 initmatchActionTeam1RV();
@@ -175,7 +194,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         }else{
             team1goals.setText("");
             team2goals.setText("");
-            end_date.setText(match.getState().toString());
+            end_date.setText(match.getState().toString()+" scheduled for "+formatter.format(match.getStart_date()));
             not_yet.setVisibility(View.VISIBLE);
             matchActionTeam1RV.setVisibility(View.GONE);
             matchActionTeam2RV.setVisibility(View.GONE);
@@ -187,6 +206,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         }
         initTeam1PlayerRV();
         initTeam2PlayerRV();
+        dialogg.dismiss();
     }
     void initTeam1PlayerRV(){
         team1PlayersRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -208,7 +228,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
     }
     @Override
     public void dismissLoadingButton() {
-        dialogg.dismiss();
+
     }
 
     public void setGameActions(View view) {

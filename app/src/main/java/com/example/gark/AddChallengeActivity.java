@@ -91,7 +91,8 @@ private static final int CAMERA_REQUEST_CODE = 100;
     }
 
     void initUI(){
-
+        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
     challengeImage=findViewById(R.id.challengeImage);
          challengeNameET=findViewById(R.id.challengeNameET);
          editDescription=findViewById(R.id.editDescription);

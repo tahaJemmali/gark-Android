@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +32,7 @@ public class AddChallenge2Activity extends AppCompatActivity implements IReposit
     Challenge challenge;
     ArrayList<Match> matches;
     AddMatchAdapter addMatchAdapter;
-
+    Boolean generat=true;
 
 
     @Override
@@ -94,11 +95,10 @@ public class AddChallenge2Activity extends AppCompatActivity implements IReposit
             challenge.setEnd_date(challenge.getMatches().get(challenge.getMaxNumberOfTeams()-2).getStart_date());
             MatchRepository.getInstance().setiRepository(this);
             dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
-            for (Match row : challenge.getMatches()){
-                MatchRepository.getInstance().generateMatch(this,row,challenge);
-            }
             ChallengeRepository.getInstance().setiRepository(this);
             ChallengeRepository.getInstance().add(this,challenge,null);
+
+
         }
     }
 
@@ -124,11 +124,25 @@ public class AddChallenge2Activity extends AppCompatActivity implements IReposit
 
     @Override
     public void doAction() {
-        if(MatchRepository.generatorMatches==(challenge.getMaxNumberOfTeams()-1)){
-            MatchRepository.generatorMatches=0;
-            Toast.makeText(AddChallenge2Activity.this,"Challenge Added Sucessfully !",Toast.LENGTH_LONG).show();
-            super.onBackPressed();
+
+        if (!ChallengeRepository.getInstance().getAddedChallengeId().isEmpty()) {
+            challenge.setId(ChallengeRepository.getInstance().getAddedChallengeId());
+            if (generat){
+                for (Match row : challenge.getMatches()){
+                    MatchRepository.getInstance().generateMatch(this,row,challenge);
+                }
+                generat=false;
+            }
+
+            if(MatchRepository.generatorMatches==(challenge.getMaxNumberOfTeams()-1)){
+                MatchRepository.generatorMatches=0;
+                Toast.makeText(AddChallenge2Activity.this,"Challenge Added Sucessfully !",Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
+
     }
 
     @Override

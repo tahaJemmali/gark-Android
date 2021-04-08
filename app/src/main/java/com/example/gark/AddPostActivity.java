@@ -78,6 +78,8 @@ public class AddPostActivity extends AppCompatActivity  implements IRepository {
     }
 
     void initUI(){
+        cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
          userImage=findViewById(R.id.userImage);
          postTitle=findViewById(R.id.postTitle);
          postDescription=findViewById(R.id.postDescription);
@@ -125,7 +127,9 @@ public class AddPostActivity extends AppCompatActivity  implements IRepository {
     @Override
     public void doAction() {
         Toast.makeText(AddPostActivity.this,"Post Added Sucessfully !",Toast.LENGTH_LONG).show();
-        super.onBackPressed();
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

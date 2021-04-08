@@ -104,8 +104,7 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
         editDescription=findViewById(R.id.editDescription);
         teamMemberRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         //get skills of current user
-        SkillsRepository.getInstance().setiRepository(this);
-        SkillsRepository.getInstance().findPlayerById(this,MainActivity.getCurrentLoggedInUser().getId());
+        currentUserSkills=MainActivity.currentPlayerSkills;
 
         ArrayList<String> nationalites = new ArrayList<String>();
         String tmp = "";
@@ -151,11 +150,12 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
 
     @Override
     public void doAction() {
-
-        currentUserSkills=SkillsRepository.getInstance().getElement();
         if(addTeamClicked)
         {
-            super.onBackPressed();
+            Toast.makeText(AddTeamActivity.this,"Team Added Sucessfully !",Toast.LENGTH_LONG).show();
+            Intent intent=new Intent(this,MainActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 

@@ -49,20 +49,22 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
     @Override
     public void onBindViewHolder(@NonNull MatchHolder holder, int position) {
         match = matches.get(position);
-        Bitmap bitmap = getBitmapFromString(match.getTeam1().getImage());
-        holder.team1Image.setImageBitmap(bitmap);
-        bitmap = getBitmapFromString(match.getTeam2().getImage());
-        holder.team2Image.setImageBitmap(bitmap);
+        if(match.getTeam1()!=null &&match.getTeam1().getImage()!=null){
+            Bitmap bitmap = getBitmapFromString(match.getTeam1().getImage());
+            holder.team1Image.setImageBitmap(bitmap);
+        }
+        if(match.getTeam2()!=null &&match.getTeam2().getImage()!=null){
+            Bitmap bitmap = getBitmapFromString(match.getTeam2().getImage());
+            holder.team2Image.setImageBitmap(bitmap);
+        }
         holder.team1goals.setText("");
         holder.team2goals.setText("");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date date= new Date();
         if(date.before(match.getStart_date())){
-            holder.end_date.setText(match.getState().toString());
-        }else if (match.getEnd_date()!=null) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            holder.end_date.setText(formatter.format(match.getEnd_date()));
+            holder.end_date.setText(match.getState().toString()+" scheduled for "+formatter.format(match.getStart_date()));
         }else {
-            holder.end_date.setText("none");
+            holder.end_date.setText(formatter.format(match.getEnd_date()));
         }
     }
 

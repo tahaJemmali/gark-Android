@@ -34,8 +34,8 @@ public class MatchRepository {
     private static MatchRepository instance;
     public static ArrayList<Match> matches;
     public static  Match match;
-    public static int generator=0;
     public static int generatorMatches=0;
+    public static int generator=0;
 
     public static MatchRepository getInstance() {
         if (instance==null){
@@ -63,8 +63,8 @@ public class MatchRepository {
                         try {
                             Log.e("TAG", "add match message: "+response.getString("message"));
                             String id= response.getString("message");
-                            ChallengeRepository.getInstance().addMatchToChallenge(mcontext,challenge.getId(),id);
                             generatorMatches++;
+                            ChallengeRepository.getInstance().addMatchToChallenge(mcontext,challenge.getId(),id);
                             iRepository.doAction();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -97,15 +97,9 @@ public class MatchRepository {
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                try {
-                    Log.e("TAG", "match updated message: "+response.getString("message"));
-                    ChallengeRepository.getInstance().addMatchToChallenge(mcontext,challenge.getId(),id);
                     generator++;
                     iRepository.doAction();
                     iRepository.dismissLoadingButton();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -139,6 +133,10 @@ public class MatchRepository {
             tmp.setTeam2( new Team(object.getString("team2")));
             if(object.has("end_date"))
             tmp.setEnd_date(getDate(object.getString("end_date")));
+            if(object.has("type"))
+                tmp.setType(MatchType.valueOf(object.getString("type")));
+            if(object.has("state"))
+                tmp.setState(ChallengeState.valueOf(object.getString("state")));
 
             //Goals
             List<MatchAction> goals = new ArrayList<MatchAction>();
@@ -208,7 +206,9 @@ public class MatchRepository {
         try {
             object.put("start_date", match.getStart_date());
             object.put("end_date", match.getEnd_date());
+            if(match.getTeam1()!=null)
             object.put("team1", match.getTeam1().getId());
+            if(match.getTeam2()!=null)
             object.put("team2", match.getTeam2().getId());
             object.put("goals", goals);
             object.put("yellowCards", yellowCards);

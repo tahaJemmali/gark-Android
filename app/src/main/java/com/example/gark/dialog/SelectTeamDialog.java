@@ -91,6 +91,7 @@ public class SelectTeamDialog  extends DialogFragment  {
                 if (SelectTeamAdapter.team!=null){
                     if(!TournamentActivity.challenge.getTeams().contains(SelectTeamAdapter.team)){
                         mOnInputSelected.sendInput(SelectTeamAdapter.team);
+
                     }else {
                         Toast.makeText(getContext(),"This team already joined the challenge !",Toast.LENGTH_LONG).show();
                     }

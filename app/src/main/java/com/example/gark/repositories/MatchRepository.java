@@ -6,6 +6,7 @@ import android.icu.text.SimpleDateFormat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -118,7 +119,26 @@ public class MatchRepository {
 
 
     public void findById(Context mContext, String id) {
-
+        iRepository.showLoadingButton();
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findByIdmatch/"+id, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        match = convertJsonToObjectDeepPopulate(response);
+                        iRepository.doAction();
+                        iRepository.dismissLoadingButton();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/findByIdmatch/"+id);
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
 
@@ -144,7 +164,8 @@ public class MatchRepository {
             if (object.has("goals")){
                 JSONArray jsonArrayGoals = object.getJSONArray("goals");
                 for (int i = 0; i < jsonArrayGoals.length(); i++) {
-                    goals.add(new MatchAction( jsonArrayGoals.getString(i)));
+
+                    goals.add(new MatchAction(jsonArrayGoals.getString(i)));
                 }
                 tmp.setGoals(goals);
             }
@@ -154,7 +175,8 @@ public class MatchRepository {
             if (object.has("redCards")){
                 JSONArray jsonArrayRedCards = object.getJSONArray("redCards");
                 for (int i = 0; i < jsonArrayRedCards.length(); i++) {
-                    redCards.add(new MatchAction( jsonArrayRedCards.getString(i)));
+
+                    redCards.add(new MatchAction(jsonArrayRedCards.getString(i)));
                 }
                 tmp.setRedCards(redCards);
             }
@@ -164,14 +186,14 @@ public class MatchRepository {
             if (object.has("yellowCards")){
                 JSONArray jsonArrayYellowCards = object.getJSONArray("yellowCards");
                 for (int i = 0; i < jsonArrayYellowCards.length(); i++) {
-                    yellowCards.add(new MatchAction( jsonArrayYellowCards.getString(i)));
+                    yellowCards.add(new MatchAction(jsonArrayYellowCards.getString(i)));
                 }
                 tmp.setYellowCards(yellowCards);
             }
 
             if (object.has("winner")){
                 if(!object.get("winner").equals("null"))
-                    tmp.setWinner(TeamRepository.getInstance().convertJsonToObject((JSONObject) object.get("winner")));
+                    tmp.setWinner(new Team(object.getString("winner")));
             }
             tmp.setId(object.getString("_id"));
             return tmp;
@@ -231,8 +253,64 @@ public class MatchRepository {
 
 
 
-    public Match convertJsonToObjectDeepPopulate(JSONObject jsonTag) {
-        return null;
+    public Match convertJsonToObjectDeepPopulate(JSONObject object) {
+        try {
+            Match tmp=  new Match();
+            if(object.has("start_date"))
+                tmp.setStart_date(getDate(object.getString("start_date")));
+            if(object.has("team1"))
+                tmp.setTeam1( new Team(object.getString("team1")));
+            if(object.has("team2"))
+                tmp.setTeam2( new Team(object.getString("team2")));
+            if(object.has("end_date"))
+                tmp.setEnd_date(getDate(object.getString("end_date")));
+            if(object.has("type"))
+                tmp.setType(MatchType.valueOf(object.getString("type")));
+            if(object.has("state"))
+                tmp.setState(ChallengeState.valueOf(object.getString("state")));
+
+            //Goals
+            List<MatchAction> goals = new ArrayList<MatchAction>();
+
+            if (object.has("goals")){
+                JSONArray jsonArrayGoals = object.getJSONArray("goals");
+                for (int i = 0; i < jsonArrayGoals.length(); i++) {
+
+                    goals.add( MatchActionRepository.getInstance().convertJsonToObject( jsonArrayGoals.getJSONObject(i)));
+                }
+                tmp.setGoals(goals);
+            }
+            //redCards
+            List<MatchAction> redCards = new ArrayList<MatchAction>();
+
+            if (object.has("redCards")){
+                JSONArray jsonArrayRedCards = object.getJSONArray("redCards");
+                for (int i = 0; i < jsonArrayRedCards.length(); i++) {
+                    redCards.add( MatchActionRepository.getInstance().convertJsonToObject(jsonArrayRedCards.getJSONObject(i)));
+                }
+                tmp.setRedCards(redCards);
+            }
+            //yellowCard
+            List<MatchAction> yellowCards = new ArrayList<MatchAction>();
+
+            if (object.has("yellowCards")){
+                JSONArray jsonArrayYellowCards = object.getJSONArray("yellowCards");
+                for (int i = 0; i < jsonArrayYellowCards.length(); i++) {
+                    yellowCards.add( MatchActionRepository.getInstance().convertJsonToObject( jsonArrayYellowCards.getJSONObject(i)));
+                }
+                tmp.setYellowCards(yellowCards);
+            }
+
+            if (object.has("winner")){
+                if(!object.get("winner").equals("null"))
+                    tmp.setWinner(new Team(object.getString("winner")));
+            }
+            tmp.setId(object.getString("_id"));
+            return tmp;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 
 

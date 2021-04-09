@@ -1,5 +1,6 @@
 package com.example.gark.adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,6 +20,8 @@ import com.example.gark.MatchActivity;
 import com.example.gark.R;
 import com.example.gark.StoryActivity;
 import com.example.gark.entites.Match;
+import com.example.gark.repositories.IRepository;
+import com.example.gark.repositories.MatchRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -73,12 +76,13 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
         return matches.size();
     }
 
-    public class MatchHolder extends RecyclerView.ViewHolder {
+    public class MatchHolder extends RecyclerView.ViewHolder implements IRepository {
         ImageView team1Image;
         ImageView team2Image;
         TextView team1goals;
         TextView team2goals;
         TextView end_date;
+        ProgressDialog dialogg;
         public MatchHolder(@NonNull View itemView) {
             super(itemView);
             team1Image=itemView.findViewById(R.id.team1Image);
@@ -86,15 +90,34 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
             team1goals=itemView.findViewById(R.id.team1goals);
             team2goals=itemView.findViewById(R.id.team2goals);
             end_date=itemView.findViewById(R.id.end_date);
+            dialogg = ProgressDialog.show(itemView.getContext(), "", "Loading Data ..Wait..", true);
+            dialogg.dismiss();
+            MatchRepository.getInstance().setiRepository(this);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent=new Intent(mContext, MatchActivity.class);
-                    selectedMatch=matches.get(getAdapterPosition());
-                    mContext.startActivity(intent);
+                    dialogg.show();
+                    MatchRepository.getInstance().findById(itemView.getContext(),matches.get(getAdapterPosition()).getId());
                 }
             });
 
+        }
+
+        @Override
+        public void showLoadingButton() {
+            dialogg.show();
+        }
+
+        @Override
+        public void doAction() {
+            Intent intent=new Intent(mContext, MatchActivity.class);
+            selectedMatch=MatchRepository.getInstance().getElement();
+            mContext.startActivity(intent);
+        }
+
+        @Override
+        public void dismissLoadingButton() {
+            dialogg.dismiss();
         }
     }
 }

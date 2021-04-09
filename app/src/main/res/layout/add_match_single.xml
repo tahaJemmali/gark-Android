@@ -6,13 +6,14 @@
     android:layout_margin="5dp"
     android:orientation="horizontal"
     android:background="@drawable/rounded_edittext"
+    android:layout_marginVertical="10dp"
     android:weightSum="10">
     <ImageView
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_centerVertical="true"
         android:layout_weight="1"
-        android:src="@drawable/ic_baseline_sports_soccer_24" />
+        android:src="@drawable/whistle" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

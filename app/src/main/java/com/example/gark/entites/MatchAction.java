@@ -3,7 +3,7 @@ package com.example.gark.entites;
 import java.util.Date;
 import java.util.Objects;
 
-public class MatchAction {
+public class MatchAction extends Throwable {
     String id;
     Skills player;
     Challenge challenge;
@@ -11,6 +11,9 @@ public class MatchAction {
     Team team;
     Date date;
     MatchActionType type;
+
+    public MatchAction() {
+    }
 
     public MatchAction(String id) {
         this.id=id;
@@ -85,12 +88,12 @@ public class MatchAction {
     public String toString() {
         return "MatchAction{" +
                 "id='" + id + '\'' +
-                ", player=" + player +
-                ", challenge=" + challenge +
-                ", match=" + match +
-                ", team=" + team +
+                ", player=" + player.getPlayer().getFirstName() +
+                ", challenge=" + challenge.getName() +
+                ", match=" + match.getId() +
+                ", team=" + team.getName() +
                 ", date=" + date +
-                ", type=" + type +
+                ", type=" + type.toString() +
                 '}';
     }
 

@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.gark.adapters.MatchActionAdapter;
 import com.example.gark.adapters.MatchAdapter;
 import com.example.gark.adapters.MatchPlayerAdapter;
 import com.example.gark.adapters.TopPlayersAdapter;
@@ -50,7 +52,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
     RecyclerView team2PlayersRV;
 
     //VAR
-    Match match;
+    public static Match match;
     ArrayList<Skills> team1Players;
     ArrayList<Skills> team2Players;
     int teamGeneration=0;
@@ -58,6 +60,11 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
     int allowVote=1;
     public static String currentPlayerTeam="";
     public static ArrayList<MatchVote> matchVotes;
+    ArrayList<MatchAction> matchActionsTeam1;
+    ArrayList<MatchAction> matchActionsTeam2;
+    MatchActionAdapter matchActionAdapterTeam1;
+    MatchActionAdapter matchActionAdapterTeam2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +87,10 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         team1PlayersRV=findViewById(R.id.team1PlayersRV);
         team2PlayersRV=findViewById(R.id.team2PlayersRV);
         match=MatchAdapter.selectedMatch;
+        matchActionsTeam1=new ArrayList<MatchAction>();
+        matchActionsTeam2=new ArrayList<MatchAction>();
         dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
         if(!Objects.isNull(match.getTeam1())){
-
             TeamRepository.getInstance().setiRepository(this);
             TeamRepository.getInstance().findById(this,match.getTeam1().getId());
         }else {
@@ -145,20 +153,12 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
                 matchVotes=new ArrayList<MatchVote>();
                 matchVotes= MatchVoteRepository.getInstance().getList();
                 teamGeneration++;
-                validate();
+               // validate();
                 setActivity();
                 break;
         }
     }
-    void validate(){
-        if(team1Players.contains(MainActivity.currentPlayerSkills)){
-            currentPlayerTeam="team1";
-        } else if(team2Players.contains(MainActivity.currentPlayerSkills)){
-            currentPlayerTeam="team2";
-        }else {
-            allowVote=1;
-        }
-    }
+
     private Bitmap getBitmapFromString(String image) {
 
         byte[] bytes = Base64.decode(image, Base64.DEFAULT);
@@ -174,17 +174,32 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         team2Image.setImageBitmap(bitmap);
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         if (match.getState().equals(ChallengeState.Finished)) {
+            not_yet.setVisibility(View.GONE);
+            setGameAction.setVisibility(View.GONE);
             int team1goalsNb=0;
             int team2goalsNb=0;
             for (MatchAction row:match.getGoals()){
+                row.setMatch(match);
+                row.setChallenge(TournamentActivity.challenge);
                 if(row.getTeam().equals(match.getTeam1())){
+                    row.setTeam(match.getTeam1());
+                        if(team1Players.contains(row.getPlayer()))
+                            row.setPlayer(team1Players.get(team1Players.indexOf(row.getPlayer())));
+                    matchActionsTeam1.add(row);
+
                     team1goalsNb++;
                 }else if (row.getTeam().equals(match.getTeam2())){
+                    row.setTeam(match.getTeam2());
+                    if(team2Players.contains(row.getPlayer()))
+                        row.setPlayer(team1Players.get(team2Players.indexOf(row.getPlayer())));
+                    matchActionsTeam2.add(row);
+
                     team2goalsNb++;
                 }
             }
-            team1goals.setText(team1goalsNb);
-            team2goals.setText(team2goalsNb);
+            populateMatchActions();
+            team1goals.setText(""+team1goalsNb);
+            team2goals.setText(""+team2goalsNb);
 
             end_date.setText(formatter.format(match.getEnd_date()));
             if(match.getGoals().size()+match.getRedCards().size()+match.getYellowCards().size()>0){
@@ -208,23 +223,64 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         initTeam2PlayerRV();
         dialogg.dismiss();
     }
+    void populateMatchActions(){
+        for (MatchAction row:match.getYellowCards()){
+            row.setMatch(match);
+            row.setChallenge(TournamentActivity.challenge);
+            if(row.getTeam().equals(match.getTeam1())){
+                row.setTeam(match.getTeam1());
+                if(team1Players.contains(row.getPlayer()))
+                    row.setPlayer(team1Players.get(team1Players.indexOf(row.getPlayer())));
+                matchActionsTeam1.add(row);
+
+
+            }else if (row.getTeam().equals(match.getTeam2())){
+                row.setTeam(match.getTeam2());
+                if(team2Players.contains(row.getPlayer()))
+                    row.setPlayer(team1Players.get(team2Players.indexOf(row.getPlayer())));
+                matchActionsTeam2.add(row);
+
+            }
+        }
+        for (MatchAction row:match.getRedCards()){
+            row.setMatch(match);
+            row.setChallenge(TournamentActivity.challenge);
+            if(row.getTeam().equals(match.getTeam1())){
+                row.setTeam(match.getTeam1());
+                matchActionsTeam1.add(row);
+
+            }else if (row.getTeam().equals(match.getTeam2())){
+                row.setTeam(match.getTeam2());
+                if(team2Players.contains(row.getPlayer()))
+                    row.setPlayer(team1Players.get(team2Players.indexOf(row.getPlayer())));
+                matchActionsTeam2.add(row);
+
+            }
+        }
+    }
     void initTeam1PlayerRV(){
         team1PlayersRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        matchPlayerAdapter = new MatchPlayerAdapter(this,team1Players,match.getTeam1().getCapitaine().getId(),allowVote,"team1" );
+        matchPlayerAdapter = new MatchPlayerAdapter(this,team1Players,match.getTeam1().getCapitaine().getId(),allowVote,match.getTeam1() );
         team1PlayersRV.setAdapter(matchPlayerAdapter);
     }
     void initTeam2PlayerRV(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         layoutManager.setReverseLayout(true);
         team2PlayersRV.setLayoutManager(layoutManager);
-        matchPlayerAdapter = new MatchPlayerAdapter(this,team2Players,match.getTeam2().getCapitaine().getId(),allowVote,"team2" );
+        matchPlayerAdapter = new MatchPlayerAdapter(this,team2Players,match.getTeam2().getCapitaine().getId(),allowVote,match.getTeam2() );
         team2PlayersRV.setAdapter(matchPlayerAdapter);
     }
     void initmatchActionTeam1RV(){
-
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        matchActionTeam1RV.setLayoutManager(layoutManager);
+        matchActionAdapterTeam1 = new MatchActionAdapter(this,matchActionsTeam1,match,true);
+        matchActionTeam1RV.setAdapter(matchActionAdapterTeam1);
     }
     void initmatchActionTeam2RV(){
-
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        matchActionTeam2RV.setLayoutManager(layoutManager);
+        matchActionAdapterTeam2 = new MatchActionAdapter(this,matchActionsTeam2,match,true);
+        matchActionTeam2RV.setAdapter(matchActionAdapterTeam2);
     }
     @Override
     public void dismissLoadingButton() {
@@ -232,5 +288,8 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
     }
 
     public void setGameActions(View view) {
+        Intent intent=new Intent(this,AddActionActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

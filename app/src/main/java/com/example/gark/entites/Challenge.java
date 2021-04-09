@@ -26,7 +26,11 @@ public class Challenge implements Serializable {
     public Challenge() {
     }
 
-    public Challenge(String name, Date start_date, Date end_date, Date date_created, int maxNumberOfTeams, List<Team> teams, List<Match> matches, Team winner, float prize, String location, String description, String image, User creator, Terrain terrain, ChallengeType type,ChallengeState state) {
+    public Challenge(String id) {
+        this.id = id;
+    }
+
+    public Challenge(String name, Date start_date, Date end_date, Date date_created, int maxNumberOfTeams, List<Team> teams, List<Match> matches, Team winner, float prize, String location, String description, String image, User creator, Terrain terrain, ChallengeType type, ChallengeState state) {
         this.name = name;
         this.start_date = start_date;
         this.end_date = end_date;

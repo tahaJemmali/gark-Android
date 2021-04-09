@@ -24,6 +24,7 @@ import com.example.gark.dialog.SelectTeamDialog;
 import com.example.gark.dialog.VoteDialog;
 import com.example.gark.entites.MatchVote;
 import com.example.gark.entites.Skills;
+import com.example.gark.entites.Team;
 
 import java.util.ArrayList;
 
@@ -36,12 +37,12 @@ public class MatchPlayerAdapter  extends RecyclerView.Adapter<MatchPlayerAdapter
     Skills player;
     String captinId;
     int allowVote;
-    String team;
+    Team team;
     public MatchPlayerAdapter(Context mContext, ArrayList<Skills> players) {
         this.mContext = mContext;
         this.players = players;
     }
-    public MatchPlayerAdapter(Context mContext, ArrayList<Skills> players,String captinId,int allowVote,String team) {
+    public MatchPlayerAdapter(Context mContext, ArrayList<Skills> players, String captinId, int allowVote, Team team) {
         this.mContext = mContext;
         this.players = players;
         this.captinId=captinId;
@@ -97,17 +98,21 @@ public class MatchPlayerAdapter  extends RecyclerView.Adapter<MatchPlayerAdapter
                 @Override
                 public void onClick(View view) {
                     player=players.get(getAdapterPosition());
+
+                    Log.e("TAG", "onClick: "+ MainActivity.currentPlayerSkills.getTeams().contains(team));
+                    if(MainActivity.currentPlayerSkills.getTeams().contains(team)){
+                        allowVote=2;
+                    }else if(player.equals(MainActivity.currentPlayerSkills)){
+                        allowVote=3;
+                    }else {
+                        allowVote=1;
+                    }
                     if(MatchActivity.matchVotes.size()>0){
                         for(MatchVote row:MatchActivity.matchVotes){
                             if( row.getVotedOn().equals(player))
                                 allowVote=4;
                         }
                     }
-
-                    if(MatchActivity.currentPlayerTeam.equals(team))
-                        allowVote=2;
-                    if(player.equals(MainActivity.currentPlayerSkills))
-                        allowVote=3;
 
 
              switch (allowVote){

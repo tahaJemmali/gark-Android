@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/arial_rounded"
         android:text="foulen ben foulen"
-        android:textSize="20dp"
+        android:textSize="13sp"
         android:textColor="@color/black"
         android:layout_weight="1"
         android:gravity="start"

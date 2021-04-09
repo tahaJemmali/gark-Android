@@ -332,6 +332,8 @@ public class ChallengeRepository {
 
 
     public ArrayList<Challenge> getList() {
+        if (challenges==null)
+            challenges = new ArrayList<Challenge>();
         return challenges;
     }
 

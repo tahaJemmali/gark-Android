@@ -15,6 +15,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.gark.Utils.CallBackInterface;
 import com.example.gark.adapters.TeamsAdapter;
@@ -173,10 +174,14 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addTopViewedStories(View view) {
+        if(AcceuilFragment.posts.size()>0){
+            Intent intent = new Intent(this, StoryActivity.class);
+            intent.putExtra("size",AcceuilFragment.posts.size());
+            startActivity(intent);
+        }else {
+            Toast.makeText(this,"There's no story to show !",Toast.LENGTH_SHORT).show();
+        }
 
-        Intent intent = new Intent(this, StoryActivity.class);
-        intent.putExtra("size",AcceuilFragment.posts.size());
-        startActivity(intent);
     }
 
     public void showTopPlayers(View view) {

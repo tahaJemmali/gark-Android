@@ -16,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.gark.R;
 import com.example.gark.StoryActivity;
 import com.example.gark.Utils.CallBackInterface;
@@ -100,14 +102,20 @@ public class AcceuilFragment extends Fragment implements IRepository {
             }
         });
 
-        showAllLikedPosts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), StoryActivity.class);
-                intent.putExtra("sizeTen",topTen.size());
-                mContext.startActivity(intent);
-            }
-        });
+            showAllLikedPosts.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(posts.size()>0){
+                    Intent intent = new Intent(getActivity(), StoryActivity.class);
+                    intent.putExtra("sizeTen",topTen.size());
+                    mContext.startActivity(intent);
+                }else {
+                    Toast.makeText(mContext,"There's no story to show !",Toast.LENGTH_SHORT).show();
+                }
+                }
+            });
+
+
         // This callback will only be called when MyFragment is at least Started.
         OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
             @Override
@@ -124,6 +132,15 @@ public class AcceuilFragment extends Fragment implements IRepository {
     void initUI(){
             //\tournement
             dialogg = ProgressDialog.show(mContext, "","Loading Data ..." , true);
+        //posts
+        posts=new  ArrayList<Post>();
+        topTen=new  ArrayList<Post>();
+        ///players
+        players=new  ArrayList<Skills>();
+        //teams
+        teams=new  ArrayList<Team>();
+        ///challenges
+        challenges=new  ArrayList<Challenge>();
             getAllPlayers();
     }
 
@@ -133,27 +150,22 @@ public class AcceuilFragment extends Fragment implements IRepository {
             getAllPlayers();
     }
     public void getAllChallenges(){
-        ///challenges
-        challenges=new  ArrayList<Challenge>();
+
         ChallengeRepository.getInstance().setiRepository(this);
         ChallengeRepository.getInstance().getAll(mContext,null);
     }
     public void getAllPlayers(){
-        ///players
-        players=new  ArrayList<Skills>();
+
         SkillsRepository.getInstance().setiRepository(this);
         SkillsRepository.getInstance().getAll(mContext,null);
     }
     public void getAllTeams(){
-        //teams
-        teams=new  ArrayList<Team>();
+
         TeamRepository.getInstance().setiRepository(this);
         TeamRepository.getInstance().getAll(mContext,null);
     }
     public void getAllPosts(){
-        //posts
-        posts=new  ArrayList<Post>();
-        topTen=new  ArrayList<Post>();
+
         PostRepository.getInstance().setiRepository(this);
         PostRepository.getInstance().getAll(mContext,null);
     }

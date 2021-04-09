@@ -68,6 +68,8 @@ public class DescriptionActivity extends AppCompatActivity  implements IReposito
     //permissions array
     String[] cameraPermissions;
     String[] storagePermissions;
+    boolean updateUser=false;
+    boolean addSkills=false;
 
     Uri image_uri = null;
     String image = "noImage";
@@ -89,13 +91,9 @@ public class DescriptionActivity extends AppCompatActivity  implements IReposito
                 user.setPhoto(image);
 
             UserRepository.getInstance().setiRepository(this);
+            updateUser=true;
             UserRepository.getInstance().updateUser(user,this);
-            //add skills
-            Skills skills = new Skills(Role.valueOf(rolePicker.getSelectedItem().toString()),MainActivity.getCurrentLoggedInUser());
-            skills.setNationality(selectedNationality);
-            skills.setDescription(description.getText().toString());
-            SkillsRepository.getInstance().setiRepository(this);
-            SkillsRepository.getInstance().add(this,skills,null);
+
 
         }else {
             new android.app.AlertDialog.Builder(this)
@@ -159,11 +157,9 @@ public class DescriptionActivity extends AppCompatActivity  implements IReposito
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (resultCode == RESULT_OK){
-
             if (requestCode == IMAGE_PICK_GALLERY_CODE) {
                 image_uri = data.getData();
             }
-
             try {
                 InputStream is = getContentResolver().openInputStream(image_uri);
                 Bitmap image = BitmapFactory.decodeStream(is);
@@ -276,10 +272,23 @@ public class DescriptionActivity extends AppCompatActivity  implements IReposito
 
     @Override
     public void doAction() {
+        if(updateUser){
+            //add skills
+            Skills skills = new Skills(Role.valueOf(rolePicker.getSelectedItem().toString()),MainActivity.getCurrentLoggedInUser());
+            skills.setNationality(selectedNationality);
+            skills.setDescription(description.getText().toString());
+            SkillsRepository.getInstance().setiRepository(this);
+            SkillsRepository.getInstance().add(this,skills,null);
+            addSkills=true;
+            updateUser=false;
+        }
+
         //Intent
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        if(addSkills){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

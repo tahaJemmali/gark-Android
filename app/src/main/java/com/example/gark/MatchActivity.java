@@ -273,13 +273,13 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
     void initmatchActionTeam1RV(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         matchActionTeam1RV.setLayoutManager(layoutManager);
-        matchActionAdapterTeam1 = new MatchActionAdapter(this,matchActionsTeam1,match,true);
+        matchActionAdapterTeam1 = new MatchActionAdapter(this,matchActionsTeam1,match,false);
         matchActionTeam1RV.setAdapter(matchActionAdapterTeam1);
     }
     void initmatchActionTeam2RV(){
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         matchActionTeam2RV.setLayoutManager(layoutManager);
-        matchActionAdapterTeam2 = new MatchActionAdapter(this,matchActionsTeam2,match,true);
+        matchActionAdapterTeam2 = new MatchActionAdapter(this,matchActionsTeam2,match,false);
         matchActionTeam2RV.setAdapter(matchActionAdapterTeam2);
     }
     @Override

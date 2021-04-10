@@ -139,6 +139,7 @@ public class UserRepository {
                             user.setPhoto(jsonObject.getString("photo"));
                             user.setActivation(jsonObject.getBoolean("activation"));
                             user.setCompletedInformation(jsonObject.getBoolean("completedInformation"));
+                            user.setRole(jsonObject.getString("role"));
                             //user.setRole(jsonObject.getString("role"));
                             user.setSign_up_date(getDate(jsonObject.getString("sign_up_date")));
                             if (jsonObject.has("birth_date")){

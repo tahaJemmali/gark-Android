@@ -217,7 +217,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         descriptions.add(MainActivity.getCurrentLoggedInUser().getEmail());
 
     //    if (!MainActivity.getCurrentLoggedInUser().getAddress().equals("Not mentioned")){
-            icons.add(R.drawable.ic_baseline_location_on_24);
+            icons.add(R.drawable.ic_baseline_my_location_24);
             titles.add("Home Town");
             descriptions.add(MainActivity.getCurrentLoggedInUser().getAddress());
       //  }
@@ -226,6 +226,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             icons.add(R.drawable.ic_baseline_phone_24);
             titles.add("Mobile");
             descriptions.add(MainActivity.getCurrentLoggedInUser().getPhone());
+
+        icons.add(R.drawable.ic_baseline_admin_panel_settings_24);
+        titles.add("Become Field Owner");
+        descriptions.add("Current role : "+MainActivity.getCurrentLoggedInUser().getRole());
         //}
         try {
             Calendar calendar = Calendar.getInstance();

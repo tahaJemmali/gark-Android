@@ -83,6 +83,16 @@ public class AddMatchDialog  extends DialogFragment {
             Toast.makeText(getContext(),"You can't give a match a date before current date !",Toast.LENGTH_LONG).show();
             return  false;
         }
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(date);
+        cal2.setTime(new Date());
+        boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
+        if(sameDay){
+            Toast.makeText(getContext(),"You can't set a match for today, add at least 24h from current time !",Toast.LENGTH_LONG).show();
+            return  false;
+        }
         return true;
     }
     @Nullable

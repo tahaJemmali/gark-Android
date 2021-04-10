@@ -204,6 +204,7 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:clickable="true"
+                    android:onClick="showTChallenges"
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="right"
                     android:text="Show All"
@@ -246,6 +247,7 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="right"
+                    android:onClick="showAllFields"
                     android:text="Show All"
                     android:textColor="@drawable/label_bg"
                     android:textSize="15dp" />

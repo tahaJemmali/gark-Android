@@ -97,14 +97,14 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     }
 
     public void addTeamToPlayer( Context context,String playerId,String teamId){
-        iRepository.showLoadingButton();
+     //  iRepository.showLoadingButton();
         String url = IRepository.baseURL + "/add_team_player"+"/"+playerId+"/"+teamId;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                  //       Log.e("TAG", "onResponse: "+"Your match have been added sucessfully to the challenge !" );
-                        iRepository.dismissLoadingButton();
+                      //  iRepository.dismissLoadingButton();
                     }
                 }, new Response.ErrorListener() {
             @Override

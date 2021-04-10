@@ -26,6 +26,7 @@ import com.example.gark.repositories.MatchRepository;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder> {
     private Context mContext;
@@ -67,7 +68,12 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
         if(date.before(match.getStart_date())){
             holder.end_date.setText(match.getState().toString()+" scheduled for "+formatter.format(match.getStart_date()));
         }else {
-            holder.end_date.setText(formatter.format(match.getEnd_date()));
+            if(!Objects.isNull(match.getEnd_date())){
+                holder.end_date.setText(match.getState().toString()+" at "+formatter.format(match.getEnd_date()));
+            }else {
+                holder.end_date.setText("The game must be finished, waiting for updates");
+            }
+
         }
     }
 

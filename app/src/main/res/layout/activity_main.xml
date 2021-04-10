@@ -108,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="#FFF"
+                android:onClick="showAllFields"
                 android:src="@drawable/soccer_field"
                 android:tint="@drawable/image_btn_clicked" />
         </LinearLayout>

@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addNotificationFragment(View view) {
-        Log.e("TAG", "showNotificationFragment: " );
+        Toast.makeText(this,"Working on, it will be available soon",Toast.LENGTH_SHORT).show();
     }
 
     public void addCurrentUserProfileFragment(View view) {
@@ -184,6 +184,10 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
     }
 
+    public void showAllFields(View view) {
+        Toast.makeText(this,"Working on, it will be available soon",Toast.LENGTH_SHORT).show();
+    }
+
     public void showTopPlayers(View view) {
         openFragmentOrActivity("topPlayer");
     }
@@ -194,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
 
     public void greenAddButton(View view) {
-        Log.e("TAG", "greenAddButton: Tournement BTN" );
+        Toast.makeText(this,"Working on, it will be available soon",Toast.LENGTH_SHORT).show();
     }
 
     public void showTChallenges(View view) {

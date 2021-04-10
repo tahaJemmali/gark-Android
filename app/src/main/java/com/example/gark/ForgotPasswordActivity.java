@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.example.gark.login.LoginActivity;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.UserRepository;
 
@@ -34,6 +35,13 @@ public class ForgotPasswordActivity extends AppCompatActivity implements IReposi
         initUI();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    
     @Override
     protected void onResume() {
         super.onResume();

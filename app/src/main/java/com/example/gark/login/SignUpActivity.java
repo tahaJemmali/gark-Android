@@ -28,14 +28,12 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
     ScrollView scrollView;
     Button signUpBtn;
     EditText edtFistName,edtLastName,edtEmail,edtPassword,edtConfirmPassword,edtAddress,edtPhone;
-    Intent intent;
     ProgressDialog dialogg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        intent = new Intent();
         UserRepository.getInstance().setiRepository(this);
         //InitUI
         initUI();
@@ -44,21 +42,12 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
 
     @Override
     public void onBackPressed() {
-        setResult(0, intent);
-        super.onBackPressed();
+        Intent intent=new Intent(this,LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
-    @Override
-    protected void onStop() {
-        //compositeDisposable.clear();
-        super.onStop();
-    }
 
-    @Override
-    protected void onDestroy() {
-        //compositeDisposable.clear();
-        super.onDestroy();
-    }
 
     public void initUI(){
         scrollView  = findViewById(R.id.scrollView);

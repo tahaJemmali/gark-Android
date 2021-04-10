@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
@@ -149,7 +150,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             w.setStatusBarColor(Color.BLACK);
         }
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(MainActivity.getCurrentLoggedInUser().getFirstName()+"'s profile");
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#cedade'>"+MainActivity.getCurrentLoggedInUser().getFirstName() +"'s profile</font>"));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //posts
         posts=new ArrayList<Post>();

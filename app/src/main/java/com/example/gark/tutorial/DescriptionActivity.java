@@ -52,7 +52,7 @@ public class DescriptionActivity extends AppCompatActivity  implements IReposito
     Spinner nationalityPicker;
     Spinner rolePicker;
     ImageView nationalityImage;
-    CircleImageView userImage;
+    ImageView userImage;
     EditText description;
     ProgressDialog dialogg;
     //selected item
@@ -86,8 +86,6 @@ public class DescriptionActivity extends AppCompatActivity  implements IReposito
         if (validator()){
             //update image
             User user = MainActivity.getCurrentLoggedInUser();
-
-            if (!image.equals("noImage"))
                 user.setPhoto(image);
 
             UserRepository.getInstance().setiRepository(this);
@@ -106,9 +104,16 @@ public class DescriptionActivity extends AppCompatActivity  implements IReposito
     }
 
     boolean validator(){
-        if (description.getText().toString().isEmpty()){
+        if(image.equals("noImage")){
+            Toast.makeText(this,"Please put your image image don't be shy",Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (description.getText().toString().isEmpty()){
+            Toast.makeText(this,"Please describe yourself in a few words!",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+
         return true;
     }
 
@@ -128,12 +133,6 @@ public class DescriptionActivity extends AppCompatActivity  implements IReposito
             tmp= tmp.substring(0, 1).toUpperCase() + tmp.substring(1).toLowerCase();
             nationalites.add(tmp);
         }
-        userImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showImagePickDialog();
-            }
-        });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, nationalites);
@@ -294,5 +293,9 @@ public class DescriptionActivity extends AppCompatActivity  implements IReposito
     @Override
     public void dismissLoadingButton() {
         dialogg.dismiss();
+    }
+
+    public void addImage(View view) {
+        showImagePickDialog();
     }
 }

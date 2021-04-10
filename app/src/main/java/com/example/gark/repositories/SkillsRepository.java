@@ -96,9 +96,9 @@ public class SkillsRepository implements CRUDRepository<Skills> {
         VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
-    public void addTeamToPlayer( Context context,String challengeId,String matchId){
+    public void addTeamToPlayer( Context context,String playerId,String teamId){
         iRepository.showLoadingButton();
-        String url = IRepository.baseURL + "/add_team_player"+"/"+challengeId+"/"+matchId;
+        String url = IRepository.baseURL + "/add_team_player"+"/"+playerId+"/"+teamId;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override

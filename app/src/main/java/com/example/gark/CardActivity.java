@@ -49,7 +49,7 @@ TextView score,role,playerName,pace,shooting,passing,dribbling,defending,physica
 
         Bitmap bitmap = getBitmapFromString(player.getPlayer().getPhoto());
         playerImage.setImageBitmap(bitmap);
-        if (player.getTeams()!=null){
+        if (player.getTeams().size()>0){
             bitmap = getBitmapFromString(player.getTeams().get(0).getImage());
             teamImage.setImageBitmap(bitmap);
         }

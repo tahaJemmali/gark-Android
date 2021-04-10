@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.gark.MainActivity;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Categorie;
 import com.example.gark.entites.Nationality;
@@ -51,7 +52,8 @@ public class TeamRepository implements CRUDRepository<Team> {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Log.e("TAG", "add team message: "+response.getString("message"));
+                            String id= response.getString("message");
+                            SkillsRepository.getInstance().addTeamToPlayer(mcontext, MainActivity.currentPlayerSkills.getId(),id);
                             iRepository.doAction();
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -133,12 +133,18 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
 
     boolean validator(){
         if (image.equals("noImage")){
+            Toast.makeText(this,"Please put your team image !",Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(TeamName.getText().toString().isEmpty())
+        if(TeamName.getText().toString().isEmpty()){
+            Toast.makeText(this,"Your team doesn't have a name !",Toast.LENGTH_SHORT).show();
             return false;
-        if (editDescription.getText().toString().isEmpty())
+        }
+        if (editDescription.getText().toString().isEmpty()){
+            Toast.makeText(this,"Describe your team in a few word ",Toast.LENGTH_SHORT).show();
             return false;
+        }
+
         return true;
     }
 

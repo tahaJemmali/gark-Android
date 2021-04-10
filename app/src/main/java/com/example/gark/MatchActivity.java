@@ -89,7 +89,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         match=MatchAdapter.selectedMatch;
         matchActionsTeam1=new ArrayList<MatchAction>();
         matchActionsTeam2=new ArrayList<MatchAction>();
-        dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
+        dialogg = ProgressDialog.show(this, "","Loading" , true);
         if(!Objects.isNull(match.getTeam1())){
             TeamRepository.getInstance().setiRepository(this);
             TeamRepository.getInstance().findById(this,match.getTeam1().getId());

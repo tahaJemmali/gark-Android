@@ -191,7 +191,7 @@ public class ChallengeFragment extends Fragment implements IRepository{
     }
 
     void reloadData(){
-        dialogg = ProgressDialog.show(mContext, "", "Loading Data ..Wait..", true);
+        dialogg = ProgressDialog.show(mContext, "","Loading" , true);
         challenges=new  ArrayList<Challenge>();
         ChallengeRepository.getInstance().setiRepository(this);
         ChallengeRepository.getInstance().getAll(mContext,null);

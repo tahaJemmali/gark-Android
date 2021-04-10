@@ -63,8 +63,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
         initUI();
     }
     void initUI(){
-        dialogg = ProgressDialog.show(this
-                , "","Loading Data ..Wait.." , true);
+        dialogg = ProgressDialog.show(this, "","Loading" , true);
         joinTeam=findViewById(R.id.joinTeam);
         teamImage=findViewById(R.id.teamImage);
         teamCountry=findViewById(R.id.teamCountry);

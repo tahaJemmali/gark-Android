@@ -150,7 +150,7 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
 
     @Override
     public void showLoadingButton() {
-        dialogg = ProgressDialog.show(this, "", "Fetching data ...", true);
+        dialogg = ProgressDialog.show(this, "","Loading" , true);
         dialogg.show();
     }
 

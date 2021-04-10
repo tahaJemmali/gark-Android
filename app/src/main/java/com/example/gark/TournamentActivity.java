@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +52,7 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
     TextView teamNumber;
     RecyclerView recycleViewTeams;
     RecyclerView matchRecyclerView;
-    RelativeLayout backgroundImage;
+    ImageView backgroundImage;
     TextView academy;
     TextView typeTournement;
     TextView description;
@@ -83,8 +84,7 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
     }
 
     void initUI() {
-        dialogg = ProgressDialog.show(this
-                , "", "Loading Data ..Wait..", true);
+        dialogg = ProgressDialog.show(this, "","Loading" , true);
         location = findViewById(R.id.location);
         subscribe = findViewById(R.id.subscribe);
         unsubscribe = findViewById(R.id.unsubscribe);
@@ -149,7 +149,7 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         description.setText(challenge.getDescription());
         Bitmap bitmap = getBitmapFromString(challenge.getImage());
         Drawable d = new BitmapDrawable(this.getResources(), bitmap);
-        backgroundImage.setBackground(d);
+        backgroundImage.setImageBitmap(bitmap);
         startday.setText(getDayName(challenge.getStart_date()));
         endday.setText(getDayName(challenge.getEnd_date()));
         startdate.setText(getDayNumber(challenge.getStart_date()));

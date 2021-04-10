@@ -93,7 +93,7 @@ public class TopPlayerFragment extends Fragment implements IRepository {
         topPlayerRecyclerView.setAdapter(communityTopPlayerAdapter);
     }
     void reloadData(){
-        dialogg = ProgressDialog.show(mContext, "", "Loading Data ..Wait..", true);
+        dialogg = ProgressDialog.show(mContext, "","Loading" , true);
         players=new  ArrayList<Skills>();
         SkillsRepository.getInstance().setiRepository(this);
         SkillsRepository.getInstance().getAll(mContext,null);

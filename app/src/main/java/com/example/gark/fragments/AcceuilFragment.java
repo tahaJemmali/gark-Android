@@ -95,7 +95,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
         swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                dialogg = ProgressDialog.show(mContext, "","Loading Data ..." , true);
+                dialogg = ProgressDialog.show(mContext, "","Loading" , true);
                 //generated = false;
                 loadData();
                 swipe_container.setRefreshing(false);
@@ -131,7 +131,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
     }
     void initUI(){
             //\tournement
-            dialogg = ProgressDialog.show(mContext, "","Loading Data ..." , true);
+        dialogg = ProgressDialog.show(mContext, "","Loading" , true);
         //posts
         posts=new  ArrayList<Post>();
         topTen=new  ArrayList<Post>();

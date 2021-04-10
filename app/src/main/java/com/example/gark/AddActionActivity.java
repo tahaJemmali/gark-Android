@@ -107,7 +107,7 @@ Spinner teamSpinner;
         matchActionTeam2RV.setAdapter(matchActionAdapterTeam2);
     }
     public void finish(View view) {
-        dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
+        dialogg = ProgressDialog.show(this, "","Loading" , true);
         if(teamSpinner.getSelectedItemPosition()==0){
             match.setWinner(match.getTeam1());
         }else {

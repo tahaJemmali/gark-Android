@@ -47,7 +47,7 @@ public class CommunityTopPlayerAdapter extends RecyclerView.Adapter<CommunityTop
         }else {
             Bitmap bitmap = getBitmapFromString(player.getPlayer().getPhoto());
             Drawable d = new BitmapDrawable(mContext.getResources(), bitmap);
-            holder.playerImage.setBackground(d);
+            holder.playerImage.setImageBitmap(bitmap);
         }
         holder.countryImage.setImageResource(mContext.getResources().getIdentifier(player.getNationality().toString(),"drawable",mContext.getPackageName()));
         holder.role.setText(player.getRole().toString());

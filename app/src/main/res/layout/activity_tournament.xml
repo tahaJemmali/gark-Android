@@ -9,12 +9,16 @@
     tools:context=".TournamentActivity">
 
 
-    <RelativeLayout
+    <ImageView
         android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_background"/>
+    <RelativeLayout
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_launcher_background"
         >
         <Button
             android:id="@+id/subscribe"
@@ -59,11 +63,11 @@
                     android:id="@+id/typeTournement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="#Rapid"
+                    android:text="EFMLDFJ jlfgjm "
                     android:textColor="@color/white"
                     android:layout_gravity="center"
                     android:fontFamily="@font/arial_rounded"
-                    android:textSize="70dp"
+                    android:textSize="40sp"
                     />
                 <TextView
                     android:id="@+id/link"
@@ -74,7 +78,6 @@
                     android:textSize="25dp"
                     android:fontFamily="@font/arial_rounded" />
             </LinearLayout>
-
 
             <ImageView
                 android:layout_width="50dp"
@@ -90,7 +93,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/arial_rounded"
                 android:background="@color/transparent"
-                android:textSize="50dp"
+                android:textSize="30sp"
                 />
             <TextView
                 android:id="@+id/description"

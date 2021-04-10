@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         initUI();
     }
     public void initUI(){
-        dialogg = ProgressDialog.show(this, "","Loading Data ..." , true);
+        dialogg = ProgressDialog.show(this, "","Loading" , true);
         SkillsRepository.getInstance().setiRepository(this);
         SkillsRepository.getInstance().findPlayerById(this,MainActivity.getCurrentLoggedInUser().getId());
         currentUserImage=findViewById(R.id.currentUserImage);
@@ -169,8 +169,9 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addMessengerFragment(View view) {
-        Intent intent = new Intent(this, GroupListActivity.class);
-        startActivity(intent);
+        Toast.makeText(this,"Working on, it will be available soon",Toast.LENGTH_SHORT).show();
+        /*Intent intent = new Intent(this, GroupListActivity.class);
+        startActivity(intent);*/
     }
 
     public void addTopViewedStories(View view) {

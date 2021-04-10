@@ -131,8 +131,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 startActivity(intent);
             }
         });
-        dialogg = ProgressDialog.show(this
-                , "","Loading Data ..Wait.." , true);
+        dialogg = ProgressDialog.show(this, "","Loading" , true);
         if (MainActivity.getCurrentLoggedInUser().getPhoto().startsWith("/")) {
             Bitmap bitmap = getBitmapFromString(MainActivity.getCurrentLoggedInUser().getPhoto());
             profileImage.setImageBitmap(bitmap);

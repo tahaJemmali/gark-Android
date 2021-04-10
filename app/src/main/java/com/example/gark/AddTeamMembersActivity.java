@@ -40,7 +40,7 @@ private ArrayList<Skills> invitedPlayers;
         initUI();
     }
     void initUI(){
-        dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
+        dialogg = ProgressDialog.show(this, "","Loading" , true);
         search_bar_invitation=findViewById(R.id.search_bar_invitation);
         inviteTeamMembers=findViewById(R.id.inviteTeamMembers);
         searchPlayers=new ArrayList<Skills>();

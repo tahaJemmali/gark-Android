@@ -51,8 +51,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         initUI();
     }
     void initUI(){
-        dialogg = ProgressDialog.show(this
-                , "","Loading Data ..Wait.." , true);
+        dialogg = ProgressDialog.show(this, "","Loading" , true);
         playerImage=findViewById(R.id.playerImage);
         nationality=findViewById(R.id.nationality);
         start_one=findViewById(R.id.start_one);

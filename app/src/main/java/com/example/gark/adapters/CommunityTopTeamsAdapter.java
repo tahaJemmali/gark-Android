@@ -53,7 +53,7 @@ public class CommunityTopTeamsAdapter extends RecyclerView.Adapter<CommunityTopT
         team = teams.get(position);
         Bitmap bitmap = getBitmapFromString(team.getImage());
         Drawable d = new BitmapDrawable(mContext.getResources(), bitmap);
-        holder.playerImage.setBackground(d);
+        holder.playerImage.setImageBitmap(bitmap);
         holder.countryImage.setImageResource(mContext.getResources().getIdentifier(team.getNationality().toString(), "drawable", mContext.getPackageName()));
         holder.role.setText(team.getCategorie().toString());
         holder.playerName.setText(team.getName());

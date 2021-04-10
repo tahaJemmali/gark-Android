@@ -105,7 +105,7 @@ public class TopTeamFragment extends Fragment implements IRepository {
         topTeamsRecyclerView.setAdapter(communityTopTeamsAdapter);
     }
     void reloadData(){
-        dialogg = ProgressDialog.show(mContext, "", "Loading Data ..Wait..", true);
+        dialogg = ProgressDialog.show(mContext, "","Loading" , true);
         teams=new  ArrayList<Team>();
         TeamRepository.getInstance().setiRepository(this);
         TeamRepository.getInstance().getAll(mContext,null);

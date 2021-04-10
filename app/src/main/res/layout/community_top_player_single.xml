@@ -5,17 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="160dp"
     android:elevation="30dp">
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="15dp"
         android:layout_margin="5dp">
         <ImageButton
             android:id="@+id/commTopPlayerImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="#80000000"
-            android:background="@drawable/man_of_turnement_image" />
+            android:scaleType="centerCrop"
+            android:src="@drawable/man_of_turnement_image" />
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -37,7 +36,7 @@
                     android:fontFamily="@font/arial_rounded"
                     android:text="Khaled"
                     android:textColor="#FFF"
-                    android:textSize="35dp" />
+                    android:textSize="25sp" />
 
                 <ImageView
                     android:id="@+id/countryImage"
@@ -52,7 +51,7 @@
                 android:text="CB"
                 android:textColor="@color/white"
                 android:fontFamily="@font/arial_rounded"
-                android:textSize="25dp"
+                android:textSize="20sp"
                 android:gravity="center"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,5 +92,5 @@
                     android:src="@drawable/rating_start_unchecked"/>
             </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 </LinearLayout>

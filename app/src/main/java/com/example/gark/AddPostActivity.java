@@ -109,7 +109,7 @@ public class AddPostActivity extends AppCompatActivity  implements IRepository {
         if(validator()){
             post=new Post(postTitle.getText().toString(),postDescription.getText().toString(),
                     image,MainActivity.getCurrentLoggedInUser());
-            dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
+            dialogg = ProgressDialog.show(this, "","Loading" , true);
             PostRepository.getInstance().setiRepository(this);
             PostRepository.getInstance().add(this,post,null);
         }

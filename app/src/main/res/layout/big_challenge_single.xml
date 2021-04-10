@@ -5,18 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="160dp"
     android:elevation="30dp">
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="15dp"
         android:layout_margin="5dp">
         <ImageButton
             android:id="@+id/challengeImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="#80000000"
-            android:background="@drawable/man_of_turnement_image" />
+            android:src="@drawable/man_of_turnement_image" />
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -103,5 +101,5 @@
                     android:textSize="35dp" />
             </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 </LinearLayout>

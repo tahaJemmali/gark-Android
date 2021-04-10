@@ -439,5 +439,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     }
 
     public void addTeam(View view) {
+        Intent intent = new Intent(ProfileActivity.this,AddTeamActivity.class);
+        startActivity(intent);
     }
 }

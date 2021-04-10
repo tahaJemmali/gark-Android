@@ -45,7 +45,6 @@ public class ForgotPasswordActivity extends AppCompatActivity implements IReposi
         scrollView  = findViewById(R.id.scrollView);
         nextBtn  = findViewById(R.id.nextBtn);
         edtEmail  = findViewById(R.id.edtEmail);
-        edtEmail.setText("mohamedtaha.jammali@esprit.tn");
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

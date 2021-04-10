@@ -132,19 +132,45 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-                   <TextView
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:fontFamily="@font/arial_rounded"
-                       android:textColor="@color/black"
-                       android:textSize="20dp"
-                       android:layout_marginTop="10dp"
-                       android:text="Your teams:"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="2">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arial_rounded"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:text="Your teams:"/>
+    <ImageButton
+        android:layout_gravity="center"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:onClick="addTeam"
+        android:layout_weight="1"
+        android:background="@drawable/ic_baseline_add_24"
+        />
+</LinearLayout>
+                <TextView
+                    android:id="@+id/not_yet_teams"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="15dp"
+                    android:text="You don't have teams"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/arial_rounded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleViewTeams"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -168,6 +194,17 @@
                         android:background="@drawable/ic_baseline_add_24"
                         />
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/not_yet_post"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="15dp"
+                    android:text="You don't have posts"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/arial_rounded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleViewPosts"
                     android:layout_width="match_parent"

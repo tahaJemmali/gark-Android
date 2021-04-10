@@ -36,6 +36,7 @@ import android.view.WindowManager;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gark.adapters.PostAdapter;
@@ -77,6 +78,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
     ImageView profileImage;
     ImageButton addPost;
     ProgressDialog dialogg;
+    TextView not_yet_teams;
+    TextView not_yet_post;
 
     private boolean isHideToolbarView = false;
     ArrayList<Integer> icons;
@@ -116,6 +119,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         toolbar = findViewById(R.id.toolbar);
+         not_yet_teams= findViewById(R.id.not_yet_teams);
+         not_yet_post= findViewById(R.id.not_yet_post);
         toolbarHeaderView = findViewById(R.id.toolbar_header_view);
         floatHeaderView = findViewById(R.id.float_header_view);
         appBarLayout = findViewById(R.id.appbar);
@@ -163,17 +168,25 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         initUi();
     }
     private void initUIRecycleViewerPosts() {
-
-        recycleViewPosts.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        postAdapter = new PostAdapter(this, posts);
-        recycleViewPosts.setAdapter(postAdapter);
+        if(posts.size()==0){
+            not_yet_post.setVisibility(View.VISIBLE);
+        }else {
+            not_yet_post.setVisibility(View.GONE);
+            recycleViewPosts.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            postAdapter = new PostAdapter(this, posts);
+            recycleViewPosts.setAdapter(postAdapter);
+        }
     }
 
     private void initUIRecycleViewerTeams() {
-
-        recycleViewTeams.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        teamsAdapter = new TeamsAdapter(this, teams);
-        recycleViewTeams.setAdapter(teamsAdapter);
+        if(teams.size()==0){
+            not_yet_teams.setVisibility(View.VISIBLE);
+        }else{
+            not_yet_teams.setVisibility(View.GONE);
+            recycleViewTeams.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            teamsAdapter = new TeamsAdapter(this, teams);
+            recycleViewTeams.setAdapter(teamsAdapter);
+        }
     }
 
     private Bitmap getBitmapFromString(String image) {
@@ -425,4 +438,6 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         builder.create().show();
     }
 
+    public void addTeam(View view) {
+    }
 }

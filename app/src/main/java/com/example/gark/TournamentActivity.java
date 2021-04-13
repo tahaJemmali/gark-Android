@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -33,13 +35,13 @@ import com.example.gark.entites.Team;
 import com.example.gark.repositories.ChallengeRepository;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MatchRepository;
-import com.example.gark.repositories.SkillsRepository;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 
 public class TournamentActivity extends AppCompatActivity implements IRepository, SelectTeamDialog.OnInputSelected {
@@ -64,7 +66,7 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
     TextView startdate;
     TextView enddate;
     TextView locationIn;
-    com.applandeo.materialcalendarview.CalendarView calender_date_picker;
+    MaterialCalendarView calender_date_picker;
     //Var
     String tournementType;
     public static Challenge challenge;
@@ -155,18 +157,21 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
         startdate.setText(getDayNumber(challenge.getStart_date()));
         enddate.setText(getDayNumber(challenge.getEnd_date()));
         //calender
-        List<Calendar> calendars = new ArrayList<>();
-        calendars.add(dateToCalendar(challenge.getStart_date()));
-        calendars.add(dateToCalendar(new Date()));
-        calender_date_picker.setHighlightedDays(calendars);
+        // disable dates before today
+        calender_date_picker.setSelectionMode(MaterialCalendarView.SELECTION_MODE_NONE);
+        for(Match row: challenge.getMatches()){
+            calender_date_picker.setDateSelected(dateToCalendarDay(row.getStart_date()),true);
+        }
+
         initUIRecyclerViewMatches();
         initUIRecycleViewerTeams();
     }
 
-    private Calendar dateToCalendar(Date date) {
+
+    private CalendarDay dateToCalendarDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        return calendar;
+       return CalendarDay.from(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     String getDayName(Date date) {

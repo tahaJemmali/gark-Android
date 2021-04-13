@@ -102,7 +102,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    dialogg.show();
                     MatchRepository.getInstance().findById(itemView.getContext(),matches.get(getAdapterPosition()).getId());
                 }
             });

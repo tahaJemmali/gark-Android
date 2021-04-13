@@ -225,7 +225,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         titles.add("Name");
         descriptions.add(MainActivity.getCurrentLoggedInUser().getFirstName()+" "+MainActivity.getCurrentLoggedInUser().getLastName());
 
-        icons.add(R.drawable.ic_baseline_mail_outline_24);
+        icons.add(R.drawable.ic_baseline_alternate_email_24);
         titles.add("Email");
         descriptions.add(MainActivity.getCurrentLoggedInUser().getEmail());
 

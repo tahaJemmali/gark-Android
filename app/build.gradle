@@ -73,5 +73,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     //Calander
-    implementation 'com.applandeo:material-calendar-view:1.7.0'
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }

@@ -92,12 +92,11 @@ public class AddChallenge2Activity extends AppCompatActivity implements IReposit
         if(validator()){
             challenge.setMatches(matches);
             challenge.setEnd_date(challenge.getMatches().get(0).getStart_date());
-            challenge.setEnd_date(challenge.getMatches().get(challenge.getMaxNumberOfTeams()-2).getStart_date());
+            challenge.setEnd_date(challenge.getMatches().get(challenge.getMatches().size()-1).getStart_date());
             MatchRepository.getInstance().setiRepository(this);
             dialogg = ProgressDialog.show(this, "","Loading" , true);
             ChallengeRepository.getInstance().setiRepository(this);
             ChallengeRepository.getInstance().add(this,challenge,null);
-
 
         }
     }

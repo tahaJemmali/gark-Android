@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -31,12 +32,13 @@ import java.util.ArrayList;
 
 public class PlayerProfileActvity extends AppCompatActivity implements IRepository {
     //UI
+    View infoFragment,statsfragment,postsfragment,dashboardfragment;
     ImageView playerImage,nationality,start_one, start_two, start_three, start_four, start_five;
     TextView playerNom,age,rolePlayer,descriptionPlayer;
     RecyclerView skillsRecyclerView,postRecyclerView;
     ProgressDialog dialogg;
     RadarView radar;
-    Button contact;
+    Button contact,infoBtn,statsBtn,postsBtn,dashboardBtn;
 
     //VAR
     ArrayList<Post> posts;
@@ -67,6 +69,14 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         postRecyclerView=findViewById(R.id.postRecyclerView);
         radar=findViewById(R.id.radar);
         contact=findViewById(R.id.contact);
+        infoBtn=findViewById(R.id.infoBtn);
+        statsBtn=findViewById(R.id.statsBtn);
+        postsBtn=findViewById(R.id.postsBtn);
+        dashboardBtn=findViewById(R.id.dashboardBtn);
+        infoFragment=findViewById(R.id.infoFragment);
+        statsfragment=findViewById(R.id.statsfragment);
+        postsfragment=findViewById(R.id.postsfragment);
+        dashboardfragment=findViewById(R.id.dashboardfragment);
         SkillsRepository.getInstance().setiRepository(this);
        SkillsRepository.getInstance().findById(this,getIntent().getStringExtra("playerId"));
         postRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -178,5 +188,49 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     }
 
     public void contact(View view) {
+    }
+
+    public void showDashboard(View view) {
+        infoFragment.setVisibility(View.GONE);
+        statsfragment.setVisibility(View.GONE);
+        postsfragment.setVisibility(View.GONE);
+        dashboardfragment.setVisibility(View.VISIBLE);
+        infoBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        statsBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        dashboardBtn.setTextColor(Color.WHITE);
+        postsBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+    }
+
+    public void showposts(View view) {
+        infoFragment.setVisibility(View.GONE);
+        statsfragment.setVisibility(View.GONE);
+        postsfragment.setVisibility(View.VISIBLE);
+        dashboardfragment.setVisibility(View.GONE);
+        infoBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        statsBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        dashboardBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        postsBtn.setTextColor(Color.WHITE);
+    }
+
+    public void showStats(View view) {
+        infoFragment.setVisibility(View.GONE);
+        statsfragment.setVisibility(View.VISIBLE);
+        postsfragment.setVisibility(View.GONE);
+        dashboardfragment.setVisibility(View.GONE);
+        infoBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        statsBtn.setTextColor(Color.WHITE);
+        dashboardBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        postsBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+    }
+
+    public void showInfo(View view) {
+        infoFragment.setVisibility(View.VISIBLE);
+        statsfragment.setVisibility(View.GONE);
+        postsfragment.setVisibility(View.GONE);
+        dashboardfragment.setVisibility(View.GONE);
+        infoBtn.setTextColor(Color.WHITE);
+        statsBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        dashboardBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        postsBtn.setTextColor(getResources().getColor(R.color.gray_scale));
     }
 }

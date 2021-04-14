@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -23,12 +24,18 @@ import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.UserRepository;
 import com.example.gark.tutorial.WelcomeActivity;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
+
 public class SignUpActivity extends AppCompatActivity  implements IRepository {
     //UI
     ScrollView scrollView;
     Button signUpBtn;
     EditText edtFistName,edtLastName,edtEmail,edtPassword,edtConfirmPassword,edtAddress,edtPhone;
     ProgressDialog dialogg;
+    DatePicker birthDatePicker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +59,7 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
     public void initUI(){
         scrollView  = findViewById(R.id.scrollView);
         signUpBtn  = findViewById(R.id.signUpBtn);
-
+        birthDatePicker=findViewById(R.id.birthDate);
         edtFistName  = findViewById(R.id.edtFistName);
         edtLastName  = findViewById(R.id.edtLastName);
         edtEmail  = findViewById(R.id.edtEmail);
@@ -72,11 +79,11 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
                         edtPassword.getText().toString(),
                         edtConfirmPassword.getText().toString(),
                         edtAddress.getText().toString(),
-                        edtPhone.getText().toString());
+                        edtPhone.getText().toString(),
+                        getDateFromDatePicker(birthDatePicker)
+                );
             }
         });
-
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow();
@@ -84,12 +91,28 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
         }
     }
 
-    void registerUser(String firstName,String lastName,String email,String password,String confirmPassword,String address,String phone){
+    public Date getDateFromDatePicker(DatePicker datePicker){
+        int day = datePicker.getDayOfMonth();
+        int month = datePicker.getMonth();
+        int year =  datePicker.getYear();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day);
+
+        return calendar.getTime();
+    }
+
+    void registerUser(String firstName, String lastName, String email, String password, String confirmPassword, String address, String phone, Date birthDate){
         String namePattern = "^[\\p{L} .'-]+$";
 
         if (TextUtils.isEmpty(firstName))
         {
             Toast.makeText(SignUpActivity.this,"First name cannot be empty!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (birthDate.equals(new Date()))
+        {
+            Toast.makeText(SignUpActivity.this,"Select your birth date you can't be born today !",Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -165,6 +188,7 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
         user.setAddress(address);
         user.setPhone(phone);
         user.setPassword(password);
+        user.setBirth_date(birthDate);
 
         //register
         UserRepository.getInstance().register(user,this);
@@ -174,7 +198,7 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
     @Override
     public void showLoadingButton() {
         dialogg = ProgressDialog.show(this, "", "Registration in progress  ...", true);
-        dialogg.show();
+
     }
 
     @Override

@@ -14,14 +14,17 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.gark.adapters.PostAdapter;
 import com.example.gark.adapters.SkillsAdapter;
+import com.example.gark.adapters.TeamsAdapter;
 import com.example.gark.adapters.TopPlayersAdapter;
 import com.example.gark.entites.Post;
 import com.example.gark.entites.Skills;
+import com.example.gark.entites.Team;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.PostRepository;
 import com.example.gark.repositories.SkillsRepository;
@@ -34,18 +37,23 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     //UI
     View infoFragment,statsfragment,postsfragment,dashboardfragment;
     ImageView playerImage,nationality,start_one, start_two, start_three, start_four, start_five;
-    TextView playerNom,age,rolePlayer,descriptionPlayer;
+    TextView playerNom,age,rolePlayer,descriptionPlayer,not_yet_teams,not_yet_posts;
+    ImageButton skillsType;
     RecyclerView skillsRecyclerView,postRecyclerView;
     ProgressDialog dialogg;
+    ProgressDialog dialoggPost;
     RadarView radar;
     Button contact,infoBtn,statsBtn,postsBtn,dashboardBtn;
-
+    View cardView;
+    RecyclerView recycleViewTeams;
     //VAR
+    TeamsAdapter teamsAdapter;
     ArrayList<Post> posts;
     Skills player;
     SkillsAdapter skillsAdapter;
     PostAdapter postAdapter;
     Boolean generated=false;
+    Boolean showListRadar=true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +63,11 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     void initUI(){
         dialogg = ProgressDialog.show(this, "","Loading" , true);
         playerImage=findViewById(R.id.playerImage);
+        recycleViewTeams= findViewById(R.id.recycleViewTeams);
+        not_yet_posts= findViewById(R.id.not_yet_posts);
+        not_yet_teams= findViewById(R.id.not_yet_teams);
+        cardView=findViewById(R.id.cardView);
+        skillsType=findViewById(R.id.skillsType);
         nationality=findViewById(R.id.nationality);
         start_one=findViewById(R.id.start_one);
         start_two=findViewById(R.id.start_two);
@@ -83,6 +96,17 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         skillsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
+    private void initUIRecycleViewerTeams() {
+        if(player.getTeams().size()==0){
+            not_yet_teams.setVisibility(View.VISIBLE);
+        }else{
+            not_yet_teams.setVisibility(View.GONE);
+            recycleViewTeams.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            teamsAdapter = new TeamsAdapter(this, (ArrayList<Team>) player.getTeams());
+            recycleViewTeams.setAdapter(teamsAdapter);
+        }
+    }
+
     @Override
     public void showLoadingButton() {
         dialogg.show();
@@ -100,12 +124,20 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
             PostRepository.getInstance().setiRepository(this);
         }else {
             posts= PostRepository.getInstance().getList();
-            postAdapter = new PostAdapter(this, posts);
-            postRecyclerView.setAdapter(postAdapter);
+            if(posts.size()>0){
+                postAdapter = new PostAdapter(this, posts);
+                postRecyclerView.setAdapter(postAdapter);
+            }else{
+                not_yet_posts.setVisibility(View.VISIBLE);
+            }
+            dialoggPost.dismiss();
+
         }
 
         if(player!=null){
+
             if(!generated){
+                dialoggPost = ProgressDialog.show(this, "","Loading Posts" , true);
                 PostRepository.getInstance().findByCreator(this,player.getPlayer().getId());
                 generated=true;
             }
@@ -165,6 +197,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         rolePlayer.setText(player.getRole().toString());
             age.setText(player.getAge()+" years");
             descriptionPlayer.setText(player.getDescription());
+            initUIRecycleViewerTeams();
         }
     }
 
@@ -232,5 +265,19 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         statsBtn.setTextColor(getResources().getColor(R.color.gray_scale));
         dashboardBtn.setTextColor(getResources().getColor(R.color.gray_scale));
         postsBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+    }
+
+    public void changeSkillsDisplay(View view) {
+        if(!showListRadar){
+            skillsType.setImageResource(R.drawable.ic_baseline_workspaces_24);
+            skillsRecyclerView.setVisibility(View.GONE);
+            cardView.setVisibility(View.VISIBLE);
+            showListRadar=true;
+        }else {
+            skillsType.setImageResource(R.drawable.ic_baseline_track_changes_24);
+            cardView.setVisibility(View.GONE);
+            skillsRecyclerView.setVisibility(View.VISIBLE);
+            showListRadar=false;
+        }
     }
 }

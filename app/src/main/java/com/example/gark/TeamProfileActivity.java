@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gark.adapters.CardAdapter;
 import com.example.gark.adapters.PostAdapter;
 import com.example.gark.adapters.SkillsAdapter;
 import com.example.gark.adapters.StatsAdapter;
@@ -47,13 +49,17 @@ ImageView teamImage,teamCountry,start_one, start_two, start_three, start_four, s
 TextView teamName,teamCategorie,dateCreatedTeam,descriptionTeam;
 RecyclerView statRecyclerView,teamMemberRecyclerView;
     ProgressDialog dialogg;
-    ImageButton addFavoirs;
-    Button joinTeam;
+    ImageButton addFavoirs,playerDisplayType;
+    Button joinTeam,infoBtn,statsBtn;
+    View info_team_layout,stats_layout;
+
 //VAR
+    boolean changeDisplay=true;
     ArrayList<Skills> players;
     Team team;
     StatsAdapter statsAdapter;
     TopPlayersAdapter topPlayersAdapter;
+    CardAdapter cardAdapter;
     int generator=0;
     public static final String TEAMS = "teams";
     @Override
@@ -65,6 +71,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
     void initUI(){
         dialogg = ProgressDialog.show(this, "","Loading" , true);
         joinTeam=findViewById(R.id.joinTeam);
+        playerDisplayType=findViewById(R.id.playerDisplayType);
         teamImage=findViewById(R.id.teamImage);
         teamCountry=findViewById(R.id.teamCountry);
         start_one=findViewById(R.id.start_one);
@@ -79,6 +86,10 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
         statRecyclerView=findViewById(R.id.statRecyclerView);
         teamMemberRecyclerView=findViewById(R.id.teamMemberRecyclerView);
         addFavoirs=findViewById(R.id.addFavoirs);
+        infoBtn=findViewById(R.id.infoBtn);
+        statsBtn=findViewById(R.id.statsBtn);
+        info_team_layout=findViewById(R.id.info_team_layout);
+        stats_layout=findViewById(R.id.stats_layout);
         addFavoirs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -207,5 +218,33 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
 
     public void getBack(View view) {
         super.onBackPressed();
+    }
+
+    public void showInfo(View view) {
+        info_team_layout.setVisibility(View.VISIBLE);
+        stats_layout.setVisibility(View.GONE);
+        infoBtn.setTextColor(Color.WHITE);
+        statsBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+    }
+
+    public void showStats(View view) {
+        info_team_layout.setVisibility(View.GONE);
+        stats_layout.setVisibility(View.VISIBLE);
+        infoBtn.setTextColor(getResources().getColor(R.color.gray_scale));
+        statsBtn.setTextColor(Color.WHITE);
+    }
+
+    public void changeSkillsDisplay(View view) {
+        if(changeDisplay){
+            playerDisplayType.setImageResource(R.drawable.ic_baseline_groups_24);
+            cardAdapter = new CardAdapter(this,players,team.getCapitaine().getId() );
+            teamMemberRecyclerView.setAdapter(cardAdapter);
+            changeDisplay=false;
+        }else {
+            playerDisplayType.setImageResource(R.drawable.small_shield);
+            topPlayersAdapter = new TopPlayersAdapter(this,players,team.getCapitaine().getId() );
+            teamMemberRecyclerView.setAdapter(topPlayersAdapter);
+            changeDisplay=true;
+        }
     }
 }

@@ -37,6 +37,7 @@
                 android:text="Man of the tournement"
                 android:layout_weight="2"/>
             <TextView
+                android:id="@+id/manOfTheTournement"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -73,7 +74,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:orientation="horizontal"
-                android:weightSum="4">
+                android:weightSum="3">
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -82,35 +84,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:fontFamily="@font/arial_rounded"
-                        android:text="53"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-                    <TextView
-                        android:layout_marginTop="10sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/arial_rounded"
-                        android:text="Challenges"
-                        android:textColor="@color/dark_green"
-                        android:textSize="13sp" />
-                </LinearLayout>
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="30dp"
-                    android:background="@color/dark_green"
-                    android:layout_gravity="center"
-                    />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView
+                        android:id="@+id/gamePlayed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
@@ -140,6 +114,7 @@
                     android:gravity="center"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/xp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
@@ -171,7 +146,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:id="@+id/score"
                         android:fontFamily="@font/arial_rounded"
                         android:text="48%"
                         android:textColor="@color/black"
@@ -208,7 +183,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:id="@+id/goals"
                         android:fontFamily="@font/arial_rounded"
                         android:text="14"
                         android:textColor="@color/black"
@@ -237,7 +212,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:id="@+id/redCards"
                         android:fontFamily="@font/arial_rounded"
                         android:text="53"
                         android:textColor="@color/black"
@@ -266,7 +241,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:id="@+id/yellowCards"
                         android:fontFamily="@font/arial_rounded"
                         android:text="122"
                         android:textColor="@color/black"
@@ -302,7 +277,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:id="@+id/votes"
                     android:fontFamily="@font/arial_rounded"
                     android:text="140"
                     android:textColor="@color/black"
@@ -345,23 +320,13 @@
             android:background="#00000000"/>
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="10dp"
-        android:layout_margin="5dp"
-        android:elevation="10dp">
+
         <com.ultramegasoft.radarchart.RadarView
             android:id="@+id/radar"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:gravity="center"
-            android:layout_centerHorizontal="true" />
-    </androidx.cardview.widget.CardView>
+           />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/skillsRecyclerView"
         android:layout_width="match_parent"

@@ -68,6 +68,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
         setContentView(R.layout.activity_team_profile);
         initUI();
     }
+
     void initUI(){
         dialogg = ProgressDialog.show(this, "","Loading" , true);
         joinTeam=findViewById(R.id.joinTeam);
@@ -128,7 +129,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
 
     public void joinTeam(View view) {
     team.getSubstitutes().add(MainActivity.currentPlayerSkills);
-    TeamRepository.getInstance().update(this,team,team.getId());
+    TeamRepository.getInstance().update(this,team,team.getId(),false);
     SkillsRepository.getInstance().addTeamToPlayer(this,MainActivity.currentPlayerSkills.getId(),team.getId());
         Toast.makeText(TeamProfileActivity.this,"You have joined sucessfully "+team.getName(),Toast.LENGTH_LONG).show();
     }
@@ -163,8 +164,6 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
         }
             topPlayersAdapter = new TopPlayersAdapter(this,players,team.getCapitaine().getId() );
             teamMemberRecyclerView.setAdapter(topPlayersAdapter);
-
-
             Bitmap bitmap = getBitmapFromString(team.getImage());
             teamImage.setImageBitmap(bitmap);
             teamCountry.setImageResource(this.getResources().getIdentifier(team.getNationality().toString(), "drawable", this.getPackageName()));

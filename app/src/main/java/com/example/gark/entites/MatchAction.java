@@ -88,10 +88,10 @@ public class MatchAction extends Throwable {
     public String toString() {
         return "MatchAction{" +
                 "id='" + id + '\'' +
-                ", player=" + player.getPlayer().getFirstName() +
-                ", challenge=" + challenge.getName() +
+                ", player=" + player.getId() +
+                ", challenge=" + challenge.getId()+
                 ", match=" + match.getId() +
-                ", team=" + team.getName() +
+                ", team=" + team.getId() +
                 ", date=" + date +
                 ", type=" + type.toString() +
                 '}';

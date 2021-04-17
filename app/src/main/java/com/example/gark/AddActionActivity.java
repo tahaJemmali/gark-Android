@@ -25,9 +25,11 @@ import com.example.gark.entites.ChallengeState;
 import com.example.gark.entites.Match;
 import com.example.gark.entites.MatchAction;
 import com.example.gark.entites.MatchActionType;
+import com.example.gark.entites.Team;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MatchActionRepository;
 import com.example.gark.repositories.MatchRepository;
+import com.example.gark.repositories.TeamRepository;
 
 import java.util.ArrayList;
 
@@ -107,18 +109,27 @@ Spinner teamSpinner;
         matchActionTeam2RV.setAdapter(matchActionAdapterTeam2);
     }
     public void finish(View view) {
+        Team winner;
+        Team looser;
         dialogg = ProgressDialog.show(this, "","Loading" , true);
         if(teamSpinner.getSelectedItemPosition()==0){
-            match.setWinner(match.getTeam1());
+            winner=match.getTeam1();
+            looser=match.getTeam2();
         }else {
-            match.setWinner(match.getTeam2());
+            looser=match.getTeam1();
+            winner=match.getTeam2();
         }
+        winner.setVictories(winner.getVictories()+1);
+        looser.setDefeats(looser.getDefeats()+1);
+        match.setWinner(winner);
         match.setState(ChallengeState.Finished);
         tmp =new ArrayList<MatchAction>();
         tmp.addAll(matchActionsTeam1);
         tmp.addAll(matchActionsTeam2);
         for(MatchAction row : tmp){
             MatchActionRepository.getInstance().setiRepository(this);
+            TeamRepository.getInstance().update(this,winner,winner.getId(),true);
+            TeamRepository.getInstance().update(this,looser,looser.getId(),true);
             MatchActionRepository.getInstance().add(this,row,null);
         }
     }

@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class TeamRepository implements CRUDRepository<Team> {
+public class TeamRepository  {
     private IRepository iRepository;
     private static TeamRepository instance;
     public static  ArrayList<Team> teams;
@@ -41,7 +41,7 @@ public class TeamRepository implements CRUDRepository<Team> {
     }
 
 
-    @Override
+   
     public void add(Context mcontext, Team team, ProgressDialog dialog) {
         iRepository.showLoadingButton();
         final String url = iRepository.baseURL + "/add_team";
@@ -49,7 +49,7 @@ public class TeamRepository implements CRUDRepository<Team> {
         convertObjectToJson(object,team);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url,object,
                 new Response.Listener<JSONObject>() {
-                    @Override
+                   
                     public void onResponse(JSONObject response) {
                         try {
                             String id= response.getString("message");
@@ -62,7 +62,7 @@ public class TeamRepository implements CRUDRepository<Team> {
                         }
                     }
                 }, new Response.ErrorListener() {
-            @Override
+           
             public void onErrorResponse(VolleyError error) {
                 Log.e("TAG", "fail: "+error);
             }
@@ -70,31 +70,34 @@ public class TeamRepository implements CRUDRepository<Team> {
         VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
-    @Override
+   
     public void delete(Context mcontext, String id, ProgressDialog dialog) {
 
     }
 
-    @Override
-    public void update(Context mcontext, Team x, String id) {
+   
+    public void update(Context mcontext, Team x, String id,boolean backgorund) {
+        if(!backgorund)
         iRepository.showLoadingButton();
         final String url=iRepository.baseURL  + "/update_team/"+id;
         team=x;
         JSONObject object = new JSONObject();
         convertObjectToJson(object,team);
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
-            @Override
+           
             public void onResponse(JSONObject response) {
                 try {
                     Log.e("TAG", "done: "+response.getString("message"));
-                    iRepository.doAction();
-                    iRepository.dismissLoadingButton();
+                    if(!backgorund) {
+                        iRepository.doAction();
+                        iRepository.dismissLoadingButton();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }, new Response.ErrorListener() {
-            @Override
+           
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 Log.e("TAG", "onResponse: "+url);
@@ -106,12 +109,12 @@ public class TeamRepository implements CRUDRepository<Team> {
         VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
-    @Override
+   
     public void getAll(Context mContext, ProgressDialog dialogg) {
         iRepository.showLoadingButton();
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/all_teams", null,
                 new Response.Listener<JSONObject>() {
-                    @Override
+                   
                     public void onResponse(JSONObject response) {
                         try {
                             teams=new ArrayList<Team>();
@@ -130,7 +133,7 @@ public class TeamRepository implements CRUDRepository<Team> {
                         }
                     }
                 }, new Response.ErrorListener() {
-            @Override
+           
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 Log.e("TAG", "onResponse: "+IRepository.baseURL + "/all_teams");
@@ -142,19 +145,19 @@ public class TeamRepository implements CRUDRepository<Team> {
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
-    @Override
+   
     public void findById(Context mContext,String id) {
         iRepository.showLoadingButton();
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findByIdTeam/"+id, null,
                 new Response.Listener<JSONObject>() {
-                    @Override
+                   
                     public void onResponse(JSONObject response) {
                             team = convertJsonToObjectDeepPopulate(response);
                             iRepository.doAction();
                             iRepository.dismissLoadingButton();
                     }
                 }, new Response.ErrorListener() {
-            @Override
+           
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
                 Log.e("TAG", "onResponse: "+IRepository.baseURL + "/findByIdTeam"+id);
@@ -166,7 +169,7 @@ public class TeamRepository implements CRUDRepository<Team> {
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
-    @Override
+   
     public Team convertJsonToObject(JSONObject jsonTag) {
         try {
             List<Skills> titulares = new ArrayList<>();
@@ -200,7 +203,7 @@ public class TeamRepository implements CRUDRepository<Team> {
         }
     }
 
-    @Override
+   
     public Team convertJsonToObjectDeepPopulate(JSONObject jsonTag) {
         try {
             List<Skills> titulares = new ArrayList<>();
@@ -236,7 +239,7 @@ public class TeamRepository implements CRUDRepository<Team> {
         }
     }
 
-    @Override
+   
     public Team getElement() {
         if (team==null)
             team = new Team();
@@ -253,7 +256,7 @@ public class TeamRepository implements CRUDRepository<Team> {
         return date;
     }
 
-    @Override
+   
     public JSONObject convertObjectToJson(JSONObject object,Team team) {
         JSONArray jsonArrayTitulares = new JSONArray();
         JSONArray jsonArraySubstitutes = new JSONArray();
@@ -288,14 +291,14 @@ public class TeamRepository implements CRUDRepository<Team> {
         return object;
     }
 
-    @Override
+   
     public ArrayList<Team> getList() {
         if (teams==null)
             teams = new ArrayList<Team>();
         return teams;
     }
 
-    @Override
+   
     public void setiRepository(IRepository iRepository) {
         this.iRepository = iRepository;
     }

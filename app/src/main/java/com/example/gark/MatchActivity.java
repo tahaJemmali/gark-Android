@@ -173,6 +173,11 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         bitmap = getBitmapFromString(match.getTeam2().getImage());
         team2Image.setImageBitmap(bitmap);
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        if(MainActivity.getCurrentLoggedInUser().getId().equals(TournamentActivity.challenge.getCreator().getId())){
+            setGameAction.setVisibility(View.VISIBLE);
+        }else {
+            setGameAction.setVisibility(View.GONE);
+        }
         if (match.getState().equals(ChallengeState.Finished)) {
             not_yet.setVisibility(View.GONE);
             setGameAction.setVisibility(View.GONE);
@@ -214,11 +219,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
             matchActionTeam1RV.setVisibility(View.GONE);
             matchActionTeam2RV.setVisibility(View.GONE);
         }
-        if(MainActivity.getCurrentLoggedInUser().getId().equals(TournamentActivity.challenge.getCreator().getId())){
-            setGameAction.setVisibility(View.VISIBLE);
-        }else {
-            setGameAction.setVisibility(View.GONE);
-        }
+
         initTeam1PlayerRV();
         initTeam2PlayerRV();
         dialogg.dismiss();
@@ -290,6 +291,5 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
     public void setGameActions(View view) {
         Intent intent=new Intent(this,AddActionActivity.class);
         startActivity(intent);
-        finish();
     }
 }

@@ -89,6 +89,26 @@ public class MatchRepository {
 
     }
 
+    public void updateQuarter(Context mcontext, Match match, String id,Challenge challenge) {
+        final String url=iRepository.baseURL  + "/update_match/"+id;
+        this.match=match;
+        JSONObject object = new JSONObject();
+        convertObjectToJson(object,match);
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+url);
+            }
+        });
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
+    }
+
     public void update(Context mcontext, Match match, String id,Challenge challenge) {
         iRepository.showLoadingButton();
         final String url=iRepository.baseURL  + "/update_match/"+id;
@@ -286,7 +306,8 @@ public class MatchRepository {
             if (object.has("redCards")){
                 JSONArray jsonArrayRedCards = object.getJSONArray("redCards");
                 for (int i = 0; i < jsonArrayRedCards.length(); i++) {
-                    redCards.add( MatchActionRepository.getInstance().convertJsonToObject(jsonArrayRedCards.getJSONObject(i)));
+
+                    redCards.add(new MatchAction(jsonArrayRedCards.getString(i)));
                 }
                 tmp.setRedCards(redCards);
             }
@@ -296,7 +317,7 @@ public class MatchRepository {
             if (object.has("yellowCards")){
                 JSONArray jsonArrayYellowCards = object.getJSONArray("yellowCards");
                 for (int i = 0; i < jsonArrayYellowCards.length(); i++) {
-                    yellowCards.add( MatchActionRepository.getInstance().convertJsonToObject( jsonArrayYellowCards.getJSONObject(i)));
+                    yellowCards.add(new MatchAction(jsonArrayYellowCards.getString(i)));
                 }
                 tmp.setYellowCards(yellowCards);
             }

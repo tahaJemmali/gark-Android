@@ -45,6 +45,9 @@ public class ChallengeRepository {
         return instance;
     }
 
+    public void finishChallenge(Context mcontext,Challenge challenge){
+
+    }
 
     public void add(Context mcontext, Challenge challenge, ProgressDialog dialog) {
         iRepository.showLoadingButton();
@@ -358,7 +361,7 @@ public class ChallengeRepository {
             if (object.has("matches")){
                 JSONArray jsonArrayMatches = object.getJSONArray("matches");
                 for (int i = 0; i < jsonArrayMatches.length(); i++) {
-                    matches.add(MatchRepository.getInstance().convertJsonToObject((JSONObject) jsonArrayMatches.get(i)));
+                    matches.add(MatchRepository.getInstance().convertJsonToObjectDeepPopulate((JSONObject) jsonArrayMatches.get(i)));
                 }
             }
 

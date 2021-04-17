@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gark.MatchActivity;
 import com.example.gark.R;
 import com.example.gark.StoryActivity;
+import com.example.gark.TournamentActivity;
 import com.example.gark.entites.Match;
+import com.example.gark.entites.MatchAction;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MatchRepository;
 
@@ -61,17 +64,33 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
             Bitmap bitmap = getBitmapFromString(match.getTeam2().getImage());
             holder.team2Image.setImageBitmap(bitmap);
         }
-        holder.team1goals.setText("");
-        holder.team2goals.setText("");
+        int team1goalsNb=0;
+        int team2goalsNb=0;
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date date= new Date();
         if(date.before(match.getStart_date())){
             holder.end_date.setText(match.getState().toString()+" scheduled for "+formatter.format(match.getStart_date()));
         }else {
             if(!Objects.isNull(match.getEnd_date())){
-                holder.end_date.setText(match.getState().toString()+" at "+formatter.format(match.getEnd_date()));
+                holder.end_date.setText(formatter.format(match.getEnd_date()));
+
+                for (MatchAction row:match.getGoals()){
+                    Log.e("TAG", "row team: "+row.getTeam().equals(match.getTeam1()));
+                    if(row.getTeam().equals(match.getTeam1())){
+                        team1goalsNb++;
+                    }else if (row.getTeam().equals(match.getTeam2())){
+                        team2goalsNb++;
+                    }
+                }
             }else {
                 holder.end_date.setText("The game must be finished, waiting for updates");
+            }
+            if(match.getGoals().size()>0){
+                holder.team1goals.setText(""+team1goalsNb);
+                holder.team2goals.setText(""+team2goalsNb);
+            }else {
+                holder.team1goals.setText("");
+                holder.team2goals.setText("");
             }
 
         }

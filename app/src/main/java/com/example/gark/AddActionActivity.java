@@ -131,7 +131,7 @@ Spinner teamSpinner;
 
     @Override
     public void showLoadingButton() {
-dialogg.show();
+            dialogg.show();
     }
 
     @Override
@@ -159,7 +159,9 @@ dialogg.show();
 
         if(matchUpdated){
             Toast.makeText(AddActionActivity.this,"Your match editing have been saved sucessfully !",Toast.LENGTH_LONG).show();
-            super.onBackPressed();
+            Intent intent=new Intent(this,MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         }
 

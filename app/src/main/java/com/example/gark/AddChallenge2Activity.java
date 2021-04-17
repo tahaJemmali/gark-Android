@@ -22,6 +22,7 @@ import com.example.gark.repositories.ChallengeRepository;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MatchRepository;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class AddChallenge2Activity extends AppCompatActivity implements IRepository, AddMatchDialog.OnInputSelected {
@@ -93,6 +94,8 @@ public class AddChallenge2Activity extends AppCompatActivity implements IReposit
             challenge.setMatches(matches);
             challenge.setEnd_date(challenge.getMatches().get(0).getStart_date());
             challenge.setEnd_date(challenge.getMatches().get(challenge.getMatches().size()-1).getStart_date());
+            DecimalFormat df = new DecimalFormat("#.00");
+            challenge.setPrize( Float.parseFloat(df.format(challenge.getPrize())));
             MatchRepository.getInstance().setiRepository(this);
             dialogg = ProgressDialog.show(this, "","Loading" , true);
             ChallengeRepository.getInstance().setiRepository(this);

@@ -35,6 +35,7 @@ import com.example.gark.repositories.TeamRepository;
 import com.example.gark.repositories.UserRepository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
@@ -214,6 +215,16 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     @Override
     public void doAction() {
     currentPlayerSkills=SkillsRepository.getInstance().getElement();
+        Calendar birthDate = Calendar.getInstance();
+        birthDate.setTime( getCurrentLoggedInUser().getBirth_date());
+        Calendar currentDate = Calendar.getInstance();
+        currentDate.setTime( new Date());
+    int currentAge=currentDate.get(Calendar.YEAR)-birthDate.get(Calendar.YEAR);
+    if(currentAge!=currentPlayerSkills.getAge()){
+        currentPlayerSkills.setAge(currentAge);
+        SkillsRepository.getInstance().updateInBackground(this,currentPlayerSkills,currentPlayerSkills.getId());
+    }
+
         acceuilFragement();
     }
 

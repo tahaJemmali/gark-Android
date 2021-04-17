@@ -68,6 +68,31 @@ public class SkillsRepository implements CRUDRepository<Skills> {
 
     }
 
+    public void updateInBackground(Context mcontext, Skills skills, String id) {
+
+        final String url=iRepository.baseURL  + "/update_skills/"+id;
+        this.player=skills;
+        JSONObject object = new JSONObject();
+        convertObjectToJson(object,player);
+        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Log.e("TAG", "done: "+response.getString("message"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("TAG", "onResponse: "+url);
+            }
+        });
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
+    }
+
     @Override
     public void update(Context mcontext, Skills skills, String id) {
         iRepository.showLoadingButton();
@@ -226,6 +251,20 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                 (Nationality.valueOf(jsonTag.getString("nationality"))),jsonTag.getInt("rating")
                 ,jsonTag.getString("description"),jsonTag.getInt("age"));
             skills.setTeams(teams);
+            if (jsonTag.has("xp"))
+                skills.setXp(jsonTag.getInt("xp"));
+            if (jsonTag.has("height"))
+                skills.setHeight(jsonTag.getInt("height"));
+            if (jsonTag.has("weight"))
+                skills.setWeight(jsonTag.getInt("weight"));
+            if (jsonTag.has("bestTeamTunisia"))
+                skills.setBestTeamTunisia(jsonTag.getString("bestTeamTunisia"));
+            if (jsonTag.has("bestTeamWorld"))
+                skills.setBestTeamWorld(jsonTag.getString("bestTeamWorld"));
+            if (jsonTag.has("bestPlayerTunisia"))
+                skills.setBestPlayerTunisia(jsonTag.getString("bestPlayerTunisia"));
+            if (jsonTag.has("bestPlayerWorld"))
+                skills.setBestPlayerWorld(jsonTag.getString("bestPlayerWorld"));
         return skills;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -242,6 +281,13 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                     jsonArrayTeams.put(row.getId());
                 }
             }
+            object.put("xp", skills.getXp());
+            object.put("height", skills.getHeight());
+            object.put("weight", skills.getWeight());
+            object.put("bestTeamTunisia", skills.getBestTeamTunisia());
+            object.put("bestTeamWorld", skills.getBestTeamWorld());
+            object.put("bestPlayerTunisia", skills.getBestPlayerTunisia());
+            object.put("bestPlayerWorld", skills.getBestPlayerWorld());
 
             object.put("pace", skills.getPace());
             object.put("shooting", skills.getShooting());
@@ -303,7 +349,20 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                     ,jsonTag.getString("description"),jsonTag.getInt("age"));
 
                 skills.setTeams(teams);
-
+                if (jsonTag.has("xp"))
+            skills.setXp(jsonTag.getInt("xp"));
+            if (jsonTag.has("height"))
+            skills.setHeight(jsonTag.getInt("height"));
+            if (jsonTag.has("weight"))
+            skills.setWeight(jsonTag.getInt("weight"));
+            if (jsonTag.has("bestTeamTunisia"))
+            skills.setBestTeamTunisia(jsonTag.getString("bestTeamTunisia"));
+            if (jsonTag.has("bestTeamWorld"))
+            skills.setBestTeamWorld(jsonTag.getString("bestTeamWorld"));
+            if (jsonTag.has("bestPlayerTunisia"))
+            skills.setBestPlayerTunisia(jsonTag.getString("bestPlayerTunisia"));
+            if (jsonTag.has("bestPlayerWorld"))
+            skills.setBestPlayerWorld(jsonTag.getString("bestPlayerWorld"));
             return skills;
         } catch (JSONException e) {
             e.printStackTrace();

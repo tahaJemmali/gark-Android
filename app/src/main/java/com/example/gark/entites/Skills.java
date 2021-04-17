@@ -21,6 +21,13 @@ public class Skills implements Serializable{
     List<Team> teams;
     String description;
     int age;
+    int xp=0;
+    float height;
+    float weight;
+    String bestTeamWorld;
+    String bestTeamTunisia;
+    String bestPlayerWorld;
+    String bestPlayerTunisia;
     public Skills(){
          pace=50;
          shooting=50;
@@ -188,6 +195,62 @@ public class Skills implements Serializable{
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public String getBestTeamWorld() {
+        return bestTeamWorld;
+    }
+
+    public void setBestTeamWorld(String bestTeamWorld) {
+        this.bestTeamWorld = bestTeamWorld;
+    }
+
+    public String getBestTeamTunisia() {
+        return bestTeamTunisia;
+    }
+
+    public void setBestTeamTunisia(String bestTeamTunisia) {
+        this.bestTeamTunisia = bestTeamTunisia;
+    }
+
+    public String getBestPlayerWorld() {
+        return bestPlayerWorld;
+    }
+
+    public void setBestPlayerWorld(String bestPlayerWorld) {
+        this.bestPlayerWorld = bestPlayerWorld;
+    }
+
+    public String getBestPlayerTunisia() {
+        return bestPlayerTunisia;
+    }
+
+    public void setBestPlayerTunisia(String bestPlayerTunisia) {
+        this.bestPlayerTunisia = bestPlayerTunisia;
     }
 
     @Override

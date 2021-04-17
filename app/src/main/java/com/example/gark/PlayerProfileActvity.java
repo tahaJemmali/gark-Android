@@ -301,6 +301,11 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
                 }
             }
         }
+        if(player.getXp()!=XP){
+            player.setXp(XP);
+            SkillsRepository.getInstance().updateInBackground(this,player,player.getId());
+        }
+
         //SET UI
         votes.setText(""+vote);
         yellowCards.setText(""+yellow);

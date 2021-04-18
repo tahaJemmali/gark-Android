@@ -47,7 +47,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         Drawable d = new BitmapDrawable(mContext.getResources(), bitmap);
         holder.backgroundImageChallenge.setBackground(d);
         holder.challengeName.setText(challenge.getName());
-//        holder.numberOfTeams.setText(challenge.getMaxNumberOfTeams());
+        holder.numberOfTeams.setText(challenge.getMaxNumberOfTeams()+" teams");
         holder.typeTournement.setText(challenge.getType().toString());
     }
 

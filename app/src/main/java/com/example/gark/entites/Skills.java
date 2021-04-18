@@ -24,10 +24,10 @@ public class Skills implements Serializable{
     int xp=0;
     float height;
     float weight;
-    String bestTeamWorld;
-    String bestTeamTunisia;
-    String bestPlayerWorld;
-    String bestPlayerTunisia;
+    Ressource bestTeamWorld;
+    Ressource bestTeamTunisia;
+    Ressource bestPlayerWorld;
+    Ressource bestPlayerTunisia;
     public Skills(){
          pace=50;
          shooting=50;
@@ -221,35 +221,35 @@ public class Skills implements Serializable{
         this.weight = weight;
     }
 
-    public String getBestTeamWorld() {
+    public Ressource getBestTeamWorld() {
         return bestTeamWorld;
     }
 
-    public void setBestTeamWorld(String bestTeamWorld) {
+    public void setBestTeamWorld(Ressource bestTeamWorld) {
         this.bestTeamWorld = bestTeamWorld;
     }
 
-    public String getBestTeamTunisia() {
+    public Ressource getBestTeamTunisia() {
         return bestTeamTunisia;
     }
 
-    public void setBestTeamTunisia(String bestTeamTunisia) {
+    public void setBestTeamTunisia(Ressource bestTeamTunisia) {
         this.bestTeamTunisia = bestTeamTunisia;
     }
 
-    public String getBestPlayerWorld() {
+    public Ressource getBestPlayerWorld() {
         return bestPlayerWorld;
     }
 
-    public void setBestPlayerWorld(String bestPlayerWorld) {
+    public void setBestPlayerWorld(Ressource bestPlayerWorld) {
         this.bestPlayerWorld = bestPlayerWorld;
     }
 
-    public String getBestPlayerTunisia() {
+    public Ressource getBestPlayerTunisia() {
         return bestPlayerTunisia;
     }
 
-    public void setBestPlayerTunisia(String bestPlayerTunisia) {
+    public void setBestPlayerTunisia(Ressource bestPlayerTunisia) {
         this.bestPlayerTunisia = bestPlayerTunisia;
     }
 

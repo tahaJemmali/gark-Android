@@ -178,6 +178,7 @@ public class UserRepository {
             object.put("password",u.getPassword());
             object.put("address",u.getAddress());
             object.put("phone",u.getPhone());
+            object.put("birth_date",u.getBirth_date());
 
         } catch (JSONException e) {
             e.printStackTrace();

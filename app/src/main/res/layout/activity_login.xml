@@ -63,7 +63,7 @@
             android:background="@drawable/rounded_edittext"
             android:elevation="10dp"
             android:fontFamily="@font/arial_rounded"
-           android:drawableLeft="@drawable/ic_baseline_mail_outline_24"
+           android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
             android:hint="Email adress"
             android:paddingLeft="15dp"
             android:textSize="14dp" />

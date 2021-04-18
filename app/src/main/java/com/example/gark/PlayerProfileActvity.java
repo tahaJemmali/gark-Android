@@ -14,6 +14,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MatchActionRepository;
 import com.example.gark.repositories.PostRepository;
 import com.example.gark.repositories.SkillsRepository;
+import com.squareup.picasso.Picasso;
 import com.ultramegasoft.radarchart.RadarHolder;
 import com.ultramegasoft.radarchart.RadarView;
 
@@ -54,6 +56,9 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     RecyclerView recycleViewTeams;
     //////Stats layout
     TextView votes,yellowCards,redCards,goals,score,xp,gamePlayed,manOfTheTournement;
+    //info
+    ImageView TeamInternation, TeamNational, PlayerNational, PlayerTunisia;
+    TextView TeamInternationName, TeamNationalName, PlayerNationalName, PlayerTunisiaName,height,weight;
     //VAR
     TeamsAdapter teamsAdapter;
     ArrayList<Post> posts;
@@ -76,6 +81,18 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
 
     void initUI() {
         dialogg = ProgressDialog.show(this, "", "Loading", true);
+
+        TeamInternation = findViewById(R.id.TeamInternation);
+        TeamNational = findViewById(R.id.TeamNational);
+        PlayerNational = findViewById(R.id.PlayerNational);
+        PlayerTunisia = findViewById(R.id.PlayerTunisia);
+        TeamInternationName = findViewById(R.id.TeamInternationName);
+        TeamNationalName = findViewById(R.id.TeamNationalName);
+        PlayerNationalName = findViewById(R.id.PlayerNationalName);
+        PlayerTunisiaName = findViewById(R.id.PlayerTunisiaName);
+        height= findViewById(R.id.height);
+        weight= findViewById(R.id.weight);
+
         playerImage = findViewById(R.id.playerImage);
         recycleViewTeams = findViewById(R.id.recycleViewTeams);
         not_yet_posts = findViewById(R.id.not_yet_posts);
@@ -186,6 +203,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
                 data.add(new RadarHolder("pace", x));
                 radar.setMaxValue(10);
                 radar.setData(data);
+
                 nationality.setImageResource(this.getResources().getIdentifier(player.getNationality().toString(), "drawable", this.getPackageName()));
                 switch (player.getRating()) {
                     case 1:
@@ -222,6 +240,20 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
                 rolePlayer.setText(player.getRole().toString());
                 age.setText(player.getAge() + " years");
                 descriptionPlayer.setText(player.getDescription());
+
+                //initstate
+
+                Picasso.get().load(player.getBestTeamWorld().getImage()).into(TeamInternation);
+                Picasso.get().load(player.getBestTeamTunisia().getImage()).into(TeamNational);
+                Picasso.get().load(player.getBestPlayerWorld().getImage()).into(PlayerNational);
+                Picasso.get().load(player.getBestPlayerTunisia().getImage()).into(PlayerTunisia);
+
+                TeamInternationName.setText(player.getBestTeamWorld().getName());
+                TeamNationalName.setText(player.getBestTeamTunisia().getName());
+                PlayerNationalName.setText(player.getBestPlayerWorld().getFirstName()+" "+player.getBestPlayerWorld().getLastName());
+                PlayerTunisiaName.setText(player.getBestPlayerTunisia().getFirstName()+" "+player.getBestPlayerTunisia().getLastName());
+                height.setText(player.getHeight()+" cm");
+                weight.setText(player.getWeight()+" kg");
                 initUIRecycleViewerTeams();
             }else{
                 switch (playerinfo){
@@ -233,6 +265,9 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
                     case 1:
                         matchActions=MatchActionRepository.getInstance().getList();
                         matchActionsTeams=new ArrayList<MatchAction>();
+                        if(player.getTeams().size()==0)
+                            setStatTotal();
+
                        for (Team team :player.getTeams()){
                         MatchActionRepository.getInstance().findBy(this,"team",team.getId());
                          }

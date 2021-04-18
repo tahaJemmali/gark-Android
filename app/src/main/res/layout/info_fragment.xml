@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +12,7 @@
         android:fontFamily="@font/arial_rounded"
         android:text="Description"
         android:textColor="@color/black"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
     <TextView
         android:id="@+id/descriptionPlayer"
         android:layout_marginVertical="10dp"
@@ -19,15 +21,275 @@
         android:fontFamily="@font/arial_rounded"
         android:text="@string/lorem"
         android:textSize="13dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/arial_rounded"
-        android:text="Get to know me"
-        android:visibility="gone"
+        android:text="Get To Know Me"
         android:layout_marginVertical="10dp"
         android:textColor="@color/black"
         android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            android:elevation="10dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_baseline_monitor_weight_24"
+                    app:tint="@color/dark_green"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/arial_rounded"
+                    android:textColor="@color/black"
+                    android:text="Weight"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:id="@+id/height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="147"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/arial_rounded"
+                    android:textColor="@color/dark_green"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="10dp"
+            android:elevation="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_baseline_height_24"
+                    app:tint="@color/dark_green"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/arial_rounded"
+                    android:textColor="@color/black"
+                    android:text="Height"
+                    android:layout_weight="2"/>
+                <TextView
+                    android:id="@+id/weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="147"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/arial_rounded"
+                    android:textColor="@color/dark_green"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center"
+            android:textSize="13sp"
+            android:fontFamily="@font/arial_rounded"
+            android:textColor="@color/black"
+            android:text="Best Team International" />
+        <androidx.cardview.widget.CardView
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            android:elevation="10dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <ImageView
+                    android:id="@+id/TeamInternation"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/winner"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/TeamInternationName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/arial_rounded"
+                    android:textColor="@color/dark_green"
+                    android:layout_gravity="center"
+                    android:text="Best team international"
+                    android:layout_weight="3"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center"
+            android:textSize="13sp"
+            android:fontFamily="@font/arial_rounded"
+            android:textColor="@color/black"
+            android:text="Best Player International" />
+        <androidx.cardview.widget.CardView
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            android:elevation="10dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <ImageView
+                    android:id="@+id/PlayerNational"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/winner"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/PlayerNationalName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/arial_rounded"
+                    android:textColor="@color/dark_green"
+                    android:layout_gravity="center"
+                    android:text="Best team international"
+                    android:layout_weight="3"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center"
+            android:textSize="13sp"
+            android:fontFamily="@font/arial_rounded"
+            android:textColor="@color/black"
+            android:text="Best Team In Tunisia" />
+        <androidx.cardview.widget.CardView
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            android:elevation="10dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <ImageView
+                    android:id="@+id/TeamNational"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/winner"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/TeamNationalName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/arial_rounded"
+                    android:textColor="@color/dark_green"
+                    android:layout_gravity="center"
+                    android:text="Best team international"
+                    android:layout_weight="3"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginVertical="10dp"
+            android:layout_gravity="center"
+            android:textSize="13sp"
+            android:fontFamily="@font/arial_rounded"
+            android:textColor="@color/black"
+            android:text="Best Player In Tunisia" />
+        <androidx.cardview.widget.CardView
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            android:elevation="10dp"
+            android:layout_margin="5dp"
+            android:layout_marginVertical="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal"
+                android:weightSum="4">
+                <ImageView
+                    android:id="@+id/PlayerTunisia"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/winner"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/PlayerTunisiaName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/arial_rounded"
+                    android:textColor="@color/dark_green"
+                    android:layout_gravity="center"
+                    android:text="Best team international"
+                    android:layout_weight="3"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

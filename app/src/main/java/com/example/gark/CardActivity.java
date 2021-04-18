@@ -23,7 +23,7 @@ TextView score,role,playerName,pace,shooting,passing,dribbling,defending,physica
         ImageView teamImage,countryImage,playerImage;
         RelativeLayout relativeLayout6;
         //Var
-    Skills player;
+    Skills player=PlayerProfileActvity.player;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +32,7 @@ TextView score,role,playerName,pace,shooting,passing,dribbling,defending,physica
     }
     @SuppressLint("ResourceAsColor")
     public void initUI(){
-        player=(Skills)getIntent().getSerializableExtra("player");
+        //player=(Skills)getIntent().getSerializableExtra("player");
         relativeLayout6=findViewById(R.id.relativeLayout6);
         score=findViewById(R.id.score);
         role=findViewById(R.id.role);

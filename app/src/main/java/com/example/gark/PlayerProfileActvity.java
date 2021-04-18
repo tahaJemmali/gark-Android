@@ -62,7 +62,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     //VAR
     TeamsAdapter teamsAdapter;
     ArrayList<Post> posts;
-    Skills player;
+    public static Skills player;
     SkillsAdapter skillsAdapter;
     PostAdapter postAdapter;
     Boolean generated = false;
@@ -364,7 +364,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
 
     public void showCard(View view) {
         Intent intent = new Intent(PlayerProfileActvity.this, CardActivity.class);
-        intent.putExtra("player", player);
+      //  intent.putExtra("player", player);
         startActivity(intent);
     }
 

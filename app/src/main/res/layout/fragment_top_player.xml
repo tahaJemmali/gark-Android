@@ -27,13 +27,15 @@
                 android:text="0 players"
                 android:textSize="22dp" />
 
-            <ImageButton
+            <Spinner
+                android:id="@+id/sort"
                 android:layout_gravity="center"
-                android:layout_width="70dp"
+                android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:background="@drawable/stars"
-                android:backgroundTint="#000" />
+                android:layoutDirection="rtl"
+                android:background="@drawable/ic_baseline_sort_24" />
+
         </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/topPlayerRecyclerView"

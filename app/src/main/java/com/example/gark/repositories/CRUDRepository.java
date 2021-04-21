@@ -15,19 +15,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public interface CRUDRepository<T> {
-    public void add(final Context mcontext, T t, final ProgressDialog dialog);
-    public void delete(final Context mcontext, String id, final ProgressDialog dialog);
-    public void update(final Context mcontext, T t, String id);
-    public void getAll(final Context mContext, final ProgressDialog dialogg);
-    public void findById(final Context mContext,String id);
-    public T convertJsonToObject(JSONObject object);
-    public JSONObject convertObjectToJson(JSONObject object,T t);
-    public ArrayList<T> getList();
-    public void setiRepository(IRepository iRepository);
-    public T convertJsonToObjectDeepPopulate(JSONObject jsonTag);
-    public T getElement();
+    void add(final Context mcontext, T t, final ProgressDialog dialog);
+    void delete(final Context mcontext, String id, final ProgressDialog dialog);
+    void update(final Context mcontext, T t, String id);
+    void getAll(final Context mContext, final ProgressDialog dialogg);
+    void findById(final Context mContext, String id);
+    T convertJsonToObject(JSONObject object);
+    JSONObject convertObjectToJson(JSONObject object, T t);
+    ArrayList<T> getList();
+    void setiRepository(IRepository iRepository);
+    T convertJsonToObjectDeepPopulate(JSONObject jsonTag);
+    T getElement();
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static Date getDate(String key){
+    static Date getDate(String key){
         Date date = null;
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" );

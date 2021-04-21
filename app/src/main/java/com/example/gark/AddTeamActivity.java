@@ -79,7 +79,7 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
 
     Uri image_uri = null;
     String image = "noImage";
-    private List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
+    private final List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
     Team team;
 
 
@@ -133,15 +133,15 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
 
     boolean validator(){
         if (image.equals("noImage")){
-            Toast.makeText(this,"Please put your team image !",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.validator_image_team),Toast.LENGTH_SHORT).show();
             return false;
         }
         if(TeamName.getText().toString().isEmpty()){
-            Toast.makeText(this,"Your team doesn't have a name !",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.validator_name_team),Toast.LENGTH_SHORT).show();
             return false;
         }
         if (editDescription.getText().toString().isEmpty()){
-            Toast.makeText(this,"Describe your team in a few word ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.validator_description_team),Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -150,7 +150,7 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
 
     @Override
     public void showLoadingButton() {
-        dialogg = ProgressDialog.show(this, "","Loading" , true);
+        dialogg = ProgressDialog.show(this, "",getString(R.string.loading) , true);
         dialogg.show();
     }
 
@@ -158,7 +158,7 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
     public void doAction() {
         if(addTeamClicked)
         {
-            Toast.makeText(AddTeamActivity.this,"Team Added Sucessfully !",Toast.LENGTH_LONG).show();
+            Toast.makeText(AddTeamActivity.this, getString(R.string.add_team),Toast.LENGTH_LONG).show();
             Intent intent=new Intent(this,MainActivity.class);
             startActivity(intent);
             finish();
@@ -323,13 +323,6 @@ public class AddTeamActivity extends AppCompatActivity implements IRepository {
             TeamRepository.getInstance().setiRepository(this);
             TeamRepository.getInstance().add(this,team,null);
 
-        }else {
-            new android.app.AlertDialog.Builder(this)
-                    .setTitle("EROOR")
-                    .setMessage("Please add team image and fill the form")
-                    .setPositiveButton(android.R.string.ok, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
         }
     }
 

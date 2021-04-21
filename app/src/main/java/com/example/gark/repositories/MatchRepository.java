@@ -91,7 +91,7 @@ public class MatchRepository {
 
     public void updateQuarter(Context mcontext, Match match, String id,Challenge challenge) {
         final String url=iRepository.baseURL  + "/update_match/"+id;
-        this.match=match;
+        MatchRepository.match =match;
         JSONObject object = new JSONObject();
         convertObjectToJson(object,match);
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
@@ -112,7 +112,7 @@ public class MatchRepository {
     public void update(Context mcontext, Match match, String id,Challenge challenge) {
         iRepository.showLoadingButton();
         final String url=iRepository.baseURL  + "/update_match/"+id;
-        this.match=match;
+        MatchRepository.match =match;
         JSONObject object = new JSONObject();
         convertObjectToJson(object,match);
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {

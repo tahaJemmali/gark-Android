@@ -15,10 +15,10 @@ import java.util.ArrayList;
 
 public class ProfileListAdapter extends RecyclerView.Adapter<ProfileListAdapter.ProfileElementHolder> {
 
-    private Context mContext;
-    private ArrayList<Integer> icons;
-    private ArrayList<String> titles;
-    private ArrayList<String> descriptions;
+    private final Context mContext;
+    private final ArrayList<Integer> icons;
+    private final ArrayList<String> titles;
+    private final ArrayList<String> descriptions;
 
     public ProfileListAdapter(Context mContext,ArrayList<Integer> icons,ArrayList<String> titles,ArrayList<String> descriptions ){
         this.mContext = mContext;

@@ -156,7 +156,7 @@ public class VoteDialog extends DialogFragment implements IRepository {
         player.setPassing(passing);
         SkillsRepository.getInstance().setiRepository(this);
         SkillsRepository.getInstance().update(getContext(),player,player.getId());
-        Toast.makeText(getContext(),"Your vote have been added sucessfully  !",Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getContext().getString(R.string.vote_added),Toast.LENGTH_LONG).show();
         getDialog().dismiss();
     }
 void setSlider(){

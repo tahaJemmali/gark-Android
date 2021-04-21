@@ -50,12 +50,12 @@ public class ResetPasswordActivity extends AppCompatActivity implements IReposit
             public void onClick(View view) {
 
                 if (edtPassword.getText().toString().equals("") || edtConfirmPassword.getText().toString().equals("")){
-                    Toast.makeText(ResetPasswordActivity.this,"Password can't be empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResetPasswordActivity.this, getString(R.string.password_no_empty),Toast.LENGTH_SHORT).show();
                 }else if (edtPassword.getText().toString().length()<8){
-                    Toast.makeText(ResetPasswordActivity.this,"Passwords must be at least 8 characters",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResetPasswordActivity.this, getString(R.string.password_8),Toast.LENGTH_SHORT).show();
                 }
                 else if (!edtPassword.getText().toString().equals(edtConfirmPassword.getText().toString())){
-                    Toast.makeText(ResetPasswordActivity.this,"Passwords do not match",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResetPasswordActivity.this, getString(R.string.password_confirm),Toast.LENGTH_SHORT).show();
                 }else{
                     User user = new User();
                     user.setEmail(email);

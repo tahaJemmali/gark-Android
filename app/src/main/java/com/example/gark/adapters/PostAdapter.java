@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.PostHolder> {
-    private Context mContext;
-    private ArrayList<Post> posts;
+    private final Context mContext;
+    private final ArrayList<Post> posts;
     Post post;
     public static Post selectedPost;
     public PostAdapter(Context mContext, ArrayList<Post> posts) {
@@ -51,9 +51,9 @@ public class PostAdapter  extends RecyclerView.Adapter<PostAdapter.PostHolder> {
         holder.creatorName.setText(post.getCreator().getFirstName()+" "+post.getCreator().getLastName() );
         if (post.getLikes().size()>=1000)
         {
-            holder.views.setText((post.getLikes().size()/1000)+"K likes");
+            holder.views.setText((post.getLikes().size()/1000)+"K"+mContext.getString(R.string.likes));
         }else {
-            holder.views.setText(post.getLikes().size()+" likes");
+            holder.views.setText(post.getLikes().size()+mContext.getString(R.string.likes));
         }
         holder.post_title.setText(post.getTitle() );
 

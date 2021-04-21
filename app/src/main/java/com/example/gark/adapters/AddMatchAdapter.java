@@ -25,8 +25,8 @@ import com.example.gark.entites.Match;
 import java.util.ArrayList;
 
 public class AddMatchAdapter extends RecyclerView.Adapter<AddMatchAdapter.MatchHolder>  {
-    private Context mContext;
-    private ArrayList<Match> matches;
+    private final Context mContext;
+    private final ArrayList<Match> matches;
     Match match;
     public static Match selectedMatch;
     public AddMatchAdapter(Context mContext, ArrayList<Match> matches) {

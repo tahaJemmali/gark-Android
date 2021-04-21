@@ -45,6 +45,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static com.example.gark.R.*;
+
 public class AddPostActivity extends AppCompatActivity  implements IRepository {
     //////////////////////////IMAGE
 //permissions constants
@@ -60,7 +62,7 @@ public class AddPostActivity extends AppCompatActivity  implements IRepository {
 
     Uri image_uri = null;
     String image = "noImage";
-    private List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
+    private final List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
 
     //////////////VAR
     Post post;
@@ -73,28 +75,28 @@ public class AddPostActivity extends AppCompatActivity  implements IRepository {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_post);
+        setContentView(layout.activity_add_post);
         initUI();
     }
 
     void initUI(){
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-         userImage=findViewById(R.id.userImage);
-         postTitle=findViewById(R.id.postTitle);
-         postDescription=findViewById(R.id.postDescription);
+         userImage=findViewById(id.userImage);
+         postTitle=findViewById(id.postTitle);
+         postDescription=findViewById(id.postDescription);
     }
     boolean validator(){
      if (image.equals("noImage")){
-            Toast.makeText(AddPostActivity.this,"Please add an Image to the post !",Toast.LENGTH_LONG).show();
+            Toast.makeText(AddPostActivity.this, string.validator_image_post,Toast.LENGTH_LONG).show();
             return false;
         }
         if (postTitle.getText().toString().isEmpty()){
-            Toast.makeText(AddPostActivity.this,"Please add your post title !",Toast.LENGTH_LONG).show();
+            Toast.makeText(AddPostActivity.this, string.validator_title_post,Toast.LENGTH_LONG).show();
             return false;
         }
         if (postDescription.getText().toString().isEmpty()){
-            Toast.makeText(AddPostActivity.this,"Please add your description !",Toast.LENGTH_LONG).show();
+            Toast.makeText(AddPostActivity.this, string.validator_description_post,Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -109,7 +111,7 @@ public class AddPostActivity extends AppCompatActivity  implements IRepository {
         if(validator()){
             post=new Post(postTitle.getText().toString(),postDescription.getText().toString(),
                     image,MainActivity.getCurrentLoggedInUser());
-            dialogg = ProgressDialog.show(this, "","Loading" , true);
+            dialogg = ProgressDialog.show(this, "", getString(string.loading) , true);
             PostRepository.getInstance().setiRepository(this);
             PostRepository.getInstance().add(this,post,null);
         }
@@ -126,7 +128,7 @@ public class AddPostActivity extends AppCompatActivity  implements IRepository {
 
     @Override
     public void doAction() {
-        Toast.makeText(AddPostActivity.this,"Post Added Sucessfully !",Toast.LENGTH_LONG).show();
+        Toast.makeText(AddPostActivity.this, string.post_added,Toast.LENGTH_LONG).show();
         Intent intent=new Intent(this,MainActivity.class);
         startActivity(intent);
         finish();

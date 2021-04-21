@@ -91,7 +91,7 @@
                     android:completionHint="yourhint"
                     android:dropDownHeight="match_parent"
                     android:fontFamily="@font/arial_rounded"
-                    android:hint="Team Name"
+                    android:hint="@string/team_name"
                     android:includeFontPadding="false"
                     android:inputType="textEmailAddress"
                     android:padding="15dp"
@@ -127,7 +127,7 @@
                     android:completionHint="yourhint"
                     android:dropDownHeight="match_parent"
                     android:fontFamily="@font/arial_rounded"
-                    android:hint="Description"
+                    android:hint="@string/description"
                     android:includeFontPadding="false"
                     android:inputType="textEmailAddress"
                     android:padding="15dp"
@@ -204,13 +204,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:text="Add Team Members"
+                android:textSize="30sp"
+                android:text="@string/add_team_members"
                 android:fontFamily="@font/fifa"
                 android:layout_marginHorizontal="10dp"
                 android:layout_gravity="center"
                 android:textColor="@color/dark_green"/>
-        <ImageButton
+        <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_baseline_group_add_24"
@@ -220,9 +220,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial_rounded"
-            android:text="Teams"
+            android:text="@string/teams"
             android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/teamMemberRecyclerView"
             android:layout_width="match_parent"
@@ -235,7 +235,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/gradian_btn"
             android:fontFamily="@font/arial_rounded"
-            android:text="Add Team"
+            android:text="@string/add_team_btn"
             android:onClick="addTeam"
             android:textAllCaps="false"
             android:textColor="@android:color/white"

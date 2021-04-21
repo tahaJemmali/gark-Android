@@ -35,7 +35,6 @@ public class UpdateDialog  extends DialogFragment {
         mActionCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: closing dialog");
                 getDialog().dismiss();
             }
         });
@@ -43,7 +42,6 @@ public class UpdateDialog  extends DialogFragment {
         mActionOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: capturing input.");
 
                 String input = mInput.getText().toString();
                 if(!input.equals("")){

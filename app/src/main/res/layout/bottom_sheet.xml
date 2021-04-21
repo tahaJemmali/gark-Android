@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"/>
         <Button
             android:id="@+id/join"
-            android:text="Join"
+            android:text="@string/join"
             android:background="@drawable/gradian_btn"
             android:textColor="#FFF"
             android:fontFamily="@font/arial_rounded"
@@ -74,10 +74,10 @@
         android:weightSum="4">
         <TextView
             android:layout_weight="3"
-            android:text="Teams"
+            android:text="@string/teams"
             android:textColor="@color/black"
             android:layout_gravity="center"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:fontFamily="@font/arial_rounded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -117,9 +117,9 @@
     <TextView
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="5dp"
-        android:text="Calander"
+        android:text="@string/calander"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:fontFamily="@font/arial_rounded"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

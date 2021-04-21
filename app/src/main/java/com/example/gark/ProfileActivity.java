@@ -110,7 +110,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
 
     Uri image_uri = null;
     String image = "noImage";
-    private List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
+    private final List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +136,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
                 startActivity(intent);
             }
         });
-        dialogg = ProgressDialog.show(this, "","Loading" , true);
+        dialogg = ProgressDialog.show(this, "",getString(R.string.loading), true);
         if (MainActivity.getCurrentLoggedInUser().getPhoto().startsWith("/")) {
             Bitmap bitmap = getBitmapFromString(MainActivity.getCurrentLoggedInUser().getPhoto());
             profileImage.setImageBitmap(bitmap);
@@ -222,27 +222,27 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         titles = new ArrayList<>();
         descriptions = new ArrayList<>();
         icons.add(R.drawable.ic_default_user);
-        titles.add("Name");
+        titles.add(getString(R.string.name));
         descriptions.add(MainActivity.getCurrentLoggedInUser().getFirstName()+" "+MainActivity.getCurrentLoggedInUser().getLastName());
 
         icons.add(R.drawable.ic_baseline_alternate_email_24);
-        titles.add("Email");
+        titles.add(getString(R.string.email));
         descriptions.add(MainActivity.getCurrentLoggedInUser().getEmail());
 
     //    if (!MainActivity.getCurrentLoggedInUser().getAddress().equals("Not mentioned")){
             icons.add(R.drawable.ic_baseline_my_location_24);
-            titles.add("Home Town");
+            titles.add(getString(R.string.home_town));
             descriptions.add(MainActivity.getCurrentLoggedInUser().getAddress());
       //  }
 
         //if (!MainActivity.getCurrentLoggedInUser().getPhone().equals("Not mentioned")){
             icons.add(R.drawable.ic_baseline_phone_24);
-            titles.add("Mobile");
+            titles.add(getString(R.string.mobile));
             descriptions.add(MainActivity.getCurrentLoggedInUser().getPhone());
 
         icons.add(R.drawable.ic_baseline_admin_panel_settings_24);
-        titles.add("Become Field Owner");
-        descriptions.add("Current role : "+MainActivity.getCurrentLoggedInUser().getRole());
+        titles.add(getString(R.string.become_field_owner));
+        descriptions.add(getString(R.string.current_role)+MainActivity.getCurrentLoggedInUser().getRole());
         //}
         try {
             Calendar calendar = Calendar.getInstance();
@@ -251,7 +251,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             String month_name = month_date.format(calendar.getTime());
             String dateTime2 = month_name+" "+calendar.get(Calendar.DAY_OF_MONTH)+" "+calendar.get(Calendar.YEAR);
             icons.add(R.drawable.ic_baseline_join);
-            titles.add("Member since");
+            titles.add(getString(R.string.member_since));
             descriptions.add(dateTime2);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -298,7 +298,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             initUIRecycleViewerTeams();
         }
         if(updateUser){
-            Toast.makeText(ProfileActivity.this,"User Image Updated Sucessfully !",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this, getString(R.string.image_updated_user),Toast.LENGTH_SHORT).show();
             updateUser=false;
             MainActivity.setUserImage();
             super.onBackPressed();

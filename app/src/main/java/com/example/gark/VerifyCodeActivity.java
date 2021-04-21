@@ -32,12 +32,12 @@ public class VerifyCodeActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (code_view.getEnteredCode().toString().equals(code)){
+                if (code_view.getEnteredCode().equals(code)){
                     Intent intent = new Intent(VerifyCodeActivity.this, ResetPasswordActivity.class);
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(VerifyCodeActivity.this,"Wrong verification code",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(VerifyCodeActivity.this, getString(R.string.wrong_verification_code),Toast.LENGTH_SHORT).show();
                 }
             }
         });

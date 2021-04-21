@@ -53,7 +53,7 @@
         android:background="@drawable/gradian_btn"
         android:fontFamily="@font/arial_rounded"
         android:onClick="clearAll"
-        android:text="ClearAll"
+        android:text="@string/clear_all"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="23sp"

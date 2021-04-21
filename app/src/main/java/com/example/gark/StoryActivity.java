@@ -193,7 +193,7 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
                                         }
                                     }
                                     post.getLikes().remove(MainActivity.getCurrentLoggedInUser());
-                                    Toast.makeText(StoryActivity.this, "You disliked this post", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(StoryActivity.this, getString(R.string.dislike), Toast.LENGTH_SHORT).show();
                                 }
                                 likes_number.setText(""+post.getLikes().size());
                             }
@@ -211,13 +211,13 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
         r_seen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(StoryActivity.this, "Views", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StoryActivity.this, getString(R.string.views), Toast.LENGTH_SHORT).show();
             }
         });
         likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(StoryActivity.this, "Likes", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StoryActivity.this, getString(R.string.likes), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -248,7 +248,6 @@ public class StoryActivity extends AppCompatActivity implements StoriesProgressV
     }
 
     public void showView(int i){
-        Log.e("TAG", "onNext: "+i );
         //set content
         post=posts.get(i);
         Bitmap bitmap = getBitmapFromString(posts.get(i).getCreator().getPhoto());

@@ -25,7 +25,7 @@
             android:layout_weight="0"
             android:fontFamily="@font/arial_rounded"
             android:includeFontPadding="false"
-            android:text="Verify Code"
+            android:text="@string/verify_code"
             android:textColor="@android:color/white"
             android:textSize="35sp" />
 
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:fontFamily="@font/arial_rounded"
-                android:text="Put your verification code :"
+                android:text="@string/put_your_verification_code"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:background="@drawable/gradian_btn"
-                android:text="Next"
+                android:text="@string/next"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="23sp"

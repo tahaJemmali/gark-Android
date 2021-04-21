@@ -26,8 +26,8 @@ import com.example.gark.entites.Team;
 import java.util.ArrayList;
 import com.example.gark.R;
 public class TeamsAdapter   extends RecyclerView.Adapter<TeamsAdapter.TeamHolder>{
-    private Context mContext;
-    private ArrayList<Team> teams;
+    private final Context mContext;
+    private final ArrayList<Team> teams;
     Team team;
     public TeamsAdapter(Context mContext, ArrayList<Team> teams) {
         this.mContext = mContext;
@@ -48,7 +48,7 @@ public class TeamsAdapter   extends RecyclerView.Adapter<TeamsAdapter.TeamHolder
         Drawable d = new BitmapDrawable(mContext.getResources(), bitmap);
         holder.topTeamImage.setBackground(d);
         holder.teamNameTextView.setText(team.getName().substring(0,1).toUpperCase() + team.getName().substring(1).toLowerCase());
-        holder.teamWins.setText(team.getVictories()+" wins");
+        holder.teamWins.setText(team.getVictories()+mContext.getString(R.string.wins));
     }
 
     private Bitmap getBitmapFromString(String image) {

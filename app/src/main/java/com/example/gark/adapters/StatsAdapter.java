@@ -15,7 +15,7 @@ import com.example.gark.R;
 import com.example.gark.entites.Team;
 
 public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.StatsHolder>{
-    private Context mContext;
+    private final Context mContext;
     Team team;
     public StatsAdapter(Context mContext, Team team) {
         this.mContext = mContext;
@@ -33,17 +33,17 @@ public class StatsAdapter extends RecyclerView.Adapter<StatsAdapter.StatsHolder>
     public void onBindViewHolder(@NonNull StatsHolder holder, int position) {
        switch (position){
            case 0:
-               holder.stats.setText("wins");
+               holder.stats.setText(mContext.getString(R.string.wins));
                holder.numberStats.setText(""+team.getVictories());
                holder.progress_bar.setProgress(team.getVictories());
                break;
            case 1:
-               holder.stats.setText("Loses");
+               holder.stats.setText(mContext.getString(R.string.loses));
                holder.numberStats.setText(""+team.getDefeats());
                holder.progress_bar.setProgress(team.getDefeats());
                break;
            case 2:
-               holder.stats.setText("Draws");
+               holder.stats.setText(mContext.getString(R.string.draws));
                holder.numberStats.setText(""+team.getDraws());
                holder.progress_bar.setProgress(team.getDraws());
                break;

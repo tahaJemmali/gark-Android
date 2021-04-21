@@ -19,7 +19,7 @@
         android:elevation="10dp"
         android:fontFamily="@font/arial_rounded"
         android:drawableLeft="@drawable/ic_baseline_search_24"
-        android:hint="Search"
+        android:hint="@string/search"
         android:paddingLeft="15dp"
         android:textSize="14dp" />
 
@@ -35,7 +35,7 @@
         android:background="@drawable/gradian_btn"
         android:fontFamily="@font/arial_rounded"
         android:layout_gravity="center"
-        android:text="Invite"
+        android:text="@string/invite"
         android:onClick="invite"
         android:textAllCaps="false"
         android:textColor="@android:color/white"

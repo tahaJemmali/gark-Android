@@ -32,7 +32,7 @@
                 android:textSize="15sp"
                 android:fontFamily="@font/arial_rounded"
                 android:textColor="@color/black"
-                android:text="Champions"
+                android:text="@string/champions"
                 android:layout_weight="2"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -59,9 +59,9 @@
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:fontFamily="@font/arial_rounded"
-                android:text="Total"
+                android:text="@string/total"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:textColor="@color/black"
@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arial_rounded"
-                        android:text="Challenges"
+                        android:text="@string/challenges"
                         android:textColor="@color/dark_green"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -121,7 +121,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arial_rounded"
-                        android:text="Games"
+                        android:text="@string/games"
                         android:textColor="@color/dark_green"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -152,7 +152,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arial_rounded"
-                        android:text="Prize Collected"
+                        android:text="@string/prize_collected"
                         android:textColor="@color/dark_green"
                         android:textSize="13sp" />
                 </LinearLayout>

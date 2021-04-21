@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CardAdapter  extends RecyclerView.Adapter<CardAdapter.CardHolder>{
-    private Context mContext;
-    private ArrayList<Skills> players;
+    private final Context mContext;
+    private final ArrayList<Skills> players;
     Skills player;
     String captinId;
     public CardAdapter(Context mContext, ArrayList<Skills> players) {

@@ -23,12 +23,12 @@
             <TextView
                 android:id="@+id/tvLogo"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="0"
                 android:fontFamily="@font/arial_rounded"
                 android:includeFontPadding="false"
-                android:text="informations"
+                android:text="@string/informations"
                 android:textColor="@android:color/white"
                 android:textSize="35sp" />
 
@@ -75,7 +75,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="center"
-                    android:text="Role"
+                    android:text="@string/role"
                     android:textColor="@color/dark_green"
                     android:textSize="20sp" />
                 <LinearLayout
@@ -100,7 +100,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="center"
-                    android:text="Nationality"
+                    android:text="@string/nationality"
                     android:textColor="@color/dark_green"
                     android:textSize="20sp" />
 
@@ -135,7 +135,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="center"
-                    android:text="Describe yourself"
+                    android:text="@string/describe_yourself_field"
                     android:textColor="@color/dark_green"
                     android:textSize="20dp" />
 
@@ -145,7 +145,7 @@
                     android:layout_height="77dp"
                     android:fontFamily="@font/arial_rounded"
                     android:gravity="center"
-                    android:hint="description"
+                    android:hint="@string/description"
                     android:includeFontPadding="false"
                     android:padding="15dp"
                     android:textSize="15dp"
@@ -164,7 +164,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/arial_rounded"
                         android:gravity="center"
-                        android:text="Height"
+                        android:text="@string/height"
                         android:textColor="@color/dark_green"
                         android:textSize="15sp" />
 
@@ -192,7 +192,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/arial_rounded"
                         android:gravity="center"
-                        android:text="Weight"
+                        android:text="@string/weight"
                         android:textColor="@color/dark_green"
                         android:textSize="15sp" />
 
@@ -236,7 +236,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="2"
                         android:fontFamily="@font/arial_rounded"
-                        android:text="Best Team International"
+                        android:text="@string/best_team_international"
                         android:textColor="@color/dark_green"
                         android:textSize="15sp" />
 
@@ -268,7 +268,7 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/arial_rounded"
                         android:gravity="center"
-                        android:text="Best Player International"
+                        android:text="@string/best_player_international"
                         android:textColor="@color/dark_green"
                         android:textSize="15sp" />
 
@@ -300,7 +300,7 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/arial_rounded"
 
-                        android:text="Best Team In Tunisia"
+                        android:text="@string/best_team_in_tunisia"
                         android:textColor="@color/dark_green"
                         android:textSize="15sp" />
 
@@ -334,7 +334,7 @@
                         android:gravity="center"
                         android:fontFamily="@font/arial_rounded"
 
-                        android:text="Best Player In Tunisia"
+                        android:text="@string/best_player_in_tunisia"
                         android:textColor="@color/dark_green"
                         android:textSize="15sp" />
 
@@ -354,7 +354,7 @@
                     android:background="@drawable/gradian_btn"
                     android:fontFamily="@font/arial_rounded"
                     android:onClick="procede"
-                    android:text="Yalla !"
+                    android:text="@string/yalla"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="23sp"

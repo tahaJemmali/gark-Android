@@ -80,7 +80,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     }
 
     void initUI() {
-        dialogg = ProgressDialog.show(this, "", "Loading", true);
+        dialogg = ProgressDialog.show(this, "", getString(R.string.loading), true);
 
         TeamInternation = findViewById(R.id.TeamInternation);
         TeamNational = findViewById(R.id.TeamNational);
@@ -180,7 +180,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         if (player != null) {
 
             if (!generated) {
-                dialoggPost = ProgressDialog.show(this, "", "Loading Posts", true);
+                dialoggPost = ProgressDialog.show(this, "", getString(R.string.loading_post), true);
                 PostRepository.getInstance().findByCreator(this, player.getPlayer().getId());
                 generated = true;
                 Bitmap bitmap = getBitmapFromString(player.getPlayer().getPhoto());
@@ -188,19 +188,19 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
                 // radar array list
                 ArrayList<RadarHolder> data = new ArrayList<RadarHolder>();
                 int x = Math.round(player.getDefending() * 10 / 100);
-                data.add(new RadarHolder("defending", x));
+                data.add(new RadarHolder(getString(R.string.defending), x));
                 x = Math.round(player.getShooting() * 10 / 100);
-                data.add(new RadarHolder("shooting", x));
+                data.add(new RadarHolder(getString(R.string.shooting), x));
                 x = Math.round(player.getPassing() * 10 / 100);
-                data.add(new RadarHolder("passing", x));
+                data.add(new RadarHolder(getString(R.string.passing), x));
                 x = Math.round(player.getDribbling() * 10 / 100);
-                data.add(new RadarHolder("dribbling", x));
+                data.add(new RadarHolder(getString(R.string.dribbling), x));
                 x = Math.round(player.getDefending() * 10 / 100);
-                data.add(new RadarHolder("defending", x));
+                data.add(new RadarHolder(getString(R.string.defending), x));
                 x = Math.round(player.getPhysical() * 10 / 100);
-                data.add(new RadarHolder("physical", x));
+                data.add(new RadarHolder(getString(R.string.physical), x));
                 x = Math.round(player.getPace() * 10 / 100);
-                data.add(new RadarHolder("pace", x));
+                data.add(new RadarHolder(getString(R.string.pace), x));
                 radar.setMaxValue(10);
                 radar.setData(data);
 
@@ -238,7 +238,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
                     contact.setVisibility(View.GONE);
                 playerNom.setText(player.getPlayer().getFirstName() + " " + player.getPlayer().getLastName());
                 rolePlayer.setText(player.getRole().toString());
-                age.setText(player.getAge() + " years");
+                age.setText(player.getAge() + getString(R.string.years));
                 descriptionPlayer.setText(player.getDescription());
 
                 //initstate

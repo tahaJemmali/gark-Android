@@ -72,7 +72,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     public void updateInBackground(Context mcontext, Skills skills, String id) {
 
         final String url = iRepository.baseURL + "/update_skills/" + id;
-        this.player = skills;
+        player = skills;
         JSONObject object = new JSONObject();
         convertObjectToJson(object, player);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {
@@ -98,7 +98,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     public void update(Context mcontext, Skills skills, String id) {
         iRepository.showLoadingButton();
         final String url = iRepository.baseURL + "/update_skills/" + id;
-        this.player = skills;
+        player = skills;
         JSONObject object = new JSONObject();
         convertObjectToJson(object, player);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {

@@ -60,7 +60,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements IReposi
                     sendCode(edtEmail.getText().toString());
                 }
                 else
-                    Toast.makeText(ForgotPasswordActivity.this,"Email can't be empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgotPasswordActivity.this, getString(R.string.validator_email_empty),Toast.LENGTH_SHORT).show();
             }
         });
 

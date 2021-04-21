@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         initUI();
     }
     public void initUI(){
-        dialogg = ProgressDialog.show(this, "","Loading" , true);
+        dialogg = ProgressDialog.show(this, "",getString(R.string.loading) , true);
         SkillsRepository.getInstance().setiRepository(this);
         SkillsRepository.getInstance().findPlayerById(this,MainActivity.getCurrentLoggedInUser().getId());
         currentUserImage=findViewById(R.id.currentUserImage);
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addNotificationFragment(View view) {
-        Toast.makeText(this,"Working on, it will be available soon",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.workingOn),Toast.LENGTH_SHORT).show();
     }
 
     public void addCurrentUserProfileFragment(View view) {
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addMessengerFragment(View view) {
-        Toast.makeText(this,"Working on, it will be available soon",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.workingOn),Toast.LENGTH_SHORT).show();
         /*Intent intent = new Intent(this, GroupListActivity.class);
         startActivity(intent);*/
     }
@@ -181,13 +181,13 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
             intent.putExtra("size",AcceuilFragment.posts.size());
             startActivity(intent);
         }else {
-            Toast.makeText(this,"There's no story to show !",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.no_story),Toast.LENGTH_SHORT).show();
         }
 
     }
 
     public void showAllFields(View view) {
-        Toast.makeText(this,"Working on, it will be available soon",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.workingOn),Toast.LENGTH_SHORT).show();
     }
 
     public void showTopPlayers(View view) {
@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
 
 
     public void greenAddButton(View view) {
-        Toast.makeText(this,"Working on, it will be available soon",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.workingOn),Toast.LENGTH_SHORT).show();
     }
 
     public void showTChallenges(View view) {

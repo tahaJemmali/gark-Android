@@ -34,7 +34,7 @@
                 android:textSize="15sp"
                 android:fontFamily="@font/arial_rounded"
                 android:textColor="@color/black"
-                android:text="Man of the tournement"
+                android:text="@string/man_of_the_tournement"
                 android:layout_weight="2"/>
             <TextView
                 android:id="@+id/manOfTheTournement"
@@ -97,7 +97,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arial_rounded"
-                        android:text="Games"
+                        android:text="@string/games"
                         android:textColor="@color/dark_green"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -156,7 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arial_rounded"
-                        android:text="Score"
+                        android:text="@string/score"
                         android:textColor="@color/dark_green"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -193,7 +193,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arial_rounded"
-                        android:text="Goals"
+                        android:text="@string/goals"
                         android:textColor="@color/dark_green"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -222,7 +222,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arial_rounded"
-                        android:text="Red Cards"
+                        android:text="@string/red_cards"
                         android:textColor="@color/dark_green"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -251,7 +251,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/arial_rounded"
-                        android:text="Yellow Cards"
+                        android:text="@string/yellow_cards"
                         android:textColor="@color/dark_green"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -287,7 +287,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arial_rounded"
-                    android:text="Votes"
+                    android:text="@string/votes"
                     android:textColor="@color/dark_green"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -305,7 +305,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial_rounded"
-            android:text="Skills"
+            android:text="@string/skills"
             android:layout_weight="1"
             android:textColor="@color/black"
             android:textSize="20dp" />

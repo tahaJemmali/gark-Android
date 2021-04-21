@@ -40,7 +40,7 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
         setContentView(R.layout.activity_group_list);
         search_bar_messenger=findViewById(R.id.search_bar_messenger);
         chatRecyclerView=findViewById(R.id.chatRecyclerView);
-        dialogg = ProgressDialog.show(this, "", "Loading Data ..Wait..", true);
+        dialogg = ProgressDialog.show(this, "", getString(R.string.loading), true);
         ChatRepository.getInstance().setiRepository(this);
         ChatRepository.getInstance().getAll(this,dialogg);
     }

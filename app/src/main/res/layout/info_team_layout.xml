@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/arial_rounded"
-            android:text="Teams"
+            android:text="@string/teams"
             android:layout_weight="9"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -58,7 +58,7 @@
         android:layout_gravity="center"
         android:layout_margin="28dp"
         android:fontFamily="@font/arial_rounded"
-        android:text="Join"
+        android:text="@string/join"
         android:background="@drawable/gradian_btn"
         android:textColor="#FFF" />
 

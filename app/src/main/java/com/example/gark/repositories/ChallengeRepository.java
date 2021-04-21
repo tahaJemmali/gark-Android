@@ -88,7 +88,7 @@ public class ChallengeRepository {
     public void update(Context mcontext, Challenge challenge, String id) {
         iRepository.showLoadingButton();
         final String url=iRepository.baseURL  + "/update_challenge/"+id;
-        this.challenge=challenge;
+        ChallengeRepository.challenge =challenge;
         JSONObject object = new JSONObject();
         convertObjectToJson(object,challenge);
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.PUT, url, object, new Response.Listener<JSONObject>() {

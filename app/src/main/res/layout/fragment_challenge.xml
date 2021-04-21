@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/arial_rounded"
-                android:text="Challenges"
+                android:text="@string/challenges"
                 android:textColor="@color/black"
                 android:textSize="30dp" />
 
@@ -55,19 +55,19 @@
                 android:id="@+id/buttonAcademy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Academy"
+                android:text="@string/academy"
                 style="@style/RadioButton" />
             <RadioButton
                 android:id="@+id/buttonAmateur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amateur"
+                android:text="@string/amateur"
                 style="@style/RadioButton" />
             <RadioButton
                 android:id="@+id/buttonStudents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Students"
+                android:text="@string/students"
                 style="@style/RadioButton" />
         </info.hoang8f.android.segmented.SegmentedGroup>
         <EditText
@@ -80,7 +80,7 @@
             android:elevation="10dp"
             android:fontFamily="@font/arial_rounded"
             android:drawableLeft="@drawable/ic_baseline_search_24"
-            android:hint="Search"
+            android:hint="@string/search"
             android:paddingLeft="15dp"
             android:textSize="14dp" />
         <TextView

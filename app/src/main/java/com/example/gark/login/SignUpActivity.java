@@ -107,61 +107,61 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
 
         if (TextUtils.isEmpty(firstName))
         {
-            Toast.makeText(SignUpActivity.this,"First name cannot be empty!",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this, getString(R.string.fn_no_empty),Toast.LENGTH_LONG).show();
             return;
         }
         if (birthDate.equals(new Date()))
         {
-            Toast.makeText(SignUpActivity.this,"Select your birth date you can't be born today !",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this, getString(R.string.birth_day_validator),Toast.LENGTH_LONG).show();
             return;
         }
 
         if (TextUtils.isEmpty(lastName))
         {
-            Toast.makeText(SignUpActivity.this,"Last name cannot be empty!",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this, getString(R.string.ln_no_empty),Toast.LENGTH_LONG).show();
             return;
         }
 
         if (!firstName.matches(namePattern))
         {
-            Toast.makeText(SignUpActivity.this,"Invalid first name!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, getString(R.string.no_fn),Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (!lastName.matches(namePattern))
         {
-            Toast.makeText(SignUpActivity.this,"Invalid last name!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, getString(R.string.no_ln),Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(email))
         {
-            Toast.makeText(SignUpActivity.this,"Email cannot be empty!",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this,getString(R.string.validator_email_empty),Toast.LENGTH_LONG).show();
             return;
         }
 
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z][a-z]+";
         if (!email.matches(emailPattern))
         {
-            Toast.makeText(SignUpActivity.this,"Invalid email address!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, getString(R.string.email_invalid),Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (TextUtils.isEmpty(password))
         {
-            Toast.makeText(SignUpActivity.this,"Password  cannot be empty!",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this,getString(R.string.password_no_empty),Toast.LENGTH_LONG).show();
             return;
         }
 
         if (password.length()<8)
         {
-            Toast.makeText(SignUpActivity.this,"Password must have at least 8 characters!",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this,getString(R.string.password_8),Toast.LENGTH_LONG).show();
             return;
         }
 
         if (TextUtils.isEmpty(confirmPassword))
         {
-            Toast.makeText(SignUpActivity.this,"Password  cannot be empty!",Toast.LENGTH_LONG).show();
+            Toast.makeText(SignUpActivity.this,getString(R.string.password_no_empty),Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -169,7 +169,7 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
             address="Not mentioned";
         } else if (!address.matches(namePattern))
         {
-            Toast.makeText(SignUpActivity.this,"Invalid home town!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, getString(R.string.invalid_location),Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -177,7 +177,7 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
             phone="Not mentioned";
         }else if (phone.length()!=8)
         {
-            Toast.makeText(SignUpActivity.this,"Invalid phone number!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignUpActivity.this, getString(R.string.invalid_phone),Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -197,13 +197,13 @@ public class SignUpActivity extends AppCompatActivity  implements IRepository {
 
     @Override
     public void showLoadingButton() {
-        dialogg = ProgressDialog.show(this, "", "Registration in progress  ...", true);
+        dialogg = ProgressDialog.show(this, "",getString(R.string.loading), true);
 
     }
 
     @Override
     public void doAction() {
-        Toast.makeText(this,"Registration succeeded please verify your mail !",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.registration_sucess),Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();

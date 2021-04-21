@@ -85,7 +85,6 @@ public class CommunityFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
             @Override
             public void handleOnBackPressed() {
-                System.out.println("on back pressed from frag");
                 if (callBackInterface!=null){
                     callBackInterface.popBack();
                 }
@@ -149,24 +148,23 @@ public class CommunityFragment extends Fragment {
     void find(CharSequence charSequence){
         if (showAllTeams){
             searchTeams.clear();
-            for (Team row:topTeamFragment.teams){
+            for (Team row: TopTeamFragment.teams){
                 if (row.getName().contains(charSequence)){
                     searchTeams.add(row);
                 }
             }
-            topTeamFragment.teamNumbers.setText(searchTeams.size()+" teams");
+            topTeamFragment.teamNumbers.setText(searchTeams.size()+getString(R.string.teams));
                 topTeamFragment.communityTopTeamsAdapter =  new CommunityTopTeamsAdapter(mContext, searchTeams);
 
             topTeamFragment.topTeamsRecyclerView.setAdapter(topTeamFragment.communityTopTeamsAdapter);
         }else{
-            Log.e("TAG", "find: " );
             searchPlayers.clear();
-            for (Skills row:topPlayerFragment.players){
+            for (Skills row: TopPlayerFragment.players){
                 if (row.getPlayer().getFirstName().contains(charSequence)||row.getPlayer().getLastName().contains(charSequence)){
                     searchPlayers.add(row);
                 }
             }
-            topPlayerFragment.playerNumbers.setText(searchPlayers.size()+" teams");
+            topPlayerFragment.playerNumbers.setText(searchPlayers.size()+getString(R.string.teams));
             topPlayerFragment.communityTopPlayerAdapter =  new CommunityTopPlayerAdapter(mContext, searchPlayers);
             topPlayerFragment.topPlayerRecyclerView.setAdapter(topPlayerFragment.communityTopPlayerAdapter);
         }

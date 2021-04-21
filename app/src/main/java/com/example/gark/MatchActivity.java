@@ -89,7 +89,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         match=MatchAdapter.selectedMatch;
         matchActionsTeam1=new ArrayList<MatchAction>();
         matchActionsTeam2=new ArrayList<MatchAction>();
-        dialogg = ProgressDialog.show(this, "","Loading" , true);
+        dialogg = ProgressDialog.show(this, "",getString(R.string.loading) , true);
         if(!Objects.isNull(match.getTeam1())){
             TeamRepository.getInstance().setiRepository(this);
             TeamRepository.getInstance().findById(this,match.getTeam1().getId());
@@ -214,7 +214,7 @@ public class MatchActivity extends AppCompatActivity implements IRepository {
         }else{
             team1goals.setText("");
             team2goals.setText("");
-            end_date.setText(match.getState().toString()+" scheduled for "+formatter.format(match.getStart_date()));
+            end_date.setText(match.getState().toString()+getString(R.string.scheduled)+formatter.format(match.getStart_date()));
             not_yet.setVisibility(View.VISIBLE);
             matchActionTeam1RV.setVisibility(View.GONE);
             matchActionTeam2RV.setVisibility(View.GONE);

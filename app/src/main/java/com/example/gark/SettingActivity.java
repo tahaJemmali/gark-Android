@@ -22,18 +22,14 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         darkMode=findViewById(R.id.darkMode);
 
-        if(AppCompatDelegate.getDefaultNightMode()==AppCompatDelegate.MODE_NIGHT_YES){
-            darkMode.setChecked(true);
-        }else {
-            darkMode.setChecked(false);
-        }
+        darkMode.setChecked(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
         darkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 int mode=-1;
                 if(b){
                     mode=AppCompatDelegate.MODE_NIGHT_YES;
-                    Toast.makeText(SettingActivity.this, R.string.dark_on,Toast.LENGTH_LONG).show();
+                    Toast.makeText(SettingActivity.this, getString(R.string.dark_on),Toast.LENGTH_LONG).show();
                 }
                 else{
                     mode=AppCompatDelegate.MODE_NIGHT_NO;

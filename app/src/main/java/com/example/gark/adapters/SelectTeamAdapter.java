@@ -26,11 +26,11 @@ import com.example.gark.entites.Team;
 import java.util.ArrayList;
 
 public class SelectTeamAdapter extends RecyclerView.Adapter<SelectTeamAdapter.TeamHolder> {
-    private Context mContext;
-    private ArrayList<Team> teams;
+    private final Context mContext;
+    private final ArrayList<Team> teams;
     public static Team team;
     private static RadioButton lastChecked = null;
-    private static int lastCheckedPos = 0;
+    private static final int lastCheckedPos = 0;
 
     public SelectTeamAdapter(Context mContext, ArrayList<Team> teams) {
         this.mContext = mContext;
@@ -50,7 +50,7 @@ public class SelectTeamAdapter extends RecyclerView.Adapter<SelectTeamAdapter.Te
         Bitmap bitmap = getBitmapFromString(team.getImage());
         holder.topTeamImage.setImageBitmap(bitmap);
         holder.teamNameTextView.setText(team.getName().substring(0,1).toUpperCase() + team.getName().substring(1).toLowerCase());
-        holder.teamWins.setText(team.getVictories()+" wins");
+        holder.teamWins.setText(team.getVictories()+mContext.getString(R.string.wins));
         holder.radio.setOnClickListener(new View.OnClickListener()
         {
             @Override

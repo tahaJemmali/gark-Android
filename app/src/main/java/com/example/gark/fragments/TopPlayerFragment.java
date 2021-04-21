@@ -73,7 +73,6 @@ public class TopPlayerFragment extends Fragment implements IRepository {
         OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
             @Override
             public void handleOnBackPressed() {
-                System.out.println("on back pressed from frag");
                 if (callBackInterface!=null){
                     callBackInterface.popBack();
                 }
@@ -128,7 +127,7 @@ public class TopPlayerFragment extends Fragment implements IRepository {
             reloadData();
             playerGenerated=true;
         }else {
-            playerNumbers.setText(players.size()+" players");
+            playerNumbers.setText(players.size()+getString(R.string.players));
         }
         initUIRecycleViewerListPlayers();
     }
@@ -138,7 +137,7 @@ public class TopPlayerFragment extends Fragment implements IRepository {
         topPlayerRecyclerView.setAdapter(communityTopPlayerAdapter);
     }
     void reloadData(){
-        dialogg = ProgressDialog.show(mContext, "","Loading" , true);
+        dialogg = ProgressDialog.show(mContext, "",mContext.getString(R.string.loading), true);
         players=new  ArrayList<Skills>();
         SkillsRepository.getInstance().setiRepository(this);
         SkillsRepository.getInstance().getAll(mContext,null);
@@ -151,7 +150,7 @@ public class TopPlayerFragment extends Fragment implements IRepository {
     @Override
     public void doAction() {
         players=SkillsRepository.getInstance().getList();
-        playerNumbers.setText(players.size()+" players");
+        playerNumbers.setText(players.size()+getString(R.string.players));
         communityTopPlayerAdapter = new CommunityTopPlayerAdapter(mContext, players);
         topPlayerRecyclerView.setAdapter(communityTopPlayerAdapter);
     }

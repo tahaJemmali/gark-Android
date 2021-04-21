@@ -68,13 +68,12 @@ public class TopTeamFragment extends Fragment implements IRepository {
         OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
             @Override
             public void handleOnBackPressed() {
-                System.out.println("on back pressed from frag");
                 if (callBackInterface!=null){
                     callBackInterface.popBack();
                 }
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         return view;
     }
@@ -94,7 +93,7 @@ public class TopTeamFragment extends Fragment implements IRepository {
             reloadData();
             teamsGenerated=true;
         }else {
-            teamNumbers.setText(teams.size()+" teams");
+            teamNumbers.setText(teams.size()+mContext.getString(R.string.teams));
         }
         initUIRecycleViewerListPlayers();
     }
@@ -105,7 +104,7 @@ public class TopTeamFragment extends Fragment implements IRepository {
         topTeamsRecyclerView.setAdapter(communityTopTeamsAdapter);
     }
     void reloadData(){
-        dialogg = ProgressDialog.show(mContext, "","Loading" , true);
+        dialogg = ProgressDialog.show(mContext, "",getString(R.string.loading), true);
         teams=new  ArrayList<Team>();
         TeamRepository.getInstance().setiRepository(this);
         TeamRepository.getInstance().getAll(mContext,null);
@@ -118,7 +117,7 @@ public class TopTeamFragment extends Fragment implements IRepository {
     @Override
     public void doAction() {
         teams=TeamRepository.getInstance().getList();
-        teamNumbers.setText(teams.size()+" teams");
+        teamNumbers.setText(teams.size()+mContext.getString(R.string.teams));
         communityTopTeamsAdapter = new CommunityTopTeamsAdapter(mContext, teams);
         topTeamsRecyclerView.setAdapter(communityTopTeamsAdapter);
     }

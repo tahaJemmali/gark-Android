@@ -92,7 +92,7 @@ public class AddMatchActionDialog  extends DialogFragment {
     }
         boolean validator(){
             if(minutes.getText().toString().isEmpty()){
-                Toast.makeText(getContext(), R.string.when_action_happend,Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.when_action_happend),Toast.LENGTH_LONG).show();
                 return false;
             }
             try {

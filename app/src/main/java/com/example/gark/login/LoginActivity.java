@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements IRepository {
             loginUser(emailET.getText().toString(),passwordET.getText().toString());
         }else{
             dismissLoadingButton();
-            Toast.makeText(LoginActivity.this,"Invalid Email or Password",Toast.LENGTH_LONG).show();
+            Toast.makeText(LoginActivity.this, getString(R.string.invalid_mail_password),Toast.LENGTH_LONG).show();
         }
     }
 
@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity implements IRepository {
 
     @Override
     public void doAction() {
-        Toast.makeText(this,"Welcome !",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.welcome),Toast.LENGTH_SHORT).show();
         Intent intent=null;
         if (!MainActivity.getCurrentLoggedInUser().getCompletedInformation()){
              intent = new Intent(this, WelcomeActivity.class);

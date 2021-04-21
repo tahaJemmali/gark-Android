@@ -93,7 +93,7 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
     }
 
     void initUI() {
-        dialogg = ProgressDialog.show(this, "","Loading" , true);
+        dialogg = ProgressDialog.show(this, "",getString(R.string.loading) , true);
         finish = findViewById(R.id.finish);
         challengeFinished = findViewById(R.id.challengeFinished);
         location = findViewById(R.id.location);
@@ -236,7 +236,7 @@ public class TournamentActivity extends AppCompatActivity implements IRepository
             }
             setTournement();
         }else {
-            Toast.makeText(this,"Your challenge editing have been saved sucessfully !",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.challenge_edit),Toast.LENGTH_LONG).show();
             Intent intent=new Intent(this,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

@@ -25,8 +25,8 @@ import com.example.gark.entites.Challenge;
 import java.util.ArrayList;
 
 public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.ChallengeHolder>  {
-    private Context mContext;
-    private ArrayList<Challenge> challenges;
+    private final Context mContext;
+    private final ArrayList<Challenge> challenges;
     Challenge challenge;
     public ChallengeAdapter(Context mContext, ArrayList<Challenge> challenges) {
         this.mContext = mContext;
@@ -47,7 +47,7 @@ public class ChallengeAdapter extends RecyclerView.Adapter<ChallengeAdapter.Chal
         Drawable d = new BitmapDrawable(mContext.getResources(), bitmap);
         holder.backgroundImageChallenge.setBackground(d);
         holder.challengeName.setText(challenge.getName());
-        holder.numberOfTeams.setText(challenge.getMaxNumberOfTeams()+" teams");
+        holder.numberOfTeams.setText(challenge.getMaxNumberOfTeams()+mContext.getString(R.string.teams));
         holder.typeTournement.setText(challenge.getType().toString());
     }
 

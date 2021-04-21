@@ -26,8 +26,8 @@ import com.example.gark.entites.Team;
 import java.util.ArrayList;
 
 public class CommunityTopTeamsAdapter extends RecyclerView.Adapter<CommunityTopTeamsAdapter.CommunityTopTeamsHolder> {
-    private Context mContext;
-    private ArrayList<Team> teams;
+    private final Context mContext;
+    private final ArrayList<Team> teams;
     Team team;
 
     public CommunityTopTeamsAdapter(Context mContext, ArrayList<Team> teams) {

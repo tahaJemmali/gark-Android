@@ -262,10 +262,9 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@drawable/grey_color_bg"
                         android:fontFamily="@font/arial_rounded"
                         android:gravity="center"
-                        android:text="Birth date"
+                        android:text="@string/birth_date"
                         android:textSize="16sp"/>
                     <DatePicker
                         android:id="@+id/birthDate"
@@ -328,11 +327,11 @@
                         android:completionHint="yourhint"
                         android:dropDownHeight="match_parent"
                         android:fontFamily="@font/arial_rounded"
-                        android:hint="Address  (optional)"
+                        android:hint="@string/address_optional"
                         android:includeFontPadding="false"
                         android:inputType="textEmailAddress"
                         android:padding="15dp"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:visibility="visible" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -370,11 +369,11 @@
                         android:completionHint="yourhint"
                         android:dropDownHeight="match_parent"
                         android:fontFamily="@font/arial_rounded"
-                        android:hint="Phone  (optional)"
+                        android:hint="@string/phone_optional"
                         android:includeFontPadding="false"
                         android:inputType="phone"
                         android:padding="15dp"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:visibility="visible" />
                 </com.google.android.material.textfield.TextInputLayout>
 

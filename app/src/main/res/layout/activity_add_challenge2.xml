@@ -45,7 +45,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="10"
 
                 android:orientation="vertical"
@@ -56,9 +56,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="5dp"
                     android:fontFamily="@font/arial_rounded"
-                    android:text="Add Matches"
+                    android:text="@string/add_matches"
                     android:textColor="@color/black"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleViewListMatches"
@@ -76,7 +76,7 @@
                     android:background="@drawable/gradian_btn"
                     android:fontFamily="@font/arial_rounded"
                     android:onClick="addChallenge"
-                    android:text="Add Challenge"
+                    android:text="@string/add_challenge"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="23sp"

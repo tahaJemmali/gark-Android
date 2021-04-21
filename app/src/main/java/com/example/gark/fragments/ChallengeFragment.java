@@ -74,13 +74,12 @@ public class ChallengeFragment extends Fragment implements IRepository{
         OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
             @Override
             public void handleOnBackPressed() {
-                System.out.println("on back pressed from frag");
                 if (callBackInterface!=null){
                     callBackInterface.popBack();
                 }
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         return view;
     }
@@ -191,7 +190,7 @@ public class ChallengeFragment extends Fragment implements IRepository{
     }
 
     void reloadData(){
-        dialogg = ProgressDialog.show(mContext, "","Loading" , true);
+        dialogg = ProgressDialog.show(mContext, "",mContext.getString(R.string.loading) , true);
         challenges=new  ArrayList<Challenge>();
         ChallengeRepository.getInstance().setiRepository(this);
         ChallengeRepository.getInstance().getAll(mContext,null);
@@ -217,7 +216,7 @@ public class ChallengeFragment extends Fragment implements IRepository{
         this.callBackInterface = callBackInterface;
     }
     private void initUIRecycleViewerChallenges(ArrayList<Challenge> challenges) {
-        challengNumber.setText(challenges.size()+" challenges");
+        challengNumber.setText(challenges.size()+getString(R.string.challenges));
         recycleViewChallenges.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         challengeAdapter = new ChallengeAdapterListe(mContext, challenges);
         recycleViewChallenges.setAdapter(challengeAdapter);

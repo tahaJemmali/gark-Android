@@ -32,8 +32,8 @@ import java.util.Date;
 import java.util.Objects;
 
 public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder> {
-    private Context mContext;
-    private ArrayList<Match> matches;
+    private final Context mContext;
+    private final ArrayList<Match> matches;
     Match match;
     public static Match selectedMatch;
     public MatchAdapter(Context mContext, ArrayList<Match> matches) {
@@ -69,13 +69,12 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm");
         Date date= new Date();
         if(date.before(match.getStart_date())){
-            holder.end_date.setText(match.getState().toString()+" scheduled for "+formatter.format(match.getStart_date()));
+            holder.end_date.setText(match.getState().toString()+ mContext.getString(R.string.scheduled)+formatter.format(match.getStart_date()));
         }else {
             if(!Objects.isNull(match.getEnd_date())){
                 holder.end_date.setText(formatter.format(match.getEnd_date()));
 
                 for (MatchAction row:match.getGoals()){
-                    Log.e("TAG", "row team: "+row.getTeam().equals(match.getTeam1()));
                     if(row.getTeam().equals(match.getTeam1())){
                         team1goalsNb++;
                     }else if (row.getTeam().equals(match.getTeam2())){
@@ -83,7 +82,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
                     }
                 }
             }else {
-                holder.end_date.setText("The game must be finished, waiting for updates");
+                holder.end_date.setText(mContext.getString(R.string.game_must_finsh));
             }
             if(match.getGoals().size()>0){
                 holder.team1goals.setText(""+team1goalsNb);
@@ -115,7 +114,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MatchHolder>
             team1goals=itemView.findViewById(R.id.team1goals);
             team2goals=itemView.findViewById(R.id.team2goals);
             end_date=itemView.findViewById(R.id.end_date);
-            dialogg = ProgressDialog.show(itemView.getContext(), "", "Loading Data ..Wait..", true);
+            dialogg = ProgressDialog.show(itemView.getContext(), "", mContext.getString(R.string.loading), true);
             dialogg.dismiss();
             MatchRepository.getInstance().setiRepository(this);
             itemView.setOnClickListener(new View.OnClickListener() {

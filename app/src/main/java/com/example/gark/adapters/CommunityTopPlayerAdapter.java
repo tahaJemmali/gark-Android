@@ -1,5 +1,6 @@
 package com.example.gark.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,8 +25,8 @@ import com.example.gark.entites.Skills;
 import java.util.ArrayList;
 
 public class CommunityTopPlayerAdapter extends RecyclerView.Adapter<CommunityTopPlayerAdapter.CommunityTopPlayerHolder> {
-    private Context mContext;
-    private ArrayList<Skills> players;
+    private final Context mContext;
+    private final ArrayList<Skills> players;
     Skills player;
     public CommunityTopPlayerAdapter(Context mContext, ArrayList<Skills> players) {
         this.mContext = mContext;
@@ -39,6 +40,7 @@ public class CommunityTopPlayerAdapter extends RecyclerView.Adapter<CommunityTop
         return new CommunityTopPlayerAdapter.CommunityTopPlayerHolder(rootView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull CommunityTopPlayerHolder holder, int position) {
         player = players.get(position);

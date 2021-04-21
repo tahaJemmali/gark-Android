@@ -23,8 +23,8 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class InviteTeamAdapter extends RecyclerView.Adapter<InviteTeamAdapter.InviteHolder> {
-    private Context mContext;
-    private ArrayList<Skills> players;
+    private final Context mContext;
+    private final ArrayList<Skills> players;
     Skills player;
     ArrayList<Skills> returnPlayers;
     public InviteTeamAdapter(Context mContext, ArrayList<Skills> players) {
@@ -78,9 +78,7 @@ public class InviteTeamAdapter extends RecyclerView.Adapter<InviteTeamAdapter.In
                     if (b){
                         returnPlayers.add(players.get(getAdapterPosition()));
                     }else {
-                        if (returnPlayers.contains(players.get(getAdapterPosition()))){
-                            returnPlayers.remove(players.get(getAdapterPosition()));
-                        }
+                        returnPlayers.remove(players.get(getAdapterPosition()));
                     }
                 }
             });

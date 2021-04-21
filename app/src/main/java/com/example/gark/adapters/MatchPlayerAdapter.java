@@ -32,8 +32,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class MatchPlayerAdapter  extends RecyclerView.Adapter<MatchPlayerAdapter.TopPlayerHolder>{
-    private Context mContext;
-    private ArrayList<Skills> players;
+    private final Context mContext;
+    private final ArrayList<Skills> players;
     Skills player;
     String captinId;
     int allowVote;
@@ -99,7 +99,6 @@ public class MatchPlayerAdapter  extends RecyclerView.Adapter<MatchPlayerAdapter
                 public void onClick(View view) {
                     player=players.get(getAdapterPosition());
 
-                    Log.e("TAG", "onClick: "+ MainActivity.currentPlayerSkills.getTeams().contains(team));
                     if(MainActivity.currentPlayerSkills.getTeams().contains(team)){
                         allowVote=2;
                     }else if(player.equals(MainActivity.currentPlayerSkills)){
@@ -121,16 +120,16 @@ public class MatchPlayerAdapter  extends RecyclerView.Adapter<MatchPlayerAdapter
                      dialog.show( ((MatchActivity) mContext).getSupportFragmentManager(), "VoteDialog");
                      break;
                  case 1:
-                     Toast.makeText(mContext,"You didn't play in this game, you can't vote ",Toast.LENGTH_LONG).show();
+                     Toast.makeText(mContext, mContext.getString(R.string.not_played_in_game),Toast.LENGTH_LONG).show();
                      break;
                  case 2:
-                     Toast.makeText(mContext,"You can't vote on your own teamates",Toast.LENGTH_LONG).show();
+                     Toast.makeText(mContext, mContext.getString(R.string.no_teamMate),Toast.LENGTH_LONG).show();
                      break;
                  case 3:
-                     Toast.makeText(mContext,"You can't vote on your self",Toast.LENGTH_LONG).show();
+                     Toast.makeText(mContext, mContext.getString(R.string.no_self),Toast.LENGTH_LONG).show();
                      break;
                  case 4:
-                     Toast.makeText(mContext,"You already voted on this player",Toast.LENGTH_LONG).show();
+                     Toast.makeText(mContext, mContext.getString(R.string.already_voted),Toast.LENGTH_LONG).show();
                      break;
              }
                 }

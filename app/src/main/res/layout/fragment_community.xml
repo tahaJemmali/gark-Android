@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/arial_rounded"
-                android:text="Community"
+                android:text="@string/community"
                 android:textColor="@color/black"
                 android:textSize="30dp" />
 
@@ -75,7 +75,7 @@
             android:elevation="10dp"
             android:fontFamily="@font/arial_rounded"
             android:drawableLeft="@drawable/ic_baseline_search_24"
-            android:hint="Search"
+            android:hint="@string/search"
             android:paddingLeft="15dp"
             android:textSize="14dp" />
         <FrameLayout

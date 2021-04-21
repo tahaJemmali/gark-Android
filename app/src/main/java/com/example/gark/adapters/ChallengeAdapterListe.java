@@ -23,8 +23,8 @@ import com.example.gark.entites.Challenge;
 import java.util.ArrayList;
 
 public class ChallengeAdapterListe extends RecyclerView.Adapter<ChallengeAdapterListe.ChallengeAdapterListeHolder> {
-    private Context mContext;
-    private ArrayList<Challenge> challenges;
+    private final Context mContext;
+    private final ArrayList<Challenge> challenges;
     Challenge challenge;
 
     public ChallengeAdapterListe(Context mContext, ArrayList<Challenge> challenges) {

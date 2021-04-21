@@ -66,6 +66,6 @@ public class FavorisTeamActivity extends AppCompatActivity {
         sharedPreferences.edit().clear().apply();
         communityTopTeamsAdapter = new CommunityTopTeamsAdapter(this, teamsFavorites);
         topTeamsRecyclerView.setAdapter(communityTopTeamsAdapter);
-        Toast.makeText(FavorisTeamActivity.this,"Data cleared successfully !",Toast.LENGTH_LONG).show();
+        Toast.makeText(FavorisTeamActivity.this, getString(R.string.data_cleared),Toast.LENGTH_LONG).show();
     }
 }

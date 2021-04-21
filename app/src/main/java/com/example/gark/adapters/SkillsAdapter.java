@@ -17,7 +17,7 @@ import com.example.gark.entites.Skills;
 import java.util.ArrayList;
 
 public class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.SkillsHolder>{
-    private Context mContext;
+    private final Context mContext;
     Skills player;
     public SkillsAdapter(Context mContext, Skills player) {
         this.mContext = mContext;
@@ -35,37 +35,37 @@ public class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.SkillsHold
     public void onBindViewHolder(@NonNull SkillsHolder holder, int position) {
         switch (position){
             case 0:
-                holder.skills.setText("pace");
+                holder.skills.setText(mContext.getString(R.string.pace));
                 holder.numberSkills.setText(""+player.getPace());
                 holder.progress_bar.setProgress(player.getPace());
                 break;
             case 1:
-                holder.skills.setText("shooting");
+                holder.skills.setText(mContext.getString(R.string.shooting));
                 holder.numberSkills.setText(""+player.getShooting());
                 holder.progress_bar.setProgress(player.getShooting());
                 break;
             case 2:
-                holder.skills.setText("passing");
+                holder.skills.setText(mContext.getString(R.string.shooting));
                 holder.numberSkills.setText(""+player.getPassing());
                 holder.progress_bar.setProgress(player.getPassing());
                 break;
             case 3:
-                holder.skills.setText("dribbling");
+                holder.skills.setText(mContext.getString(R.string.dribbling));
                 holder.numberSkills.setText(""+player.getDribbling());
                 holder.progress_bar.setProgress(player.getDribbling());
                 break;
             case 4:
-                holder.skills.setText("defending");
+                holder.skills.setText(mContext.getString(R.string.defending));
                 holder.numberSkills.setText(""+player.getDefending());
                 holder.progress_bar.setProgress(player.getDribbling());
                 break;
             case 5:
-                holder.skills.setText("physical");
+                holder.skills.setText(mContext.getString(R.string.physical));
                 holder.numberSkills.setText(""+player.getPhysical());
                 holder.progress_bar.setProgress(player.getPhysical());
                 break;
             case 6:
-                holder.skills.setText("score");
+                holder.skills.setText(mContext.getString(R.string.score));
                 holder.numberSkills.setText(""+player.getScore());
                 holder.progress_bar.setProgress(player.getScore());
                 break;

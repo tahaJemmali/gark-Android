@@ -32,7 +32,7 @@ public class UserRepository {
 
     private static UserRepository instance;
 
-    private String baseURL = IRepository.baseURL;
+    private final String baseURL = IRepository.baseURL;
     public User user;
     private IRepository iRepository;
 

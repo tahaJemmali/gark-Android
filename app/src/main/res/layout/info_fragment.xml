@@ -61,7 +61,7 @@
                     android:textSize="20sp"
                     android:fontFamily="@font/arial_rounded"
                     android:textColor="@color/black"
-                    android:text="Weight"
+                    android:text="@string/weight"
                     android:layout_weight="2"/>
                 <TextView
                     android:id="@+id/height"
@@ -102,7 +102,7 @@
                     android:textSize="20sp"
                     android:fontFamily="@font/arial_rounded"
                     android:textColor="@color/black"
-                    android:text="Height"
+                    android:text="@string/height"
                     android:layout_weight="2"/>
                 <TextView
                     android:id="@+id/weight"
@@ -125,7 +125,7 @@
             android:textSize="13sp"
             android:fontFamily="@font/arial_rounded"
             android:textColor="@color/black"
-            android:text="Best Team International" />
+            android:text="@string/best_team_international" />
         <androidx.cardview.widget.CardView
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -168,7 +168,7 @@
             android:textSize="13sp"
             android:fontFamily="@font/arial_rounded"
             android:textColor="@color/black"
-            android:text="Best Player International" />
+            android:text="@string/best_player_international" />
         <androidx.cardview.widget.CardView
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -211,7 +211,7 @@
             android:textSize="13sp"
             android:fontFamily="@font/arial_rounded"
             android:textColor="@color/black"
-            android:text="Best Team In Tunisia" />
+            android:text="@string/best_team_in_tunisia" />
         <androidx.cardview.widget.CardView
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -254,7 +254,7 @@
             android:textSize="13sp"
             android:fontFamily="@font/arial_rounded"
             android:textColor="@color/black"
-            android:text="Best Player In Tunisia" />
+            android:text="@string/best_player_in_tunisia" />
         <androidx.cardview.widget.CardView
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -294,7 +294,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/arial_rounded"
-        android:text="My teams"
+        android:text="@string/my_teams"
         android:layout_marginVertical="10dp"
         android:textColor="@color/black"
         android:textSize="20sp" />
@@ -306,7 +306,7 @@
         android:id="@+id/not_yet_teams"
         android:layout_marginHorizontal="4dp"
         android:layout_marginVertical="15dp"
-        android:text="He doesn't have any teams"
+        android:text="@string/he_doesn_t_have_any_teams"
         android:textSize="20sp"
         android:visibility="gone"
         android:layout_gravity="center"
@@ -322,6 +322,6 @@
         android:layout_gravity="center"
         android:background="@drawable/gradian_btn"
         android:fontFamily="@font/arial_rounded"
-        android:text="Contact Me"
+        android:text="@string/contact_me"
         android:textColor="#FFF" />
 </LinearLayout>

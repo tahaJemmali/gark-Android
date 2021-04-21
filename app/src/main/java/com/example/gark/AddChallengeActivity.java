@@ -67,7 +67,7 @@ private static final int CAMERA_REQUEST_CODE = 100;
 
     Uri image_uri = null;
     String image = "noImage";
-    private List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
+    private final List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
 
 //////////////VAR
     Challenge challenge;
@@ -107,29 +107,29 @@ private static final int CAMERA_REQUEST_CODE = 100;
 
     boolean validator(){
       if (image.equals("noImage")){
-            Toast.makeText(AddChallengeActivity.this, R.string.validator_add_image_challenge,Toast.LENGTH_LONG).show();
+            Toast.makeText(AddChallengeActivity.this, getString(R.string.validator_add_image_challenge),Toast.LENGTH_LONG).show();
             return false;
         }
         if (challengeNameET.getText().toString().isEmpty()){
-            Toast.makeText(AddChallengeActivity.this, R.string.validator_add_name_challenge,Toast.LENGTH_LONG).show();
+            Toast.makeText(AddChallengeActivity.this, getString(R.string.validator_add_name_challenge),Toast.LENGTH_LONG).show();
             return false;
         }
         if (editDescription.getText().toString().isEmpty()){
-            Toast.makeText(AddChallengeActivity.this, R.string.validator_add_description_challenge,Toast.LENGTH_LONG).show();
+            Toast.makeText(AddChallengeActivity.this, getString(R.string.validator_add_description_challenge),Toast.LENGTH_LONG).show();
             return false;
         }
         if (prizeET.getText().toString().isEmpty()){
-            Toast.makeText(AddChallengeActivity.this, R.string.validator_add_prize_challenge,Toast.LENGTH_LONG).show();
+            Toast.makeText(AddChallengeActivity.this, getString(R.string.validator_add_prize_challenge),Toast.LENGTH_LONG).show();
             return false;
         }
         if (locationET.getText().toString().isEmpty()){
-            Toast.makeText(AddChallengeActivity.this, R.string.validator_add_location_challenge,Toast.LENGTH_LONG).show();
+            Toast.makeText(AddChallengeActivity.this, getString(R.string.validator_add_location_challenge),Toast.LENGTH_LONG).show();
             return false;
         }
         try {
             Float.parseFloat(prizeET.getText().toString());
         }catch (Exception e){
-            Toast.makeText(AddChallengeActivity.this, R.string.validator_add_valid_prize_challenge,Toast.LENGTH_LONG).show();
+            Toast.makeText(AddChallengeActivity.this, getString(R.string.validator_add_valid_prize_challenge),Toast.LENGTH_LONG).show();
             return  false;
         }
       /*  if (getDateFromDatePicker(startdateET).after(getDateFromDatePicker(enddateET))){
@@ -164,7 +164,7 @@ private static final int CAMERA_REQUEST_CODE = 100;
                     long lengthbmp = imageInByte.length;
 
                     if (((float)lengthbmp / (1024 * 1024))>2.0)
-                        Toast.makeText(AddChallengeActivity.this, R.string.file_size,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddChallengeActivity.this,getString( R.string.file_size),Toast.LENGTH_SHORT).show();
                     else if (!extensions.contains(GetFileExtension(image_uri)))
                         Toast.makeText(AddChallengeActivity.this, getString(R.string.select_image),Toast.LENGTH_SHORT).show();
                     else
@@ -232,7 +232,7 @@ private static final int CAMERA_REQUEST_CODE = 100;
         String[] options = {"Camera", "Gallery"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.choose_image_from);
+        builder.setTitle(getString(R.string.choose_image_from));
         //set options to dialog
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override

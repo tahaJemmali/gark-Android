@@ -70,7 +70,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
     }
 
     void initUI(){
-        dialogg = ProgressDialog.show(this, "","Loading" , true);
+        dialogg = ProgressDialog.show(this, "",getString(R.string.loading) , true);
         joinTeam=findViewById(R.id.joinTeam);
         playerDisplayType=findViewById(R.id.playerDisplayType);
         teamImage=findViewById(R.id.teamImage);
@@ -120,18 +120,18 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
     void validate(){
         if(getSharedPreferences(FavorisTeamActivity.SHARED_PREFS_Fav, MODE_PRIVATE).getStringSet(TEAMS, null) !=null){
             if(getSharedPreferences(FavorisTeamActivity.SHARED_PREFS_Fav, MODE_PRIVATE).getStringSet(TEAMS, null).contains(team.getId()))
-                Toast.makeText(TeamProfileActivity.this,"Team Already added to your favorite",Toast.LENGTH_LONG).show();
+                Toast.makeText(TeamProfileActivity.this, getString(R.string.team_already_favorite),Toast.LENGTH_LONG).show();
         }
 
         savePreference();
-        Toast.makeText(TeamProfileActivity.this,"Team Added to your Favorite",Toast.LENGTH_LONG).show();
+        Toast.makeText(TeamProfileActivity.this, getString(R.string.team_added_favorite),Toast.LENGTH_LONG).show();
     }
 
     public void joinTeam(View view) {
     team.getSubstitutes().add(MainActivity.currentPlayerSkills);
     TeamRepository.getInstance().update(this,team,team.getId(),false);
     SkillsRepository.getInstance().addTeamToPlayer(this,MainActivity.currentPlayerSkills.getId(),team.getId());
-        Toast.makeText(TeamProfileActivity.this,"You have joined sucessfully "+team.getName(),Toast.LENGTH_LONG).show();
+        Toast.makeText(TeamProfileActivity.this,getString(R.string.joined_sucess)+team.getName(),Toast.LENGTH_LONG).show();
     }
 
     @Override

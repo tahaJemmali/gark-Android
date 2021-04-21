@@ -22,7 +22,7 @@
         android:layout_gravity="center"
         android:layout_weight="2"
         android:fontFamily="@font/arial_rounded"
-        android:text="Type :"/>
+        android:text="@string/type"/>
     <TextView
         android:id="@+id/typeMatch"
         android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:textSize="15sp"
         android:fontFamily="@font/arial_rounded"
         android:layout_weight="2"
-        android:text="Start date :"/>
+        android:text="@string/start_date"/>
     <TextView
         android:id="@+id/match_start_date"
         android:layout_width="wrap_content"

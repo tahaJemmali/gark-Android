@@ -40,7 +40,7 @@ private ArrayList<Skills> players;
         initUI();
     }
     void initUI(){
-        dialogg = ProgressDialog.show(this, "","Loading" , true);
+        dialogg = ProgressDialog.show(this, "",getString(R.string.loading), true);
         search_bar_invitation=findViewById(R.id.search_bar_invitation);
         inviteTeamMembers=findViewById(R.id.inviteTeamMembers);
         searchPlayers=new ArrayList<Skills>();
@@ -97,7 +97,6 @@ private ArrayList<Skills> players;
         players= SkillsRepository.getInstance().getList();
         for (Skills row:players){
             if (row.getPlayer().getId().equals(MainActivity.getCurrentLoggedInUser().getId())){
-                Log.e("TAG", "doAction: "+"done" );
                 players.remove(row);
             }
         }

@@ -93,7 +93,7 @@ public class DescriptionActivity extends AppCompatActivity implements IRepositor
 
     Uri image_uri = null;
     String image = "noImage";
-    private List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
+    private final List<String> extensions = Arrays.asList("png", "jpg", "jpeg", "tif", "tiff", "bmp");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,37 +119,37 @@ public class DescriptionActivity extends AppCompatActivity implements IRepositor
 
     boolean validator() {
         if (image.equals("noImage")) {
-            Toast.makeText(this, "Please put your image image don't be shy", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.validator_image_skills), Toast.LENGTH_SHORT).show();
             return false;
         }
         if (height.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please put your height", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.validator_hight_skills), Toast.LENGTH_SHORT).show();
         }
         if (weight.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please put your weight", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.validator_weight_skills), Toast.LENGTH_SHORT).show();
         }
         try {
             Float.parseFloat(height.getText().toString());
         } catch (Exception e) {
-            Toast.makeText(this, "Please chose a valid value for prize !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.validator_skills_height), Toast.LENGTH_LONG).show();
             return false;
         }
         try {
             Float.parseFloat(weight.getText().toString());
         } catch (Exception e) {
-            Toast.makeText(this, "Please chose a valid value for prize !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.validator_valid_weight_skills), Toast.LENGTH_LONG).show();
             return false;
         }
 
         if (description.getText().toString().isEmpty()) {
-            Toast.makeText(this, "Please describe yourself in a few words!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.describe_yourself), Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
     void initUI() {
-        dialogg = ProgressDialog.show(this, "", "Loading", true);
+        dialogg = ProgressDialog.show(this, "", getString(R.string.loading), true);
         //init permissions arrays
         RessourceRepository.getInstance().setiRepository(this);
         RessourceRepository.getInstance().getAll(this, RessourceType.club);
@@ -173,22 +173,22 @@ public class DescriptionActivity extends AppCompatActivity implements IRepositor
         PlayerTunisia = findViewById(R.id.PlayerTunisia);
 
         bestTeamInternationalSpinner = findViewById(R.id.bestTeamInternationalSpinner);
-        bestTeamInternationalSpinner.setTitle("Select your best team worldwide");
+        bestTeamInternationalSpinner.setTitle(getString(R.string.select_bestTeam_worldWide));
         bestTeamInternationalSpinner.setPositiveButton("OK");
 
 
         bestTeamTunisiaSpinner = findViewById(R.id.bestTeamTunisiaSpinner);
-        bestTeamTunisiaSpinner.setTitle("Select your best team in tunisia");
+        bestTeamTunisiaSpinner.setTitle(getString(R.string.select_bestTeam_tunisia));
         bestTeamTunisiaSpinner.setPositiveButton("OK");
 
 
         bestPlayerInternationalSpinner = findViewById(R.id.bestPlayerInternationalSpinner);
-        bestPlayerInternationalSpinner.setTitle("Select your best player worldwide");
+        bestPlayerInternationalSpinner.setTitle(getString(R.string.select_bestPlayer_worldWide));
         bestPlayerInternationalSpinner.setPositiveButton("OK");
 
 
         bestPlayerTunisiaSpinner = findViewById(R.id.bestPlayerTunisiaSpinner);
-        bestPlayerTunisiaSpinner.setTitle("Select your best player in tunisia");
+        bestPlayerTunisiaSpinner.setTitle(getString(R.string.select_bestPlayer_tunisia));
         bestPlayerTunisiaSpinner.setPositiveButton("OK");
 
         ArrayList<String> nationalites = new ArrayList<String>();

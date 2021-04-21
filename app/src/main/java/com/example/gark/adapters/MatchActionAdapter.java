@@ -24,8 +24,8 @@ import com.example.gark.entites.MatchAction;
 import java.util.ArrayList;
 
 public class MatchActionAdapter extends RecyclerView.Adapter<MatchActionAdapter.MatchActionHolder>{
-    private Context mContext;
-    private ArrayList<MatchAction> matchActions;
+    private final Context mContext;
+    private final ArrayList<MatchAction> matchActions;
     MatchAction matchAction;
     boolean editing;
     Match match;

@@ -304,7 +304,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/gradian_btn"
         android:fontFamily="@font/arial_rounded"
-        android:text="Logout"
+        android:text="@string/logout"
         android:onClick="logout"
         android:textAllCaps="false"
         android:textColor="@android:color/white"

@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TopPlayersAdapter  extends RecyclerView.Adapter<TopPlayersAdapter.TopPlayerHolder>{
-    private Context mContext;
-    private ArrayList<Skills> players;
+    private final Context mContext;
+    private final ArrayList<Skills> players;
     Skills player;
     String captinId;
     public TopPlayersAdapter(Context mContext, ArrayList<Skills> players) {
@@ -57,7 +57,6 @@ public class TopPlayersAdapter  extends RecyclerView.Adapter<TopPlayersAdapter.T
         }
 
         if (player.getId().equals(captinId)){
-            Log.e("TAG", "onBindViewHolder: "+"capitain" );
             holder.captinBadge.setVisibility(View.VISIBLE);
         }
     }

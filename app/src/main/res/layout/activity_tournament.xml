@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="EFMLDFJ jlfgjm "
-                    android:textColor="@color/white"
+                    android:textColor="#FFF"
                     android:layout_gravity="center"
                     android:fontFamily="@font/arial_rounded"
                     android:textSize="40sp"
@@ -74,8 +74,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Academy"
-                    android:textColor="@color/white"
-                    android:textSize="25dp"
+                    android:textColor="#FFF"
+                    android:textSize="25sp"
                     android:fontFamily="@font/arial_rounded" />
             </LinearLayout>
 
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Grand Tunis"
-                android:textColor="@color/white"
+                android:textColor="#FFF"
                 android:layout_gravity="center"
                 android:fontFamily="@font/arial_rounded"
                 android:background="@color/transparent"
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lorem"
                 android:gravity="center"
-                android:textColor="@color/white"
+                android:textColor="#FFF"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="10dp"
                 android:fontFamily="@font/arial_rounded"

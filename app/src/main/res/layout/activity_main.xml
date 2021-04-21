@@ -41,16 +41,16 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="10dp"
             android:background="@drawable/notification_icon"
-            android:onClick="addNotificationFragment"
-            android:tint="@drawable/image_btn_clicked" />
+            android:backgroundTint="@drawable/image_btn_clicked"
+            android:onClick="addNotificationFragment" />
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginHorizontal="10dp"
             android:layout_gravity="center"
             android:background="@drawable/email"
-            android:onClick="addMessengerFragment"
-            android:tint="@drawable/image_btn_clicked" />
+            android:backgroundTint="@drawable/image_btn_clicked"
+            android:onClick="addMessengerFragment" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,10 +107,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#FFF"
                 android:onClick="showAllFields"
-                android:src="@drawable/soccer_field"
-                android:tint="@drawable/image_btn_clicked" />
+                android:background="@drawable/soccer_field"
+                android:backgroundTint="@drawable/image_btn_clicked" />
         </LinearLayout>
 
         <LinearLayout
@@ -125,10 +124,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#FFF"
-                android:onClick="showTChallenges"
-                android:src="@drawable/trophy"
-                android:tint="@drawable/image_btn_clicked" />
+                android:background="@drawable/trophy"
+                android:backgroundTint="@drawable/image_btn_clicked"
+                android:onClick="showTChallenges" />
         </LinearLayout>
 
         <LinearLayout
@@ -142,10 +140,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#FFF"
+                android:backgroundTint="@drawable/image_btn_clicked"
                 android:onClick="addTopViewedStories"
-                android:src="@drawable/fire_icon"
-                android:tint="@drawable/image_btn_clicked" />
+                android:background="@drawable/fire_icon" />
         </LinearLayout>
 
         <LinearLayout
@@ -159,10 +156,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#FFF"
+                android:backgroundTint="@drawable/image_btn_clicked"
                 android:onClick="addCommunityFragment"
-                android:src="@drawable/friends"
-                android:tint="@drawable/image_btn_clicked" />
+                android:background="@drawable/friends" />
         </LinearLayout>
 
 

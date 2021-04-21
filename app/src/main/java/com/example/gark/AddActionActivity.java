@@ -54,7 +54,6 @@ Spinner teamSpinner;
     public void sendInput(MatchAction matchAction) {
         linearLayout8.setVisibility(View.VISIBLE);
         not_yet.setVisibility(View.GONE);
-        Log.e("TAG", "sendInput: "+matchAction );
         if(matchAction.getTeam().equals(match.getTeam1())){
             matchActionsTeam1.add(matchAction);
             matchActionAdapterTeam1.notifyDataSetChanged();
@@ -111,7 +110,7 @@ Spinner teamSpinner;
     public void finish(View view) {
         Team winner;
         Team looser;
-        dialogg = ProgressDialog.show(this, "","Loading" , true);
+        dialogg = ProgressDialog.show(this, "",getString(R.string.loading) , true);
         if(teamSpinner.getSelectedItemPosition()==0){
             winner=match.getTeam1();
             looser=match.getTeam2();
@@ -169,7 +168,7 @@ Spinner teamSpinner;
         }
 
         if(matchUpdated){
-            Toast.makeText(AddActionActivity.this,"Your match editing have been saved sucessfully !",Toast.LENGTH_LONG).show();
+            Toast.makeText(AddActionActivity.this, getString(R.string.match_editing),Toast.LENGTH_LONG).show();
             Intent intent=new Intent(this,MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);

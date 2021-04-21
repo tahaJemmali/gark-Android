@@ -95,7 +95,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
         swipe_container.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                dialogg = ProgressDialog.show(mContext, "","Loading" , true);
+                dialogg = ProgressDialog.show(mContext, "",getString(R.string.loading) , true);
                 //generated = false;
                 loadData();
                 swipe_container.setRefreshing(false);
@@ -110,7 +110,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
                     intent.putExtra("sizeTen",topTen.size());
                     mContext.startActivity(intent);
                 }else {
-                    Toast.makeText(mContext,"There's no story to show !",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.no_story),Toast.LENGTH_SHORT).show();
                 }
                 }
             });
@@ -131,7 +131,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
     }
     void initUI(){
             //\tournement
-        dialogg = ProgressDialog.show(mContext, "","Loading" , true);
+        dialogg = ProgressDialog.show(mContext, "",getString(R.string.loading), true);
         //posts
         posts=new  ArrayList<Post>();
         topTen=new  ArrayList<Post>();
@@ -211,7 +211,6 @@ public class AcceuilFragment extends Fragment implements IRepository {
                 //////skills
                 players=SkillsRepository.getInstance().getList();
                 initUIRecycleViewerTopPlayers();
-                Log.e("TAG", "doAction: "+"hem" );
                 generating++;
                 getAllPosts();
 

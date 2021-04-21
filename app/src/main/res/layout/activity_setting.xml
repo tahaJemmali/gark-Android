@@ -27,7 +27,7 @@
             android:onClick="getBack" />
 
         <ImageView
-            android:layout_width="30dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="2"
             android:src="@drawable/gark_logo" />
@@ -64,14 +64,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arial_rounded"
-                    android:text="Dark Mode"
-                    android:layout_weight="1"/>
+                    android:text="@string/dark_mode" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:layout_weight="1"
                     android:id="@+id/darkMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/SCBSwitch"/>
             </LinearLayout>
 
 
@@ -109,14 +109,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arial_rounded"
-                    android:text="Notifications"
-                    android:layout_weight="1"/>
+                    android:text="@string/notifications" />
 
-                <Switch
+                <com.google.android.material.switchmaterial.SwitchMaterial
                     android:layout_weight="1"
                     android:id="@+id/notificationSwitch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/SCBSwitch"
+                    />
             </LinearLayout>
 
 
@@ -201,7 +202,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arial_rounded"
-                    android:text="Report a technical problem" />
+                    android:text="@string/report_a_technical_problem" />
 
             </LinearLayout>
             <ImageView
@@ -244,7 +245,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arial_rounded"
-                    android:text="Help Center" />
+                    android:text="@string/help_center" />
             </LinearLayout>
             <ImageView
                 android:layout_weight="1"
@@ -286,7 +287,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arial_rounded"
-                    android:text="Term an Privacy"
+                    android:text="@string/term_an_privacy"
                    />
             </LinearLayout>
 

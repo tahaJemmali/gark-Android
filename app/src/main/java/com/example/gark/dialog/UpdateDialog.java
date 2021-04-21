@@ -23,14 +23,13 @@ public class UpdateDialog  extends DialogFragment {
 
     //widgets
     private EditText mInput;
-    private TextView mActionOk, mActionCancel;
 
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.update_dialog, container, false);
-        mActionOk = view.findViewById(R.id.action_ok);
-        mActionCancel = view.findViewById(R.id.action_cancel);
+        TextView mActionOk = view.findViewById(R.id.action_ok);
+        TextView mActionCancel = view.findViewById(R.id.action_cancel);
         mInput = view.findViewById(R.id.input);
 
         mActionCancel.setOnClickListener(new View.OnClickListener() {

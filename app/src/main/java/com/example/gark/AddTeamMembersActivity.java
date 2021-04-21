@@ -32,7 +32,7 @@ InviteTeamAdapter inviteTeamAdapter;
 //Var
 private ArrayList<Skills> players;
     private ArrayList<Skills> searchPlayers;
-private ArrayList<Skills> invitedPlayers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +81,8 @@ private ArrayList<Skills> invitedPlayers;
 
     public void invite(View view) {
         Intent returnIntent = new Intent();
-        invitedPlayers= inviteTeamAdapter.returnSelectedMemembers();
-        returnIntent.putExtra("result",invitedPlayers);
+        ArrayList<Skills> invitedPlayers = inviteTeamAdapter.returnSelectedMemembers();
+        returnIntent.putExtra("result", invitedPlayers);
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }

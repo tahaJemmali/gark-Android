@@ -11,12 +11,12 @@ import com.example.gark.SplashActivity;
 import com.example.gark.login.LoginActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
-    /** Duration of wait **/
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        /** Duration of wait **/
+        int SPLASH_DISPLAY_LENGTH = 1000;
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {

@@ -80,7 +80,7 @@ public class AddMatchDialog  extends DialogFragment {
         date.setHours(timePicker.getCurrentHour());
         date.setMinutes(timePicker.getMinute());
         if(date.before(new Date())){
-            Toast.makeText(getContext(),"You can't give a match a date before current date !",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.date_before_current),Toast.LENGTH_LONG).show();
             return  false;
         }
         Calendar cal1 = Calendar.getInstance();
@@ -90,7 +90,7 @@ public class AddMatchDialog  extends DialogFragment {
         boolean sameDay = cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                 cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR);
         if(sameDay){
-            Toast.makeText(getContext(),"You can't set a match for today, add at least 24h from current time !",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.set_match_today_validator),Toast.LENGTH_LONG).show();
             return  false;
         }
         return true;
@@ -116,7 +116,7 @@ public class AddMatchDialog  extends DialogFragment {
             public void onClick(View view) {
                 if(validator()){
                     setMatch();
-                    Toast.makeText(getContext(),"Match date added successfully !",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.match_date_added),Toast.LENGTH_LONG).show();
                     mOnInputSelected.sendInput();
                     getDialog().dismiss();
                 }

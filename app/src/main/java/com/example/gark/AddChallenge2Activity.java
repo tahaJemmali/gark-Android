@@ -97,7 +97,7 @@ public class AddChallenge2Activity extends AppCompatActivity implements IReposit
             DecimalFormat df = new DecimalFormat("#.00");
             challenge.setPrize( Float.parseFloat(df.format(challenge.getPrize())));
             MatchRepository.getInstance().setiRepository(this);
-            dialogg = ProgressDialog.show(this, "","Loading" , true);
+            dialogg = ProgressDialog.show(this, "",getString(R.string.loading) , true);
             ChallengeRepository.getInstance().setiRepository(this);
             ChallengeRepository.getInstance().add(this,challenge,null);
 
@@ -109,7 +109,7 @@ public class AddChallenge2Activity extends AppCompatActivity implements IReposit
         for (Match row : matches){
             i++;
             if(row.getStart_date()==null){
-                Toast.makeText(this,"You didn't specify the start date for the match N°"+i,Toast.LENGTH_LONG).show();
+                Toast.makeText(this,getString(R.string.specify_start_date)+" "+i,Toast.LENGTH_LONG).show();
                 return false;
             }
         }
@@ -138,7 +138,7 @@ public class AddChallenge2Activity extends AppCompatActivity implements IReposit
 
             if(MatchRepository.generatorMatches==(challenge.getMaxNumberOfTeams()-1)){
                 MatchRepository.generatorMatches=0;
-                Toast.makeText(AddChallenge2Activity.this,"Challenge Added Sucessfully !",Toast.LENGTH_LONG).show();
+                Toast.makeText(AddChallenge2Activity.this, getString(R.string.challenge_added),Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(this,MainActivity.class);
                 startActivity(intent);
                 finish();

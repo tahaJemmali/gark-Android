@@ -92,13 +92,13 @@ public class AddMatchActionDialog  extends DialogFragment {
     }
         boolean validator(){
             if(minutes.getText().toString().isEmpty()){
-                Toast.makeText(getContext(),"Please specify when this action happend in the game !",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), R.string.when_action_happend,Toast.LENGTH_LONG).show();
                 return false;
             }
             try {
                 minutesVal=Integer.parseInt(minutes.getText().toString());
             }catch (Exception e){
-                Toast.makeText(getContext(),"Please put a valid number in time field !",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getString(R.string.valid_number_time),Toast.LENGTH_LONG).show();
                 return false;
             }
             return true;
@@ -241,7 +241,7 @@ public class AddMatchActionDialog  extends DialogFragment {
                             break;
                     }
 
-                    Toast.makeText(getContext(),"Match Action added successfully !",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), getString(R.string.match_add),Toast.LENGTH_LONG).show();
                     mOnInputSelected.sendInput(matchAction);
                     getDialog().dismiss();
                 }

@@ -1,12 +1,67 @@
 <resources>
     <string name="app_name">Gark</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_player_profile">PlayerProfileActivity</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-    <string name="hello_world">Hello Square World!</string>
+
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot password ?</string>
+    <string name="new_user_sign_up">New user ? Sign up</string>
+    <string name="by_signing_up_you_indicate_that_you_read_and_agree_the_terms_of_service">By signing up you indicate that you read and agree the Terms of Service</string>
+    <string name="password">password</string>
+    <string name="email_adress">Email address</string>
+    <string name="loading">Loading</string>
+    <string name="no_story">There\'s no story to show !</string>
+    <string name="location">location</string>
+    <string name="_8_teams">8 teams</string>
+    <string name="_16_teams">16 teams</string>
+    <string name="number_of_teams">number of teams</string>
+    <string name="prize">prize</string>
+    <string name="proceed">Proceed</string>
+    <string name="challenge_name">Challenge Name</string>
+    <string name="match_editing">Your match editing have been saved successfully !</string>
+    <string name="specify_start_date">You didn\'t specify the start date for the match N°</string>
+    <string name="challenge_added">Challenge added successfully !</string>
+    <string name="validator_add_image_challenge">Please add an Image to the challenge !</string>
+    <string name="validator_add_name_challenge">Please add your challenge name !</string>
+    <string name="validator_add_description_challenge">Please add your description !</string>
+    <string name="validator_add_prize_challenge">Please give a prize to your challlenge !</string>
+    <string name="validator_add_location_challenge">Please set the challenge location !</string>
+    <string name="validator_add_valid_prize_challenge">Please chose a valid value for prize !</string>
+    <string name="validator_add_team_challenge">Please select the challenge capacity of teams !</string>
+    <string name="file_size">File size too large !</string>
+    <string name="select_image">Please select an image !</string>
+    <string name="choose_image_from">Choose Image from</string>
+    <string name="when_action_happend">Please specify when this action happened in the game !</string>
+    <string name="valid_number_time">Please put a valid number in time field !</string>
+    <string name="match_add">Match Action added successfully !</string>
+    <string name="date_before_current">You can\'t give a match a date before current date !</string>
+    <string name="set_match_today_validator">You can\'t set a match for today, add at least 24h from current time !</string>
+    <string name="match_date_added">Match date added successfully !</string>
+    <string name="welcome">Welcome !</string>
+    <string name="login_to_continue">Login to continue</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="term_an_privacy">Term an Privacy</string>
+    <string name="help_center">Help Center</string>
+    <string name="report_a_technical_problem">Report a technical problem</string>
+    <string name="sign_up">Sign up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="email">Email</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="password_reset">Password Reset</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="notifications">Notifications</string>
+    <string name="none_yet">None Yet</string>
+    <string name="set_global_match_information">Set Global Match Information</string>
+    <string name="match_actions">Match Actions</string>
+    <string name="winner">Winner</string>
+    <string name="finish">Finish</string>
+    <string name="finish_challenge">Finish Challenge</string>
+    <string name="the_challenge_ended_congratulation_team">The challenge ended : Congratulation team</string>
+    <string name="matchs">Matchs</string>
+    <string name="lineups">Lineups</string>
+    <string name="set_game_actions">Set Game Actions</string>
+    <string name="match_summary">Match Summary</string>
+    <string name="quarter_final">Quarter-final</string>
+    <string name="dark_on">Dark mode ON enjoy !</string>
+    <string name="dark_off">Dark mode OFF enjoy !</string>
 </resources>

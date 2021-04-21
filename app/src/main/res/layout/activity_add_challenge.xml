@@ -25,7 +25,7 @@
             android:onClick="getBack" />
 
         <ImageView
-            android:layout_width="30dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="2"
             android:src="@drawable/gark_logo" />
@@ -63,7 +63,7 @@ android:orientation="vertical"
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="10"
         android:background="@drawable/rounded_edittext"
         android:orientation="vertical"
@@ -74,7 +74,8 @@ android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="NestedWeights">
 
             <ImageView
                 android:id="@+id/imgViewFirstName"
@@ -95,11 +96,11 @@ android:orientation="vertical"
                     android:completionHint="yourhint"
                     android:dropDownHeight="match_parent"
                     android:fontFamily="@font/arial_rounded"
-                    android:hint="Challenge Name"
+                    android:hint="@string/challenge_name"
                     android:includeFontPadding="false"
                     android:inputType="textEmailAddress"
                     android:padding="15dp"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="visible" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,7 +157,7 @@ android:orientation="vertical"
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/rr">
+                android:layout_toEndOf="@+id/rr">
 
                 <EditText
                     android:id="@+id/prizeET"
@@ -165,11 +166,11 @@ android:orientation="vertical"
                     android:completionHint="yourhint"
                     android:dropDownHeight="match_parent"
                     android:fontFamily="@font/arial_rounded"
-                    android:hint="prize"
+                    android:hint="@string/prize"
                     android:includeFontPadding="false"
                     android:inputType="number|text"
                     android:padding="15dp"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="visible" />
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
@@ -185,12 +186,12 @@ android:orientation="vertical"
                 android:layout_height="35dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_baseline_location_on_24"
-                android:tint="#707070"/>
+                app:tint="@color/grey" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/ww">
+                android:layout_toEndOf="@+id/ww">
 
                 <EditText
                     android:id="@+id/locationET"
@@ -199,20 +200,20 @@ android:orientation="vertical"
                     android:completionHint="yourhint"
                     android:dropDownHeight="match_parent"
                     android:fontFamily="@font/arial_rounded"
-                    android:hint="location"
+                    android:hint="@string/location"
                     android:includeFontPadding="false"
                     android:padding="15dp"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:visibility="visible" />
             </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="number of teams"
+            android:text="@string/number_of_teams"
             android:fontFamily="@font/arial_rounded"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginVertical="5dp"
             />
         <LinearLayout
@@ -222,7 +223,6 @@ android:orientation="vertical"
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="50dp"
-                android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_groups_24" />
 
@@ -236,13 +236,13 @@ android:orientation="vertical"
                     android:id="@+id/teams8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="8 teams"
+                    android:text="@string/_8_teams"
                     />
                 <RadioButton
                     android:id="@+id/teams16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="16 teams"/>
+                    android:text="@string/_16_teams"/>
             </RadioGroup>
         </LinearLayout>
         <LinearLayout
@@ -255,15 +255,13 @@ android:orientation="vertical"
                 android:id="@+id/categorieImage"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
-                android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_fingerprint_24" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_toRightOf="@+id/categorieImage">
+                android:gravity="center">
                 <Spinner
                     android:id="@+id/typePicker"
                     android:layout_width="fill_parent"
@@ -281,7 +279,7 @@ android:orientation="vertical"
             android:layout_height="wrap_content"
             android:background="@drawable/gradian_btn"
             android:fontFamily="@font/arial_rounded"
-            android:text="Proceed"
+            android:text="@string/proceed"
             android:textAllCaps="false"
             android:onClick="addChallenge"
             android:textColor="@android:color/white"

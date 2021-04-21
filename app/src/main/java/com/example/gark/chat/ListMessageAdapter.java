@@ -1,5 +1,6 @@
 package com.example.gark.chat;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -28,9 +29,8 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListMessageAdapter  extends RecyclerView.Adapter<ListMessageAdapter.ListMessageHolder> {
-    private Context mContext;
-    private ArrayList<Chat> chats;
-    private Chat chat;
+    private final Context mContext;
+    private final ArrayList<Chat> chats;
 
     public ListMessageAdapter(Context mContext, ArrayList<Chat> chats) {
         this.mContext = mContext;
@@ -44,9 +44,10 @@ public class ListMessageAdapter  extends RecyclerView.Adapter<ListMessageAdapter
         return new ListMessageAdapter.ListMessageHolder(rootView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ListMessageHolder holder, int position) {
-        chat = chats.get(position);
+        Chat chat = chats.get(position);
         if (!chat.getMessages().isEmpty()){
             Message message = chat.getMessages().get(0);
             User displayedUser=new User();
@@ -69,7 +70,7 @@ public class ListMessageAdapter  extends RecyclerView.Adapter<ListMessageAdapter
                 }
                 holder.senderName.setText(displayedUser.getFirstName()+" "+displayedUser.getLastName());
                 holder.message.setText(message.getMessage());
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                 holder.date.setText(formatter.format(message.getDateCreated()));
             }
         }

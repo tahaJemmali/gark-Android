@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,14 +41,18 @@ public class LoginActivity extends AppCompatActivity implements IRepository {
     public static final String SHARED_PREFS = "SharedPrefsFile";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
+    public static final String LANGUAGE = "language";
+    public static final String DARK_MODE = "dark_mode";
     public static final String CHECKBOX = "cbRememberMe";
     String email ;
     String password;
     boolean cbState ;
-
+    String appLanguage;
+    int darkMode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loadPreference();
         setContentView(R.layout.activity_login);
         UserRepository.getInstance().setiRepository(this);
         //InitUI
@@ -58,13 +64,22 @@ public class LoginActivity extends AppCompatActivity implements IRepository {
         emailET=findViewById(R.id.emailET);
         passwordET=findViewById(R.id.passwordET);
         remeberMe=findViewById(R.id.remeberMe);
-        loadPreference();
         updatePreference();
     }
     public void loadPreference(){
         email = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getString(EMAIL, "");
         password = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getString(PASSWORD, "");
         cbState = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getBoolean(CHECKBOX, false);
+        appLanguage = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getString(LANGUAGE, "en");
+        darkMode = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE).getInt(DARK_MODE, AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(darkMode);
+        Locale locale = new Locale(appLanguage);
+        Locale.setDefault(locale);
+
+        Resources res = getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        config.locale = locale;
+        res.updateConfiguration(config, res.getDisplayMetrics());
     }
     public void updatePreference() {
         if (cbState) {
@@ -95,6 +110,8 @@ public class LoginActivity extends AppCompatActivity implements IRepository {
             prefEditor.putString(EMAIL, emailET.getText().toString());
             prefEditor.putString(PASSWORD, passwordET.getText().toString());
             prefEditor.putBoolean(CHECKBOX, remeberMe.isChecked());
+            prefEditor.putString(LANGUAGE, appLanguage);
+            prefEditor.putInt(DARK_MODE, darkMode);
             prefEditor.apply();
             //apply shyncrone & commit ashyncrone
             return;

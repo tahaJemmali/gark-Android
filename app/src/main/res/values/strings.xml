@@ -43,7 +43,6 @@
     <string name="report_a_technical_problem">Report a technical problem</string>
     <string name="sign_up">Sign up</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="email">Email</string>
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
     <string name="password_reset">Password Reset</string>
@@ -56,7 +55,7 @@
     <string name="finish">Finish</string>
     <string name="finish_challenge">Finish Challenge</string>
     <string name="the_challenge_ended_congratulation_team">The challenge ended : Congratulation team</string>
-    <string name="matchs">Matchs</string>
+    <string name="matchs">Matches</string>
     <string name="lineups">Lineups</string>
     <string name="set_game_actions">Set Game Actions</string>
     <string name="match_summary">Match Summary</string>
@@ -70,14 +69,14 @@
     <string name="validator_image_team">Please put your team image !</string>
     <string name="validator_name_team">Your team doesn\'t have a name !</string>
     <string name="validator_description_team">Describe your team in a few word </string>
-    <string name="add_team">Team Added Sucessfully !</string>
+    <string name="add_team">Team Added Successfully !</string>
     <string name="teams"> teams</string>
     <string name="challenges"> challenges</string>
-    <string name="validator_image_skills">Please put your image image don\'t be shy</string>
+    <string name="validator_image_skills">Please put your image don\'t be shy</string>
     <string name="validator_hight_skills">Please put your height</string>
     <string name="validator_weight_skills">Please put your weight</string>
-    <string name="validator_skills_height">Please chose a valid value for height !</string>
-    <string name="validator_valid_weight_skills">Please chose a valid value for weight !</string>
+    <string name="validator_skills_height">Please choose a valid value for height !</string>
+    <string name="validator_valid_weight_skills">Please choose a valid value for weight !</string>
     <string name="describe_yourself">Please describe yourself in a few words!</string>
     <string name="select_bestTeam_worldWide">Select your best team worldwide</string>
     <string name="select_bestTeam_tunisia">Select your best team in tunisia</string>
@@ -88,10 +87,10 @@
     <string name="invalid_mail_password">Invalid Email or Password</string>
     <string name="welcome">Welcome !</string>
     <string name="workingOn">Working on, it will be available soon</string>
-    <string name="scheduled">" scheduled for "</string>
+    <string name="scheduled">scheduled for</string>
     <string name="not_played_in_game">You didn\'t play in this game, you can\'t vote </string>
-    <string name="no_teamMate">You can\'t vote on your own teamates</string>
-    <string name="no_self">You can\'t vote on your self</string>
+    <string name="no_teamMate">You can\'t vote on your own teammates</string>
+    <string name="no_self">You can\'t vote on yourself</string>
     <string name="already_voted">You already voted on this player</string>
     <string name="loading_post">Loading Posts</string>
     <string name="defending">defending</string>
@@ -100,7 +99,7 @@
     <string name="dribbling">dribbling</string>
     <string name="physical">physical</string>
     <string name="pace">pace</string>
-    <string name="years">" years"</string>
+    <string name="years">"  years"</string>
     <string name="likes">" likes"</string>
     <string name="name">Name</string>
     <string name="home_town">Home Town</string>
@@ -108,7 +107,7 @@
     <string name="become_field_owner">Become Field Owner</string>
     <string name="current_role">Current role : </string>
     <string name="member_since">Member since</string>
-    <string name="image_updated_user">User Image Updated Sucessfully !</string>
+    <string name="image_updated_user">User Image Updated Successfully !</string>
     <string name="password_no_empty">Password can\'t be empty</string>
     <string name="password_8">Passwords must be at least 8 characters</string>
     <string name="password_confirm">Passwords do not match</string>
@@ -130,12 +129,12 @@
     <string name="views">Views</string>
     <string name="team_already_favorite">Team Already added to your favorite</string>
     <string name="team_added_favorite">Team Added to your Favorite</string>
-    <string name="joined_sucess">You have joined sucessfully </string>
+    <string name="joined_sucess">You have joined successfully</string>
     <string name="players"> players</string>
     <string name="game_must_finsh">The game must be finished, waiting for updates</string>
-    <string name="vote_added">Your vote have been added sucessfully  !</string>
+    <string name="vote_added">Your vote have been added successfully !</string>
     <string name="wrong_verification_code">Wrong verification code</string>
-    <string name="challenge_edit">Your challenge editing have been saved sucessfully !</string>
+    <string name="challenge_edit">Your challenge editing have been saved successfully !</string>
     <string name="description">Description</string>
     <string name="add_matches">Add Matches</string>
     <string name="add_challenge">Add Challenge</string>
@@ -158,7 +157,7 @@
     <string name="best_player_in_tunisia">Best Player In Tunisia</string>
     <string name="yalla">Yalla !</string>
     <string name="clear_all">Clear All</string>
-    <string name="put_your_mail_here_if_your_account_exist_you_willl_recieve_a_verification_code">Put your mail here, if your account exist you willl recieve a verification code :</string>
+    <string name="put_your_mail_here_if_your_account_exist_you_willl_recieve_a_verification_code">Put your mail here, if your account exist you will receive a verification code :</string>
     <string name="email">Email</string>
     <string name="next">Next</string>
     <string name="info">Info</string>
@@ -180,13 +179,12 @@
     <string name="select_the_team">Select the team</string>
     <string name="select_the_player">Select the player</string>
     <string name="select_the_action_type">Select the action type</string>
-    <string name="when_this_action_happend_in_minutes">When this action happend (in minutes)</string>
-    <string name="type">Type :</string>
+    <string name="type">type</string>
     <string name="start_date">Start date :</string>
     <string name="start_time">Start Time</string>
     <string name="add">Add</string>
     <string name="join">Join</string>
-    <string name="calander">Calander</string>
+    <string name="calander">Calendar</string>
     <string name="top_players">Top Players</string>
     <string name="show_all">Show All</string>
     <string name="most_liked_posts">Most Liked Posts</string>
@@ -201,10 +199,8 @@
     <string name="my_teams">My teams</string>
     <string name="he_doesn_t_have_any_teams">He doesn\'t have any teams</string>
     <string name="contact_me">Contact Me</string>
-    <string name="join">Join</string>
-    <string name="posts">Posts</string>
     <string name="select_your_team">Select your Team</string>
-    <string name="man_of_the_tournement">Man of the tournement</string>
+    <string name="man_of_the_tournement">Man of the tournament</string>
     <string name="games">Games</string>
     <string name="goals">Goals</string>
     <string name="red_cards">Red Cards</string>
@@ -214,4 +210,5 @@
     <string name="prize_collected">Prize Collected</string>
     <string name="total">Total</string>
     <string name="champions">Champions</string>
+    <string name="when_this_action_happend_in_minutes">" When this action occurred (in minutes)"</string>
 </resources>

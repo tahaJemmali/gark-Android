@@ -65,7 +65,7 @@
     <string name="validator_image_post">Please add an Image to the post !</string>
     <string name="validator_title_post">Please add your post title !</string>
     <string name="validator_description_post">Please add your description !</string>
-    <string name="post_added">Post Added Sucessfully !</string>
+    <string name="post_added">Post Added Successfully !</string>
     <string name="validator_image_team">Please put your team image !</string>
     <string name="validator_name_team">Your team doesn\'t have a name !</string>
     <string name="validator_description_team">Describe your team in a few word </string>

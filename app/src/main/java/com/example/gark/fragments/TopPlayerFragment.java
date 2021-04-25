@@ -78,7 +78,7 @@ public class TopPlayerFragment extends Fragment implements IRepository {
                 }
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         return view;
     }

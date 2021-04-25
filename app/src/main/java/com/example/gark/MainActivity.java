@@ -165,8 +165,9 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addCurrentUserProfileFragment(View view) {
-        Intent intent = new Intent(this,ProfileActivity.class);
-        startActivity(intent);
+        Intent intent=new Intent(this, PlayerProfileActvity.class);
+        intent.putExtra("playerId",currentPlayerSkills.getId());
+        this.startActivity(intent);
     }
 
     public void addMessengerFragment(View view) {

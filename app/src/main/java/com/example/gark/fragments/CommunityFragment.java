@@ -90,7 +90,7 @@ public class CommunityFragment extends Fragment {
                 }
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
         buttonPlayers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

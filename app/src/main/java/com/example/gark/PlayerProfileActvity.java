@@ -46,7 +46,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     View infoFragment, statsfragment, postsfragment, dashboardfragment;
     ImageView playerImage, nationality, start_one, start_two, start_three, start_four, start_five;
     TextView playerNom, age, rolePlayer, descriptionPlayer, not_yet_teams, not_yet_posts;
-    ImageButton skillsType;
+    ImageButton skillsType,settings;
     RecyclerView skillsRecyclerView, postRecyclerView;
     ProgressDialog dialogg;
     ProgressDialog dialoggPost;
@@ -81,7 +81,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
 
     void initUI() {
         dialogg = ProgressDialog.show(this, "", getString(R.string.loading), true);
-
+        settings = findViewById(R.id.settings);
         TeamInternation = findViewById(R.id.TeamInternation);
         TeamNational = findViewById(R.id.TeamNational);
         PlayerNational = findViewById(R.id.PlayerNational);
@@ -123,7 +123,10 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         dashboardfragment = findViewById(R.id.dashboardfragment);
         initStatsLayout();
         SkillsRepository.getInstance().setiRepository(this);
-        SkillsRepository.getInstance().findById(this, getIntent().getStringExtra("playerId"));
+        String playerId=getIntent().getStringExtra("playerId");
+        if(playerId.equals(MainActivity.currentPlayerSkills.getId()))
+        settings.setVisibility(View.VISIBLE);
+        SkillsRepository.getInstance().findById(this, playerId);
         postRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         skillsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
@@ -431,5 +434,10 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
             skillsRecyclerView.setVisibility(View.VISIBLE);
             showListRadar = false;
         }
+    }
+
+    public void showSettings(View view) {
+        Intent intent = new Intent(this,ProfileActivity.class);
+        startActivity(intent);
     }
 }

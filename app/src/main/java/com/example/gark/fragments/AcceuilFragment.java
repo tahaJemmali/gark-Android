@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gark.MainActivity;
 import com.example.gark.R;
 import com.example.gark.StoryActivity;
 import com.example.gark.Utils.CallBackInterface;
@@ -125,7 +126,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
                 }
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
 
         return view;
     }
@@ -210,6 +211,8 @@ public class AcceuilFragment extends Fragment implements IRepository {
             case 0:
                 //////skills
                 players=SkillsRepository.getInstance().getList();
+                if(players.contains(MainActivity.currentPlayerSkills))
+                    players.remove(MainActivity.currentPlayerSkills);
                 initUIRecycleViewerTopPlayers();
                 generating++;
                 getAllPosts();

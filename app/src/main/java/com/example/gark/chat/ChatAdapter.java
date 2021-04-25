@@ -19,20 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gark.MainActivity;
 import com.example.gark.R;
-import com.example.gark.TeamProfileActivity;
 import com.example.gark.entites.User;
-import com.example.gark.repositories.UserRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ListMessageAdapter  extends RecyclerView.Adapter<ListMessageAdapter.ListMessageHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ListMessageHolder> {
     private final Context mContext;
     private final ArrayList<Chat> chats;
-
-    public ListMessageAdapter(Context mContext, ArrayList<Chat> chats) {
+    User sender;
+    User reciver;
+    public ChatAdapter(Context mContext, ArrayList<Chat> chats) {
         this.mContext = mContext;
         this.chats = chats;
     }
@@ -41,7 +40,7 @@ public class ListMessageAdapter  extends RecyclerView.Adapter<ListMessageAdapter
     @Override
     public ListMessageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(mContext).inflate(R.layout.single_element_list_message,parent,false);
-        return new ListMessageAdapter.ListMessageHolder(rootView);
+        return new ChatAdapter.ListMessageHolder(rootView);
     }
 
     @SuppressLint("SetTextI18n")
@@ -50,16 +49,24 @@ public class ListMessageAdapter  extends RecyclerView.Adapter<ListMessageAdapter
         Chat chat = chats.get(position);
         if (!chat.getMessages().isEmpty()){
             Message message = chat.getMessages().get(0);
+            if(message.getreciverId().equals(chat.getUser1().getId())){
+                reciver=chat.getUser1();
+                sender=chat.getUser2();
+            }else {
+                sender=chat.getUser1();
+                reciver=chat.getUser2();
+            }
+            Log.e("TAG", "sender: "+sender.getId() );
+            Log.e("TAG", "reciver: "+reciver.getId() );
             User displayedUser=new User();
-            if (message.getReciver()!=null && message.getSender()!=null){
-                if (message.getReciver().getId().equals(MainActivity.getCurrentLoggedInUser().getId())){
-                    displayedUser=message.getSender();
+                if (reciver.equals(MainActivity.getCurrentLoggedInUser())){
                     holder.symbole.setVisibility(View.INVISIBLE);
+                    displayedUser=sender;
                 }else {
-                    displayedUser=message.getReciver();
                     holder.symbole.setVisibility(View.VISIBLE);
                     holder.senderName .setTypeface(null,Typeface.NORMAL);
                     holder.message.setTypeface(null,Typeface.NORMAL);
+                    displayedUser=reciver;
                 }
 
                 if (displayedUser.getPhoto().equals("Not mentioned")){
@@ -70,10 +77,9 @@ public class ListMessageAdapter  extends RecyclerView.Adapter<ListMessageAdapter
                 }
                 holder.senderName.setText(displayedUser.getFirstName()+" "+displayedUser.getLastName());
                 holder.message.setText(message.getMessage());
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =new SimpleDateFormat("dd-MM-yyyy HH:mm");
                 holder.date.setText(formatter.format(message.getDateCreated()));
             }
-        }
     }
 
     @Override

@@ -12,8 +12,10 @@ import com.example.gark.MainActivity;
 import com.example.gark.chat.Chat;
 import com.example.gark.chat.Message;
 import com.example.gark.entites.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -33,6 +35,7 @@ public class MessageRepository{
     public  ArrayList<Message> messages;
     private static final String COLLECTION_NAME = "messages";
     public static User user;
+    DocumentReference documentReference;
     public static MessageRepository getInstance() {
         if (instance==null){
             instance = new MessageRepository();
@@ -41,8 +44,16 @@ public class MessageRepository{
     }
 
 
-    public void add(Context mcontext, Message message, ProgressDialog dialog) {
-
+    public void add(Context mcontext, Message message) {
+        iRepository.showLoadingButton();
+        documentReference.collection(COLLECTION_NAME).add(message).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                Log.e("tag", "onComplete: added Message" );
+                iRepository.dismissLoadingButton();
+                iRepository.doAction();
+            }
+        });
     }
 
 
@@ -74,8 +85,8 @@ public class MessageRepository{
         });
     }
 
-    public void getAll(Context mContext, DocumentReference document, Chat chat) {
-        document.collection(COLLECTION_NAME).orderBy("dateCreated", Query.Direction.DESCENDING).get()
+    public void getAll(Context mContext, Chat chat) {
+        documentReference.collection(COLLECTION_NAME).orderBy("dateCreated", Query.Direction.DESCENDING).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot documentSnapshots) {
@@ -86,15 +97,13 @@ public class MessageRepository{
                             messages = (ArrayList<Message>) documentSnapshots.toObjects(Message.class);
                             UserRepository.getInstance().setiRepository((IRepository) mContext);
                             for (Message row :messages){
-                              //  listenDataChangeMessageRecived(chat.getId(),row.getId());
-                                row.setChatId(chat.getId());
                                 if (row.getreciverId().equals(chat.getUser1().getId())){
-                                    row.setReciver(chat.getUser1());
-                                    row.setSender(chat.getUser2());
+                                    row.setreciverId(chat.getUser1().getId());
+                                    row.setsenderId(chat.getUser2().getId());
                                 }
                                 else{
-                                    row.setReciver(chat.getUser2());
-                                    row.setSender(chat.getUser1());
+                                    row.setreciverId(chat.getUser2().getId());
+                                    row.setsenderId(chat.getUser1().getId());
                                 }
                             }
                             iRepository.doAction();
@@ -131,6 +140,10 @@ public class MessageRepository{
 
     public void setiRepository(IRepository iRepository) {
         this.iRepository = iRepository;
+    }
+
+    public void setiDocument(DocumentReference document) {
+        this.documentReference = document;
     }
 
 

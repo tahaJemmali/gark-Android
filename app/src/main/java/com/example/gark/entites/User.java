@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class User implements Parcelable, Serializable {
 
@@ -187,6 +188,19 @@ public class User implements Parcelable, Serializable {
         parcel.writeSerializable(last_login_date);
         parcel.writeSerializable(birth_date);
         parcel.writeSerializable(sign_up_date);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public static final Creator<User> CREATOR = new Creator<User>(){

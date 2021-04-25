@@ -24,7 +24,7 @@
         android:id="@+id/senderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mohamed Taha Jemmali"
+        android:text="Foulen ben foulen"
         android:textColor="@color/black"
         android:textSize="20dp"
         android:fontFamily="@font/arial_rounded"
@@ -48,9 +48,9 @@
             android:layout_weight="2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mohamed Taha Jemmali"
+            android:text="Foulen ben Foulen"
             android:textColor="@color/dark_green"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:fontFamily="@font/arial_rounded"
             />
             <TextView

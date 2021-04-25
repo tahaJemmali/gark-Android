@@ -16,6 +16,7 @@ import com.example.gark.MainActivity;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.chat.Chat;
 
+import com.example.gark.chat.Message;
 import com.google.android.gms.tasks.OnCompleteListener;
 
 import com.google.android.gms.tasks.Task;
@@ -74,10 +75,9 @@ public class ChatRepository implements CRUDRepository<Chat> {
                         DocumentSnapshot document = task.getResult();
                         if (document != null) {
                             //Log.e("LOGGER","First "+document.toString());
-                            if (document.getString("user1Id").equals(MainActivity.getCurrentLoggedInUser().getId())
-                                    || document.getString("user2Id").equals(MainActivity.getCurrentLoggedInUser().getId())) {
-                                MessageRepository.getInstance().getAll(mContext, myFireBaseDB.document(chat1.getId()), chat1);
-                            }
+                            MessageRepository.getInstance().setiDocument( myFireBaseDB.document(chat1.getId()));
+                                MessageRepository.getInstance().getAll(mContext, chat1);
+
 
                         } else {
                             Log.e("LOGGER", "No such document");

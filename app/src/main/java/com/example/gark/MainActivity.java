@@ -171,9 +171,9 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
     }
 
     public void addMessengerFragment(View view) {
-        Toast.makeText(this, getString(R.string.workingOn),Toast.LENGTH_SHORT).show();
-        /*Intent intent = new Intent(this, GroupListActivity.class);
-        startActivity(intent);*/
+      //  Toast.makeText(this, getString(R.string.workingOn),Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, GroupListActivity.class);
+        startActivity(intent);
     }
 
     public void addTopViewedStories(View view) {

@@ -1,22 +1,15 @@
 package com.example.gark.chat;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.gark.MainActivity;
+
 import com.example.gark.R;
-import com.example.gark.entites.User;
 import com.example.gark.repositories.ChatRepository;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MessageRepository;
-import com.example.gark.repositories.UserRepository;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import java.util.ArrayList;
@@ -27,7 +20,7 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
     RecyclerView chatRecyclerView;
     ProgressDialog dialogg;
     //Var
-    ListMessageAdapter listMessageAdapter;
+    ChatAdapter listMessageAdapter;
     public static ArrayList<Chat> chats;
     ArrayList<Message> messages;
     boolean getAllMessagesDone=false;
@@ -46,7 +39,7 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
     }
     void reloadData(){
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        listMessageAdapter = new ListMessageAdapter(this,chats );
+        listMessageAdapter = new ChatAdapter(this,chats );
         chatRecyclerView.setAdapter(listMessageAdapter);
     }
 
@@ -69,12 +62,8 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
             messages=MessageRepository.getInstance().getList();
             for (Chat row:chats) {
                 for (Message key : messages) {
-                    if (!row.getMessages().contains(key)) {
-                        if (key.getChatId().equals(row.getId())) {
-                                row.getMessages().add(key);
-                            }
-                        }
-                    }
+                    row.getMessages().add(key);
+                }
                 }
             reloadData();
     }

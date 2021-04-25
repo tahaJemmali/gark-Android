@@ -26,10 +26,14 @@ import com.example.gark.adapters.PostAdapter;
 import com.example.gark.adapters.SkillsAdapter;
 import com.example.gark.adapters.StatsAdapter;
 import com.example.gark.adapters.TopPlayersAdapter;
+import com.example.gark.entites.Challenge;
+import com.example.gark.entites.ChallengeState;
+import com.example.gark.entites.Match;
 import com.example.gark.entites.Post;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
 import com.example.gark.login.LoginActivity;
+import com.example.gark.repositories.ChallengeRepository;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.PostRepository;
 import com.example.gark.repositories.SkillsRepository;
@@ -53,6 +57,9 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
     Button joinTeam,infoBtn,statsBtn;
     View info_team_layout,stats_layout;
 
+    //STATS
+    TextView nchampions,nchallenges,ngames,nprzie;
+
 //VAR
     boolean changeDisplay=true;
     ArrayList<Skills> players;
@@ -60,6 +67,7 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
     StatsAdapter statsAdapter;
     TopPlayersAdapter topPlayersAdapter;
     CardAdapter cardAdapter;
+    ArrayList<Challenge> challenges;
     int generator=0;
     public static final String TEAMS = "teams";
     @Override
@@ -71,6 +79,12 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
 
     void initUI(){
         dialogg = ProgressDialog.show(this, "",getString(R.string.loading) , true);
+        nchampions=findViewById(R.id.nchampions);
+        nchallenges=findViewById(R.id.nchallenges);
+        ngames=findViewById(R.id.ngames);
+        nprzie=findViewById(R.id.nprzie);
+
+
         joinTeam=findViewById(R.id.joinTeam);
         playerDisplayType=findViewById(R.id.playerDisplayType);
         teamImage=findViewById(R.id.teamImage);
@@ -141,67 +155,97 @@ RecyclerView statRecyclerView,teamMemberRecyclerView;
 
     @Override
     public void doAction() {
-        //team
-        team=TeamRepository.getInstance().getElement();
-        statsAdapter = new StatsAdapter(this, team);
-        statRecyclerView.setAdapter(statsAdapter);
-      //player
-        players=new ArrayList<Skills>();
-            players.add(team.getCapitaine());
-            if(team.getTitulares().size()>0){
-                for (Skills row :team.getTitulares()){
-                    players.add(row);
+        switch (generator){
+            case 0:
+                //team
+                team=TeamRepository.getInstance().getElement();
+                statsAdapter = new StatsAdapter(this, team);
+                statRecyclerView.setAdapter(statsAdapter);
+                //player
+                players=new ArrayList<Skills>();
+                players.add(team.getCapitaine());
+                if(team.getTitulares().size()>0){
+                    for (Skills row :team.getTitulares()){
+                        players.add(row);
+                    }
                 }
-            }
-        if(team.getSubstitutes().size()>0) {
-            for (Skills row : team.getSubstitutes()) {
-                players.add(row);
-            }
-        }
-        if(players.size()>0){
-            if(players.contains(MainActivity.currentPlayerSkills))
-                joinTeam.setVisibility(View.GONE);
-        }
-            topPlayersAdapter = new TopPlayersAdapter(this,players,team.getCapitaine().getId() );
-            teamMemberRecyclerView.setAdapter(topPlayersAdapter);
-            Bitmap bitmap = getBitmapFromString(team.getImage());
-            teamImage.setImageBitmap(bitmap);
-            teamCountry.setImageResource(this.getResources().getIdentifier(team.getNationality().toString(), "drawable", this.getPackageName()));
-            switch (team.getRating()) {
-                case 1:
-                    start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                    break;
-                case 2:
-                    start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_two.setImageResource(R.drawable.ic_rating_start_checked);
-                    break;
-                case 3:
-                    start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_two.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_three.setImageResource(R.drawable.ic_rating_start_checked);
-                    break;
-                case 4:
-                    start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_two.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_three.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_four.setImageResource(R.drawable.ic_rating_start_checked);
-                    break;
-                case 5:
-                    start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_two.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_three.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_four.setImageResource(R.drawable.ic_rating_start_checked);
-                    start_five.setImageResource(R.drawable.ic_rating_start_checked);
-                    break;
-                default:
-                    break;
-            }
-            teamName.setText(team.getName());
-            teamCategorie.setText(team.getCategorie().toString());
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+                if(team.getSubstitutes().size()>0) {
+                    for (Skills row : team.getSubstitutes()) {
+                        players.add(row);
+                    }
+                }
+                if(players.size()>0){
+                    if(players.contains(MainActivity.currentPlayerSkills))
+                        joinTeam.setVisibility(View.GONE);
+                }
+                topPlayersAdapter = new TopPlayersAdapter(this,players,team.getCapitaine().getId() );
+                teamMemberRecyclerView.setAdapter(topPlayersAdapter);
+                Bitmap bitmap = getBitmapFromString(team.getImage());
+                teamImage.setImageBitmap(bitmap);
+                teamCountry.setImageResource(this.getResources().getIdentifier(team.getNationality().toString(), "drawable", this.getPackageName()));
+                switch (team.getRating()) {
+                    case 1:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    case 2:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_two.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    case 3:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_two.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_three.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    case 4:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_two.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_three.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_four.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    case 5:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_two.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_three.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_four.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_five.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    default:
+                        break;
+                }
+                teamName.setText(team.getName());
+                teamCategorie.setText(team.getCategorie().toString());
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
-            dateCreatedTeam.setText(formatter.format(team.getDate_created()));
-            descriptionTeam.setText(team.getDescription());
+                dateCreatedTeam.setText(formatter.format(team.getDate_created()));
+                descriptionTeam.setText(team.getDescription());
+                ChallengeRepository.getInstance().setiRepository(this);
+                ChallengeRepository.getInstance().getChallengesByTeam(this,getIntent().getStringExtra("teamId"));
+                generator++;
+                break;
+            case 1:
+                challenges=ChallengeRepository.getInstance().getList();
+                int QteChampions=0,QteGames=0,QtePrize=0;
+                if(challenges.size()>0){
+
+                    for(Challenge row : challenges){
+                        if(row.getState().equals(ChallengeState.Finished)){
+                            if(row.getWinner().equals(team)){
+                                QteChampions++;
+                                QtePrize+=row.getPrize();
+                            }
+                            for(Match key:row.getMatches()){
+                                if (key.getTeam1().equals(team)||key.getTeam2().equals(team))
+                                    QteGames++;
+                            }
+                        }
+                    }
+                    nchallenges.setText(""+challenges.size());
+                    nchampions.setText(""+QteChampions);
+                    ngames.setText(""+QteGames);
+                    nprzie.setText(QtePrize+" DNT");
+                }
+                break;
+        }
 
     }
 

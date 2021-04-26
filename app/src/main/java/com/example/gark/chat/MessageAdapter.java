@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,16 +54,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
             holder.bulSender.setVisibility(View.INVISIBLE);
             holder.currentUserImage.setImageBitmap(getBitmapFromString(current.getPhoto()));
             holder.reciverMessage.setText(message.getMessage());
+            holder.dateMessage.setGravity(Gravity.RIGHT);
         }else {
             holder.bulSender.setVisibility(View.VISIBLE);
             holder.bulReciver.setVisibility(View.INVISIBLE);
             holder.friendImage.setImageBitmap(getBitmapFromString(friend.getPhoto()));
             holder.senderMessage.setText(message.getMessage());
         }
-        if (message.getDateCreated().equals(new Date())||compareDates(new Date(),message.getDateCreated())){
+
             @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =new SimpleDateFormat("dd-MM-yyyy HH:mm");
             holder.dateMessage.setText(formatter.format(message.getDateCreated()));
-        }
+
     }
     public Boolean compareDates(Date createdDate, Date today) {
         if( (createdDate.getTime() - today.getTime()) >= 20*60*1000) {
@@ -93,6 +95,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
             reciverMessage=itemView.findViewById(R.id.reciverMessage);
             friendImage=itemView.findViewById(R.id.friendImage);
             currentUserImage=itemView.findViewById(R.id.currentUserImage);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(dateMessage.getVisibility()==View.GONE)
+                        dateMessage.setVisibility(View.VISIBLE);
+                        else
+                    dateMessage.setVisibility(View.GONE);
+                }
+            });
         }
     }
 }

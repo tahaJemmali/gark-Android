@@ -56,8 +56,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ListMessageHol
                 sender=chat.getUser1();
                 reciver=chat.getUser2();
             }
-            Log.e("TAG", "sender: "+sender.getId() );
-            Log.e("TAG", "reciver: "+reciver.getId() );
             User displayedUser=new User();
                 if (reciver.equals(MainActivity.getCurrentLoggedInUser())){
                     holder.symbole.setVisibility(View.INVISIBLE);

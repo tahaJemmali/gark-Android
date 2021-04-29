@@ -1,4 +1,5 @@
 package com.example.gark.chat;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,12 +8,22 @@ import com.example.gark.R;
 import com.example.gark.repositories.ChatRepository;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MessageRepository;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GroupListActivity extends AppCompatActivity  implements IRepository {
     //UI
@@ -24,6 +35,7 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
     public static ArrayList<Chat> chats;
     ArrayList<Message> messages;
     boolean getAllMessagesDone=false;
+    private static final String COLLECTION_NAME = "messages";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +66,40 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
 
     @Override
     public void doAction() {
-
             if (chats.isEmpty()){
                 chats=ChatRepository.getInstance().getList();
             }
-
             messages=MessageRepository.getInstance().getList();
             for (Chat row:chats) {
                 for (Message key : messages) {
                     row.getMessages().add(key);
                 }
+                listenDataChangeMessageRecived(row);
                 }
             reloadData();
     }
+    public void listenDataChangeMessageRecived(Chat chat){
+        final CollectionReference docRef = ChatRepository.myFireBaseDB.document(chat.getId()).collection(COLLECTION_NAME);
+        docRef.orderBy("dateCreated", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.e("TAG", "Listen failed.", e);
+                    return;
+                }
+                ArrayList<Message> tmp = (ArrayList<Message>) value.toObjects(Message.class);
+                if(messages.size()!=tmp.size()){
+                    chat.getMessages().clear();
+                    for (Message key : tmp) {
+                        chat.getMessages().add(key);
+                    }
+                    reloadData();
+                }
+            }
+        });
+    }
+
 
     @Override
     public void dismissLoadingButton() {

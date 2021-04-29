@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,19 +31,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatRepository implements CRUDRepository<Chat> {
     private IRepository iRepository;
     private static ChatRepository instance;
-    public static  ArrayList<Chat> chats;
-    public static  Chat chat;
+    public static ArrayList<Chat> chats;
+    public static Chat chat;
     public static CollectionReference myFireBaseDB;
     private static final String COLLECTION_NAME = "chats";
 
     public static ChatRepository getInstance() {
-        if (instance==null){
+        if (instance == null) {
             myFireBaseDB = FirebaseFirestore.getInstance().collection(COLLECTION_NAME);
             instance = new ChatRepository();
         }
@@ -50,10 +54,38 @@ public class ChatRepository implements CRUDRepository<Chat> {
     }
 
 
-
     @Override
-    public void add(Context mcontext, Chat chat, ProgressDialog dialog) {
-
+    public void add(Context mcontext, Chat chatt, ProgressDialog dialog) {
+        final String url = iRepository.baseURL + "/add_chat";
+        JSONObject object = new JSONObject();
+        convertObjectToJson(object, chatt);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, object,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            String id = response.getString("message");
+                            chatt.setId(id);
+                            Map<String, Object> docData = new HashMap<>();
+                            myFireBaseDB.document(id).collection("messages").document().set(docData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    chat=chatt;
+                                    iRepository.dismissLoadingButton();
+                                    iRepository.doAction();
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("TAG", "fail: " + error);
+            }
+        });
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
     @Override
@@ -65,9 +97,32 @@ public class ChatRepository implements CRUDRepository<Chat> {
     public void update(Context mcontext, Chat chat, String id) {
 
     }
-    public void getAllChatsFromFireBase(Context mContext,ArrayList<Chat> chats){
+
+    public void getOneChatFromFireBase(Context mContext, Chat chat) {
         MessageRepository.getInstance().setiRepository((IRepository) mContext);
-        for (Chat chat1:chats) {
+        myFireBaseDB.document(chat.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null) {
+                        MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat.getId()));
+                        MessageRepository.getInstance().getAll(chat);
+
+
+                    } else {
+                        Log.e("LOGGER", "No such document");
+                    }
+                } else {
+                    Log.e("LOGGER", "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    public void getAllChatsFromFireBase(Context mContext, ArrayList<Chat> chats) {
+        MessageRepository.getInstance().setiRepository((IRepository) mContext);
+        for (Chat chat1 : chats) {
             myFireBaseDB.document(chat1.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -75,8 +130,8 @@ public class ChatRepository implements CRUDRepository<Chat> {
                         DocumentSnapshot document = task.getResult();
                         if (document != null) {
                             //Log.e("LOGGER","First "+document.toString());
-                            MessageRepository.getInstance().setiDocument( myFireBaseDB.document(chat1.getId()));
-                                MessageRepository.getInstance().getAll(mContext, chat1);
+                            MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat1.getId()));
+                            MessageRepository.getInstance().getAll(chat1);
 
 
                         } else {
@@ -89,24 +144,25 @@ public class ChatRepository implements CRUDRepository<Chat> {
             });
         }
     }
+
     @Override
     public void getAll(Context mContext, ProgressDialog dialogg) {
         iRepository.showLoadingButton();
-        JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/all_chats/"+ MainActivity.getCurrentLoggedInUser().getId(), null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/all_chats/" + MainActivity.getCurrentLoggedInUser().getId(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            chats=new ArrayList<Chat>();
+                            chats = new ArrayList<Chat>();
                             String message = response.getString("message");
                             JSONArray jsonArray = response.getJSONArray("chats");
 
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject object = jsonArray.getJSONObject(i);
-                                Chat tmp=convertJsonToObject(object);
+                                Chat tmp = convertJsonToObject(object);
                                 chats.add(tmp);
                             }
-                            getAllChatsFromFireBase(mContext,chats);
+                            getAllChatsFromFireBase(mContext, chats);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -115,7 +171,7 @@ public class ChatRepository implements CRUDRepository<Chat> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/all_chats");
+                Log.e("TAG", "onResponse: " + IRepository.baseURL + "/all_chats");
             }
         });
         request.setRetryPolicy(new DefaultRetryPolicy(500000,
@@ -129,10 +185,34 @@ public class ChatRepository implements CRUDRepository<Chat> {
 
     }
 
-    public Date getDate(String key){
+    public void findConversation(Context mContext, String user1id, String user2id) {
+        iRepository.showLoadingButton();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findConversation/" + user1id + "/" + user2id, null,
+                new Response.Listener<JSONObject>() {
+
+                    public void onResponse(JSONObject response) {
+                        chat = convertJsonToObject(response);
+                        getOneChatFromFireBase(mContext, chat);
+                    }
+                }, new Response.ErrorListener() {
+
+            public void onErrorResponse(VolleyError error) {
+                //Create new chat
+                chat = new Chat();
+                iRepository.doAction();
+                iRepository.dismissLoadingButton();
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
+    }
+
+    public Date getDate(String key) {
         Date date = null;
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'" );
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             date = format.parse(key);
         } catch (java.text.ParseException e) {
             e.printStackTrace();
@@ -151,8 +231,8 @@ public class ChatRepository implements CRUDRepository<Chat> {
             }*/
             Date date = this.getDate(object.getString("date_created"));
             return new Chat(object.getString("_id"),
-                    UserRepository.getInstance().convertJsonToObject((JSONObject)object.get("user1")),
-                    UserRepository.getInstance().convertJsonToObject((JSONObject)object.get("user2")),
+                    UserRepository.getInstance().convertJsonToObject((JSONObject) object.get("user1")),
+                    UserRepository.getInstance().convertJsonToObject((JSONObject) object.get("user2")),
                     date);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -162,7 +242,14 @@ public class ChatRepository implements CRUDRepository<Chat> {
 
     @Override
     public JSONObject convertObjectToJson(JSONObject object, Chat chat) {
-        return null;
+        try {
+            object.put("date_created", chat.getDate_created());
+            object.put("user2", chat.getUser1().getId());
+            object.put("user1", chat.getUser2().getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return object;
     }
 
     @Override
@@ -182,7 +269,7 @@ public class ChatRepository implements CRUDRepository<Chat> {
 
     @Override
     public Chat getElement() {
-        if (chat==null)
+        if (chat == null)
             chat = new Chat();
         return chat;
     }

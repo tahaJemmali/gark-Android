@@ -49,7 +49,6 @@ public class MessageRepository{
         documentReference.collection(COLLECTION_NAME).add(message).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
-                Log.e("tag", "onComplete: added Message" );
                 iRepository.dismissLoadingButton();
                 iRepository.doAction();
             }
@@ -65,37 +64,19 @@ public class MessageRepository{
     public void update(Context mcontext, Message message, String id) {
 
     }
-    public void listenDataChangeMessageRecived(String chatId,String messageId){
-        final DocumentReference docRef = ChatRepository.myFireBaseDB.document(chatId).collection(COLLECTION_NAME).document();
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot,
-                                @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w("TAG", "Listen failed.", e);
-                    return;
-                }
 
-                if (snapshot != null && snapshot.exists()) {
-                    Log.d("TAG", "Current data: " + snapshot.getData());
-                } else {
-                    Log.d("TAG", "Current data: null");
-                }
-            }
-        });
-    }
 
-    public void getAll(Context mContext, Chat chat) {
+    public void getAll( Chat chat) {
+        iRepository.showLoadingButton();
         documentReference.collection(COLLECTION_NAME).orderBy("dateCreated", Query.Direction.DESCENDING).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot documentSnapshots) {
                         if (documentSnapshots.isEmpty()) {
                             Log.e("TAG", "onSuccess: LIST EMPTY");
-                            return;
                         } else {
                             messages = (ArrayList<Message>) documentSnapshots.toObjects(Message.class);
-                            UserRepository.getInstance().setiRepository((IRepository) mContext);
+                           // UserRepository.getInstance().setiRepository((IRepository) mContext);
                             for (Message row :messages){
                                 if (row.getreciverId().equals(chat.getUser1().getId())){
                                     row.setreciverId(chat.getUser1().getId());
@@ -106,9 +87,9 @@ public class MessageRepository{
                                     row.setsenderId(chat.getUser1().getId());
                                 }
                             }
-                            iRepository.doAction();
-                            iRepository.dismissLoadingButton();
                         }
+                        iRepository.doAction();
+                        iRepository.dismissLoadingButton();
                     }}). addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {

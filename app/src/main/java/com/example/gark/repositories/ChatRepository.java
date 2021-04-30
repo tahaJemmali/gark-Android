@@ -18,7 +18,6 @@ import com.example.gark.R;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.chat.Chat;
 
-import com.example.gark.chat.Message;
 import com.google.android.gms.tasks.OnCompleteListener;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,7 +25,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -74,7 +72,7 @@ public class ChatRepository implements CRUDRepository<Chat> {
                             myFireBaseDB.document(id).collection("messages").document().set(docData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    chat=chatt;
+                                    chat = chatt;
                                     iRepository.dismissLoadingButton();
                                     iRepository.doAction();
                                 }
@@ -87,7 +85,7 @@ public class ChatRepository implements CRUDRepository<Chat> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Toast.makeText(mcontext,mcontext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                Toast.makeText(mcontext, mcontext.getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
                 iRepository.dismissLoadingButton();
             }
         });
@@ -116,10 +114,11 @@ public class ChatRepository implements CRUDRepository<Chat> {
                     MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat.getId()));
                     MessageRepository.getInstance().getAll(chat);
                 }
-            }}).addOnFailureListener(new OnFailureListener() {
+            }
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
                 iRepository.dismissLoadingButton();
             }
         });
@@ -136,10 +135,11 @@ public class ChatRepository implements CRUDRepository<Chat> {
                         MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat1.getId()));
                         MessageRepository.getInstance().getAll(chat1);
                     }
-                }}).addOnFailureListener(new OnFailureListener() {
+                }
+            }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
                     iRepository.dismissLoadingButton();
                 }
             });
@@ -172,7 +172,7 @@ public class ChatRepository implements CRUDRepository<Chat> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
                 iRepository.dismissLoadingButton();
             }
         });
@@ -187,16 +187,19 @@ public class ChatRepository implements CRUDRepository<Chat> {
 
     }
 
+
     public void findConversation(Context mContext, String user1id, String user2id) {
         iRepository.showLoadingButton();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findConversation/" + user1id + "/" + user2id, null,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                IRepository.baseURL + "/findConversation/" + user1id + "/" + user2id,
+                null,
                 new Response.Listener<JSONObject>() {
-
+                    @Override
                     public void onResponse(JSONObject response) {
-                        if(response.has("_id")){
+                            if (response.has("_id")) {
                             chat = convertJsonToObject(response);
                             getOneChatFromFireBase(mContext, chat);
-                        }else {
+                        } else {
                             chat = new Chat();
                             iRepository.doAction();
                             iRepository.dismissLoadingButton();
@@ -207,7 +210,7 @@ public class ChatRepository implements CRUDRepository<Chat> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
                 iRepository.dismissLoadingButton();
             }
         });

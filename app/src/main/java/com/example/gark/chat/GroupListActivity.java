@@ -112,8 +112,12 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
             }
             messages=MessageRepository.getInstance().getList();
             for (Chat row:chats) {
-                for (Message key : messages) {
-                    row.getMessages().add(key);
+                if(messages.size()>0){
+                    for (Message key : messages) {
+                        row.getMessages().add(key);
+                    }
+                }else {
+
                 }
                 listenDataChangeMessageRecived(row);
                 }

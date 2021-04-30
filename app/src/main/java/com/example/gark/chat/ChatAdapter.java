@@ -23,6 +23,7 @@ import com.example.gark.entites.User;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -75,8 +76,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ListMessageHol
                 }
                 holder.senderName.setText(displayedUser.getFirstName()+" "+displayedUser.getLastName());
                 holder.message.setText(message.getMessage());
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =new SimpleDateFormat("dd-MM-yyyy HH:mm");
-                holder.date.setText(formatter.format(message.getDateCreated()));
+                if(!Objects.isNull(message.getDateCreated())){
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =new SimpleDateFormat("dd-MM-yyyy HH:mm");
+                    holder.date.setText(formatter.format(message.getDateCreated()));
+                }else {
+                    holder.date.setText("Say Hello");
+                }
+
             }
     }
 

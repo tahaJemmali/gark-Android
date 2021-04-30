@@ -12,6 +12,7 @@ import com.example.gark.MainActivity;
 import com.example.gark.R;
 import com.example.gark.chat.Chat;
 import com.example.gark.chat.Message;
+import com.example.gark.entites.MatchAction;
 import com.example.gark.entites.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -80,6 +81,7 @@ public class MessageRepository{
                     public void onSuccess(QuerySnapshot documentSnapshots) {
                         if (documentSnapshots.isEmpty()) {
                             Log.e("TAG", "onSuccess: LIST EMPTY");
+                            messages = new ArrayList<Message>();
                         } else {
                             messages = (ArrayList<Message>) documentSnapshots.toObjects(Message.class);
                            // UserRepository.getInstance().setiRepository((IRepository) mContext);
@@ -122,6 +124,8 @@ public class MessageRepository{
 
 
     public ArrayList<Message> getList() {
+        if (messages==null)
+            messages = new ArrayList<Message>();
         return messages;
     }
 

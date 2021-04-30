@@ -208,6 +208,8 @@ public class MatchActionRepository implements CRUDRepository<MatchAction> {
 
     @Override
     public ArrayList<MatchAction> getList() {
+        if (matchActions==null)
+            matchActions = new ArrayList<MatchAction>();
         return matchActions;
     }
 

@@ -111,7 +111,7 @@ public class UserRepository {
                 iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);

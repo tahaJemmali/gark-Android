@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class GroupListActivity extends AppCompatActivity  implements IRepository {
@@ -112,13 +113,18 @@ public class GroupListActivity extends AppCompatActivity  implements IRepository
             }
             messages=MessageRepository.getInstance().getList();
             for (Chat row:chats) {
+                Log.e("TAG,", "doAction: "+messages.size() );
                 if(messages.size()>0){
                     for (Message key : messages) {
                         row.getMessages().add(key);
                     }
                 }else {
-
+                    Message message =new Message();
+                    message.setsenderId(row.getUser1().getId());
+                    message.setreciverId(row.getUser2().getId());
+                    row.getMessages().add(message);
                 }
+                messages.clear();
                 listenDataChangeMessageRecived(row);
                 }
             reloadData();

@@ -24,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageHolder> {
     private final Context mContext;
@@ -61,9 +62,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageH
             holder.friendImage.setImageBitmap(getBitmapFromString(friend.getPhoto()));
             holder.senderMessage.setText(message.getMessage());
         }
-
+        if(!Objects.isNull(message.getDateCreated())){
             @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter =new SimpleDateFormat("dd-MM-yyyy HH:mm");
             holder.dateMessage.setText(formatter.format(message.getDateCreated()));
+        }
+
 
     }
     public Boolean compareDates(Date createdDate, Date today) {

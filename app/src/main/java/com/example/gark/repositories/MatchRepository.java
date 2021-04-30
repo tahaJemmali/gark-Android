@@ -282,6 +282,8 @@ public class MatchRepository {
 
 
     public ArrayList<Match> getList() {
+        if (matches==null)
+            matches = new ArrayList<Match>();
         return matches;
     }
 

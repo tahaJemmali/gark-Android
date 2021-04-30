@@ -61,6 +61,10 @@ public class ChatActivity extends AppCompatActivity implements IRepository {
             reciever = chat.getUser1();
         else
             reciever = chat.getUser2();
+        if(chat.getMessages().size()>0)
+        if(Objects.isNull(chat.getMessages().get(0).getDateCreated()))
+            chat.getMessages().clear();
+
         initMessageRecyclerView();
         MessageRepository.getInstance().setiRepository(this);
         listenDataChangeMessageRecived(chat);

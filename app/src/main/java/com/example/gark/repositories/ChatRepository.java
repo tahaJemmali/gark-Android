@@ -21,6 +21,8 @@ import com.example.gark.chat.Chat;
 import com.example.gark.chat.Message;
 import com.google.android.gms.tasks.OnCompleteListener;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 
@@ -107,46 +109,38 @@ public class ChatRepository implements CRUDRepository<Chat> {
 
     public void getOneChatFromFireBase(Context mContext, Chat chat) {
         MessageRepository.getInstance().setiRepository((IRepository) mContext);
-        myFireBaseDB.document(chat.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        myFireBaseDB.document(chat.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null) {
-                        MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat.getId()));
-                        MessageRepository.getInstance().getAll(chat);
-
-
-                    } else {
-                        Log.e("LOGGER", "No such document");
-                    }
-                } else {
-                    Log.e("LOGGER", "get failed with ", task.getException());
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot != null) {
+                    MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat.getId()));
+                    MessageRepository.getInstance().getAll(chat);
                 }
+            }}).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+
     }
 
     public void getAllChatsFromFireBase(Context mContext, ArrayList<Chat> chats) {
         MessageRepository.getInstance().setiRepository((IRepository) mContext);
         for (Chat chat1 : chats) {
-            myFireBaseDB.document(chat1.getId()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            myFireBaseDB.document(chat1.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document != null) {
-                            //Log.e("LOGGER","First "+document.toString());
-                            MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat1.getId()));
-                            MessageRepository.getInstance().getAll(chat1);
-
-
-                        } else {
-                            Log.e("LOGGER", "No such document");
-                        }
-                    } else {
-                        Log.e("LOGGER", "get failed with ", task.getException());
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot != null) {
+                        MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat1.getId()));
+                        MessageRepository.getInstance().getAll(chat1);
                     }
+                }}).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                    iRepository.dismissLoadingButton();
                 }
             });
         }

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.gark.MainActivity;
+import com.example.gark.R;
 import com.example.gark.chat.Chat;
 import com.example.gark.chat.Message;
 import com.example.gark.entites.User;
@@ -46,11 +47,16 @@ public class MessageRepository{
 
     public void add(Context mcontext, Message message) {
         iRepository.showLoadingButton();
-        documentReference.collection(COLLECTION_NAME).add(message).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        documentReference.collection(COLLECTION_NAME).add(message).addOnSuccessListener(new OnSuccessListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
+            public void onSuccess(Object o) {
                 iRepository.dismissLoadingButton();
                 iRepository.doAction();
+            }}).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText((Context) iRepository,((Context) iRepository).getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
     }
@@ -93,7 +99,8 @@ public class MessageRepository{
                     }}). addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.e("TAG", "Error getting data!!!");
+                            Toast.makeText((Context) iRepository,((Context) iRepository).getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                            iRepository.dismissLoadingButton();
                         }
                     });
     }

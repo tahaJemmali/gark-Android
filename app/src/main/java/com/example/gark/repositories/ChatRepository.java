@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -13,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.MainActivity;
+import com.example.gark.R;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.chat.Chat;
 
@@ -82,9 +84,14 @@ public class ChatRepository implements CRUDRepository<Chat> {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", "fail: " + error);
+                error.printStackTrace();
+                Toast.makeText(mcontext,mcontext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
@@ -171,10 +178,11 @@ public class ChatRepository implements CRUDRepository<Chat> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: " + IRepository.baseURL + "/all_chats");
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
@@ -191,19 +199,25 @@ public class ChatRepository implements CRUDRepository<Chat> {
                 new Response.Listener<JSONObject>() {
 
                     public void onResponse(JSONObject response) {
-                        chat = convertJsonToObject(response);
-                        getOneChatFromFireBase(mContext, chat);
+                        if(response.has("_id")){
+                            chat = convertJsonToObject(response);
+                            getOneChatFromFireBase(mContext, chat);
+                        }else {
+                            chat = new Chat();
+                            iRepository.doAction();
+                            iRepository.dismissLoadingButton();
+                        }
+
                     }
                 }, new Response.ErrorListener() {
-
+            @Override
             public void onErrorResponse(VolleyError error) {
-                //Create new chat
-                chat = new Chat();
-                iRepository.doAction();
+                error.printStackTrace();
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
                 iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);

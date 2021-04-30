@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.MainActivity;
+import com.example.gark.R;
 import com.example.gark.ResetPasswordActivity;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.VerifyCodeActivity;
@@ -46,7 +47,7 @@ public class UserRepository {
         return user;
     }
 
-    public void getUserById(Context mContext, String id){
+    public void getUserById(Context context, String id){
         iRepository.showLoadingButton();
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findByIduser/"+id, null,
                 new Response.Listener<JSONObject>() {
@@ -61,13 +62,14 @@ public class UserRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/findByIduser"+id);
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
+        VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
     public void setiRepository(IRepository iRepository){
         this.iRepository = iRepository;
@@ -105,11 +107,11 @@ public class UserRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Toast.makeText(context,"ERROR",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
                 iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);

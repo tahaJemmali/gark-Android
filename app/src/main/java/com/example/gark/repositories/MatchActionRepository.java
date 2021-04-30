@@ -4,12 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.gark.R;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Challenge;
 import com.example.gark.entites.Match;
@@ -42,7 +44,7 @@ public class MatchActionRepository implements CRUDRepository<MatchAction> {
     }
 
     @Override
-    public void add(Context mcontext, MatchAction matchAction, ProgressDialog dialog) {
+    public void add(Context mContext, MatchAction matchAction, ProgressDialog dialog) {
         iRepository.showLoadingButton();
         final String url = iRepository.baseURL + "/add_matchAction";
         JSONObject object = new JSONObject();
@@ -64,10 +66,15 @@ public class MatchActionRepository implements CRUDRepository<MatchAction> {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", "fail: " + error);
+                error.printStackTrace();
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
     @Override
@@ -133,10 +140,11 @@ public class MatchActionRepository implements CRUDRepository<MatchAction> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: " + finalUrl);
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);

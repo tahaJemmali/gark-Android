@@ -210,4 +210,5 @@
     <string name="prize_collected">" Prix ​​collecté"</string>
     <string name="total">" Le total"</string>
     <string name="champions">Champions</string>
+    <string name="connection_problem">Probleme de connection, ressayer !</string>
 </resources>

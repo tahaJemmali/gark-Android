@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.gark.R;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Challenge;
 import com.example.gark.entites.ChallengeState;
@@ -72,9 +73,14 @@ public class ChallengeRepository {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", "fail: "+error);
+                error.printStackTrace();
+                Toast.makeText(mcontext,mcontext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
@@ -106,13 +112,17 @@ public class ChallengeRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+url);
+                Toast.makeText(mcontext,mcontext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
-    public void getChallengesByTeam(Context mContext, String teamId) {
+    public void getChallengesByTeam(Context mcontext, String teamId) {
         iRepository.showLoadingButton();
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findChallengesByTeam/"+teamId, null,
                 new Response.Listener<JSONObject>() {
@@ -136,17 +146,18 @@ public class ChallengeRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+IRepository.baseURL +  "/findChallengesByTeam/"+teamId);
+                Toast.makeText(mcontext,mcontext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
 
-    public void getAll(Context mContext, ProgressDialog dialogg) {
+    public void getAll(Context mcontext, ProgressDialog dialogg) {
         iRepository.showLoadingButton();
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/all_challenges", null,
                 new Response.Listener<JSONObject>() {
@@ -172,16 +183,17 @@ public class ChallengeRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/all_challenges");
+                Toast.makeText(mcontext,mcontext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
-    public void findByName(Context mContext, String challengeType) {
+    public void findByName(Context mcontext, String challengeType) {
         iRepository.showLoadingButton();
         JsonObjectRequest request = new  JsonObjectRequest(Request.Method.GET, IRepository.baseURL + "/findByName/"+challengeType, null,
                 new Response.Listener<JSONObject>() {
@@ -197,13 +209,14 @@ public class ChallengeRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+IRepository.baseURL +  "/findByName/"+challengeType);
+                Toast.makeText(mcontext,mcontext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
+        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
     }
 
     public void findById(Context mContext, String id) {
@@ -227,8 +240,13 @@ public class ChallengeRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
@@ -244,8 +262,13 @@ public class ChallengeRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
@@ -265,8 +288,13 @@ public class ChallengeRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 

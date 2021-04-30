@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.icu.text.SimpleDateFormat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -11,6 +12,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.MainActivity;
+import com.example.gark.R;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Categorie;
 import com.example.gark.entites.Nationality;
@@ -42,7 +44,7 @@ public class TeamRepository  {
 
 
    
-    public void add(Context mcontext, Team team, ProgressDialog dialog) {
+    public void add(Context mContext, Team team, ProgressDialog dialog) {
         iRepository.showLoadingButton();
         final String url = iRepository.baseURL + "/add_team";
         JSONObject object = new JSONObject();
@@ -53,7 +55,7 @@ public class TeamRepository  {
                     public void onResponse(JSONObject response) {
                         try {
                             String id= response.getString("message");
-                            SkillsRepository.getInstance().addTeamToPlayer(mcontext, MainActivity.currentPlayerSkills.getId(),id);
+                            SkillsRepository.getInstance().addTeamToPlayer(mContext, MainActivity.currentPlayerSkills.getId(),id);
                             iRepository.doAction();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -67,16 +69,16 @@ public class TeamRepository  {
                 Log.e("TAG", "fail: "+error);
             }
         });
-        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
    
-    public void delete(Context mcontext, String id, ProgressDialog dialog) {
+    public void delete(Context mContext, String id, ProgressDialog dialog) {
 
     }
 
    
-    public void update(Context mcontext, Team x, String id,boolean backgorund) {
+    public void update(Context mContext, Team x, String id,boolean backgorund) {
         if(!backgorund)
         iRepository.showLoadingButton();
         final String url=iRepository.baseURL  + "/update_team/"+id;
@@ -97,16 +99,18 @@ public class TeamRepository  {
                 }
             }
         }, new Response.ErrorListener() {
-           
+
+            @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+url);
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
    
@@ -133,13 +137,15 @@ public class TeamRepository  {
                         }
                     }
                 }, new Response.ErrorListener() {
-           
+
+            @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/all_teams");
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
@@ -157,13 +163,14 @@ public class TeamRepository  {
                             iRepository.dismissLoadingButton();
                     }
                 }, new Response.ErrorListener() {
-           
+            @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/findByIdTeam"+id);
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);

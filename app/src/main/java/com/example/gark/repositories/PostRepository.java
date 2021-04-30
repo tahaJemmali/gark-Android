@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.gark.MainActivity;
+import com.example.gark.R;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Match;
 import com.example.gark.entites.Post;
@@ -41,7 +42,7 @@ public class PostRepository implements CRUDRepository<Post>  {
     }
 
     @Override
-    public void add(Context mcontext, Post post, ProgressDialog dialog) {
+    public void add(Context mContext, Post post, ProgressDialog dialog) {
         iRepository.showLoadingButton();
         final String url = iRepository.baseURL + "/add_post";
         Log.e("TAG", "add: "+post );
@@ -63,19 +64,24 @@ public class PostRepository implements CRUDRepository<Post>  {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", "fail: "+error);
+                error.printStackTrace();
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
     @Override
-    public void delete(Context mcontext, String id, ProgressDialog dialog) {
+    public void delete(Context mContext, String id, ProgressDialog dialog) {
 
     }
 
     @Override
-    public void update(Context mcontext, Post post, String id) {
+    public void update(Context mContext, Post post, String id) {
 
     }
 
@@ -106,16 +112,17 @@ public class PostRepository implements CRUDRepository<Post>  {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+IRepository.baseURL + "/all_posts");
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
-    public void likePost( Context context,String postId,String userId){
+    public void likePost( Context mContext,String postId,String userId){
         String url = IRepository.baseURL + "/like_post"+"/"+postId+"/"+userId;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
                 new Response.Listener<JSONObject>() {
@@ -134,11 +141,16 @@ public class PostRepository implements CRUDRepository<Post>  {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        VolleyInstance.getInstance(context).addToRequestQueue(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
-    public void disLikePost(Context context,String postId,String userId){
+    public void disLikePost(Context mContext,String postId,String userId){
         String url = IRepository.baseURL + "/dislike_post"+"/"+postId+"/"+userId;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
                 new Response.Listener<JSONObject>() {
@@ -157,11 +169,16 @@ public class PostRepository implements CRUDRepository<Post>  {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        VolleyInstance.getInstance(context).addToRequestQueue(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
-    public void viewPost(Context context,String postId,String userId){
+    public void viewPost(Context mContext,String postId,String userId){
         String url = IRepository.baseURL + "/view_post"+"/"+postId+"/"+userId;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
                 new Response.Listener<JSONObject>() {
@@ -180,9 +197,14 @@ public class PostRepository implements CRUDRepository<Post>  {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        VolleyInstance.getInstance(context).addToRequestQueue(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
     public void findByCreator(Context mContext, String id) {
@@ -211,10 +233,11 @@ public class PostRepository implements CRUDRepository<Post>  {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: "+IRepository.baseURL +  "/findByCreatorpost/"+id);
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);

@@ -3,12 +3,14 @@ package com.example.gark.repositories;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.gark.R;
 import com.example.gark.Utils.VolleyInstance;
 import com.example.gark.entites.Nationality;
 import com.example.gark.entites.Role;
@@ -39,7 +41,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
     }
 
     @Override
-    public void add(Context mcontext, Skills skills, ProgressDialog dialog) {
+    public void add(Context mContext, Skills skills, ProgressDialog dialog) {
         final String url = iRepository.baseURL + "/add_skills";
         Log.e("TAG", "add Skills: " + skills);
         JSONObject object = new JSONObject();
@@ -50,7 +52,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                     public void onResponse(JSONObject response) {
                         try {
                             Log.e("TAG", "added skill id: " + response.getString("message"));
-                            getAll(mcontext, dialog);
+                            getAll(mContext, dialog);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -58,18 +60,23 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("TAG", "fail: " + error);
+                error.printStackTrace();
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
     @Override
-    public void delete(Context mcontext, String id, ProgressDialog dialog) {
+    public void delete(Context mContext, String id, ProgressDialog dialog) {
 
     }
 
-    public void updateInBackground(Context mcontext, Skills skills, String id) {
+    public void updateInBackground(Context mContext, Skills skills, String id) {
 
         final String url = iRepository.baseURL + "/update_skills/" + id;
         player = skills;
@@ -88,14 +95,18 @@ public class SkillsRepository implements CRUDRepository<Skills> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: " + url);
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
     @Override
-    public void update(Context mcontext, Skills skills, String id) {
+    public void update(Context mContext, Skills skills, String id) {
         iRepository.showLoadingButton();
         final String url = iRepository.baseURL + "/update_skills/" + id;
         player = skills;
@@ -116,13 +127,17 @@ public class SkillsRepository implements CRUDRepository<Skills> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: " + url);
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        VolleyInstance.getInstance(mcontext).addToRequestQueue(request);
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
-    public void addTeamToPlayer(Context context, String playerId, String teamId) {
+    public void addTeamToPlayer(Context mContext, String playerId, String teamId) {
         //  iRepository.showLoadingButton();
         String url = IRepository.baseURL + "/add_team_player" + "/" + playerId + "/" + teamId;
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, null,
@@ -136,12 +151,14 @@ public class SkillsRepository implements CRUDRepository<Skills> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        VolleyInstance.getInstance(context).addToRequestQueue(request);
+        VolleyInstance.getInstance(mContext).addToRequestQueue(request);
     }
 
     @Override
@@ -170,10 +187,11 @@ public class SkillsRepository implements CRUDRepository<Skills> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: " + IRepository.baseURL + "/top_players");
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
@@ -194,10 +212,11 @@ public class SkillsRepository implements CRUDRepository<Skills> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: " + IRepository.baseURL + "/findByIdskills" + id);
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);
@@ -217,10 +236,11 @@ public class SkillsRepository implements CRUDRepository<Skills> {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
-                Log.e("TAG", "onResponse: " + IRepository.baseURL + "/findByIdskills" + id);
+                Toast.makeText(mContext,mContext.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(mContext).addToRequestQueue(request);

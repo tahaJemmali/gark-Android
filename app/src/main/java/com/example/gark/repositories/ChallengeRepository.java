@@ -174,7 +174,7 @@ public class ChallengeRepository {
 
                             }
                             iRepository.doAction();
-                            iRepository.dismissLoadingButton();
+                         //   iRepository.dismissLoadingButton();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

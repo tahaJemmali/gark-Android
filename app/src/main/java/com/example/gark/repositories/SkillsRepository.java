@@ -178,7 +178,7 @@ public class SkillsRepository implements CRUDRepository<Skills> {
                                 players.add(convertJsonToObject(jsonTag));
                             }
                             iRepository.doAction();
-                            iRepository.dismissLoadingButton();
+                          //  iRepository.dismissLoadingButton();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

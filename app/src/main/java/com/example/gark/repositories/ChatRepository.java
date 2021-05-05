@@ -127,22 +127,26 @@ public class ChatRepository implements CRUDRepository<Chat> {
 
     public void getAllChatsFromFireBase(Context mContext, ArrayList<Chat> chats) {
         MessageRepository.getInstance().setiRepository((IRepository) mContext);
-        for (Chat chat1 : chats) {
-            myFireBaseDB.document(chat1.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    if (documentSnapshot != null) {
-                        MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat1.getId()));
-                        MessageRepository.getInstance().getAll(chat1);
+        if(!chats.isEmpty()){
+            for (Chat chat1 : chats) {
+                myFireBaseDB.document(chat1.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if (documentSnapshot != null) {
+                            MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat1.getId()));
+                            MessageRepository.getInstance().getAll(chat1);
+                        }
                     }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(mContext, mContext.getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
-                    iRepository.dismissLoadingButton();
-                }
-            });
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(mContext, mContext.getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
+                        iRepository.dismissLoadingButton();
+                    }
+                });
+            }
+        }else {
+            iRepository.dismissLoadingButton();
         }
     }
 

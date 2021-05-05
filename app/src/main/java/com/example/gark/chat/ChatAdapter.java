@@ -113,7 +113,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ListMessageHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.e("TAG", "onClick: " );
                     Intent intent=new Intent(mContext, ChatActivity.class);
                     intent.putExtra("chatId",getAdapterPosition());
                     mContext.startActivity(intent);

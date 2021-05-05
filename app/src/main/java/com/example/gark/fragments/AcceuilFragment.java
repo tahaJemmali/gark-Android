@@ -255,7 +255,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
 
     @Override
     public void dismissLoadingButton() {
-      //  dialogg.dismiss();
+        dialogg.dismiss();
     }
 
     public void setCallBackInterface(CallBackInterface callBackInterface) {

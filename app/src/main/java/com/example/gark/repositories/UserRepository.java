@@ -162,8 +162,13 @@ public class UserRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
@@ -208,8 +213,13 @@ public class UserRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
@@ -258,8 +268,13 @@ public class UserRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
@@ -319,8 +334,13 @@ public class UserRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
@@ -362,8 +382,13 @@ public class UserRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 
@@ -405,8 +430,13 @@ public class UserRepository {
             @Override
             public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
+                Toast.makeText(context,context.getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
+                iRepository.dismissLoadingButton();
             }
         });
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         VolleyInstance.getInstance(context).addToRequestQueue(request);
     }
 

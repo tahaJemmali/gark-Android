@@ -103,7 +103,7 @@ public class PostRepository implements CRUDRepository<Post>  {
                                 posts.add( convertJsonToObject(jsonTag));
                             }
                             iRepository.doAction();
-                            iRepository.dismissLoadingButton();
+                        //    iRepository.dismissLoadingButton();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

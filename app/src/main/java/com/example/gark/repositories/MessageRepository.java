@@ -73,8 +73,8 @@ public class MessageRepository{
     }
 
 
-    public void getAll( Chat chat) {
-        iRepository.showLoadingButton();
+    public void getAll( Chat chat,boolean doAction) {
+        //iRepository.showLoadingButton();
         documentReference.collection(COLLECTION_NAME).orderBy("dateCreated", Query.Direction.DESCENDING).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -84,7 +84,6 @@ public class MessageRepository{
                             messages = new ArrayList<Message>();
                         } else {
                             messages = (ArrayList<Message>) documentSnapshots.toObjects(Message.class);
-                           // UserRepository.getInstance().setiRepository((IRepository) mContext);
                             for (Message row :messages){
                                 if (row.getreciverId().equals(chat.getUser1().getId())){
                                     row.setreciverId(chat.getUser1().getId());
@@ -95,14 +94,20 @@ public class MessageRepository{
                                     row.setsenderId(chat.getUser1().getId());
                                 }
                             }
+
+                            chat.setMessages(messages);
                         }
-                        iRepository.doAction();
-                        iRepository.dismissLoadingButton();
+                      if(doAction){
+
+                          iRepository.doAction();
+                          iRepository.dismissLoadingButton();
+                      }
+
                     }}). addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText((Context) iRepository,((Context) iRepository).getString(R.string.connection_problem),Toast.LENGTH_LONG).show();
-                            iRepository.dismissLoadingButton();
+                          //  iRepository.dismissLoadingButton();
                         }
                     });
     }

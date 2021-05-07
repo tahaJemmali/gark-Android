@@ -2,6 +2,7 @@ package com.example.gark.repositories;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.util.Log;
 import android.widget.Toast;
@@ -28,6 +29,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import org.json.JSONArray;
@@ -58,6 +61,7 @@ public class ChatRepository implements CRUDRepository<Chat> {
 
     @Override
     public void add(Context mcontext, Chat chatt, ProgressDialog dialog) {
+        iRepository.showLoadingButton();
         final String url = iRepository.baseURL + "/add_chat";
         JSONObject object = new JSONObject();
         convertObjectToJson(object, chatt);
@@ -68,16 +72,18 @@ public class ChatRepository implements CRUDRepository<Chat> {
                         try {
                             String id = response.getString("message");
                             chatt.setId(id);
+
                             Map<String, Object> docData = new HashMap<>();
                             myFireBaseDB.document(id).collection("messages").document().set(docData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     chat = chatt;
-                                    iRepository.dismissLoadingButton();
+                                    MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chatt.getId()));
                                     iRepository.doAction();
+                                    iRepository.dismissLoadingButton();
                                 }
                             });
-                        } catch (JSONException e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -112,7 +118,7 @@ public class ChatRepository implements CRUDRepository<Chat> {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot != null) {
                     MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat.getId()));
-                    MessageRepository.getInstance().getAll(chat);
+                    MessageRepository.getInstance().getAll(chat,true);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -126,27 +132,12 @@ public class ChatRepository implements CRUDRepository<Chat> {
     }
 
     public void getAllChatsFromFireBase(Context mContext, ArrayList<Chat> chats) {
-        MessageRepository.getInstance().setiRepository((IRepository) mContext);
-        if(!chats.isEmpty()){
-            for (Chat chat1 : chats) {
-                myFireBaseDB.document(chat1.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        if (documentSnapshot != null) {
-                            MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat1.getId()));
-                            MessageRepository.getInstance().getAll(chat1);
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(mContext, mContext.getString(R.string.connection_problem), Toast.LENGTH_LONG).show();
-                        iRepository.dismissLoadingButton();
-                    }
-                });
-            }
-        }else {
-            iRepository.dismissLoadingButton();
+        MessageRepository.getInstance().setiRepository(iRepository);
+        int index=-1;
+        for(Chat chat1 :chats){
+            MessageRepository.getInstance().setiDocument(myFireBaseDB.document(chat1.getId()));
+           index = chats.indexOf(chat1)+1;
+            MessageRepository.getInstance().getAll(chat1,(index==chats.size()));
         }
     }
 
@@ -161,13 +152,17 @@ public class ChatRepository implements CRUDRepository<Chat> {
                             chats = new ArrayList<Chat>();
                             String message = response.getString("message");
                             JSONArray jsonArray = response.getJSONArray("chats");
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                Chat tmp = convertJsonToObject(object);
-                                chats.add(tmp);
+                            if(jsonArray.length()!=0){
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject object = jsonArray.getJSONObject(i);
+                                    Chat tmp = convertJsonToObject(object);
+                                    chats.add(tmp);
+                                }
+                                getAllChatsFromFireBase(mContext, chats);
+                            }else {
+                                iRepository.doAction();
                             }
-                            getAllChatsFromFireBase(mContext, chats);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

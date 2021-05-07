@@ -11,23 +11,10 @@ public class Message {
     String reciverId;
     String message;
     String urlImage;
+    boolean vu=false;
 
     public Message() {
     }
-
-    public Message( String message,String senderId,String reciverId) {
-        this.senderId = senderId;
-        this.reciverId = reciverId;
-        this.message = message;
-    }
-
-    public Message( String message, String urlImage,String senderId,String reciverId) {
-        this.senderId = senderId;
-        this.message = message;
-        this.reciverId = reciverId;
-        this.urlImage = urlImage;
-    }
-
 
 
     public Date getDateCreated() {
@@ -68,6 +55,14 @@ public class Message {
 
     public void setreciverId(String reciverId) {
         this.reciverId = reciverId;
+    }
+
+    public boolean isVu() {
+        return vu;
+    }
+
+    public void setVu(boolean vu) {
+        this.vu = vu;
     }
 
     @Override

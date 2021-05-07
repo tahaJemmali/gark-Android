@@ -32,6 +32,7 @@ import com.example.gark.entites.MatchType;
 import com.example.gark.entites.Post;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
+import com.example.gark.fragments.AcceuilFragment;
 import com.example.gark.repositories.ChatRepository;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.MatchActionRepository;
@@ -51,7 +52,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     View infoFragment, statsfragment, postsfragment, dashboardfragment;
     ImageView playerImage, nationality, start_one, start_two, start_three, start_four, start_five;
     TextView playerNom, age, rolePlayer, descriptionPlayer, not_yet_teams, not_yet_posts;
-    ImageButton skillsType,settings;
+    ImageButton skillsType, settings;
     RecyclerView skillsRecyclerView, postRecyclerView;
     ProgressDialog dialogg;
     ProgressDialog dialoggPost;
@@ -60,10 +61,10 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     //View cardView;
     RecyclerView recycleViewTeams;
     //////Stats layout
-    TextView votes,yellowCards,redCards,goals,score,xp,gamePlayed,manOfTheTournement;
+    TextView votes, yellowCards, redCards, goals, score, xp, gamePlayed, manOfTheTournement;
     //info
     ImageView TeamInternation, TeamNational, PlayerNational, PlayerTunisia;
-    TextView TeamInternationName, TeamNationalName, PlayerNationalName, PlayerTunisiaName,height,weight;
+    TextView TeamInternationName, TeamNationalName, PlayerNationalName, PlayerTunisiaName, height, weight;
     //VAR
     public static Chat chat;
     TeamsAdapter teamsAdapter;
@@ -73,13 +74,12 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     PostAdapter postAdapter;
     Boolean generated = false;
     Boolean showListRadar = true;
-    int playerinfo=0;
+    int playerinfo = 0;
     ArrayList<MatchAction> matchActions;
     ArrayList<MatchAction> matchActionsTeams;
-    int interingDoAction=0;
-    boolean contactMe=false;
-    boolean rediricting=false;
-    boolean createdNow=false;
+    int interingDoAction = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,14 +98,14 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         TeamNationalName = findViewById(R.id.TeamNationalName);
         PlayerNationalName = findViewById(R.id.PlayerNationalName);
         PlayerTunisiaName = findViewById(R.id.PlayerTunisiaName);
-        height= findViewById(R.id.height);
-        weight= findViewById(R.id.weight);
+        height = findViewById(R.id.height);
+        weight = findViewById(R.id.weight);
 
         playerImage = findViewById(R.id.playerImage);
         recycleViewTeams = findViewById(R.id.recycleViewTeams);
         not_yet_posts = findViewById(R.id.not_yet_posts);
         not_yet_teams = findViewById(R.id.not_yet_teams);
-      //  cardView = findViewById(R.id.cardView);
+        //  cardView = findViewById(R.id.cardView);
         skillsType = findViewById(R.id.skillsType);
         nationality = findViewById(R.id.nationality);
         start_one = findViewById(R.id.start_one);
@@ -131,23 +131,23 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
         dashboardfragment = findViewById(R.id.dashboardfragment);
         initStatsLayout();
         SkillsRepository.getInstance().setiRepository(this);
-        String playerId=getIntent().getStringExtra("playerId");
-        if(playerId.equals(MainActivity.currentPlayerSkills.getId()))
-        settings.setVisibility(View.VISIBLE);
+        String playerId = getIntent().getStringExtra("playerId");
+        if (playerId.equals(MainActivity.currentPlayerSkills.getId()))
+            settings.setVisibility(View.VISIBLE);
         SkillsRepository.getInstance().findById(this, playerId);
         postRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         skillsRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
     }
 
-    void initStatsLayout(){
-        votes=findViewById(R.id.votes);
-        yellowCards=findViewById(R.id.yellowCards);
-        redCards=findViewById(R.id.redCards);
-        goals=findViewById(R.id.goals);
-        score=findViewById(R.id.score);
-        xp=findViewById(R.id.xp);
-        gamePlayed=findViewById(R.id.gamePlayed);
-        manOfTheTournement=findViewById(R.id.manOfTheTournement);
+    void initStatsLayout() {
+        votes = findViewById(R.id.votes);
+        yellowCards = findViewById(R.id.yellowCards);
+        redCards = findViewById(R.id.redCards);
+        goals = findViewById(R.id.goals);
+        score = findViewById(R.id.score);
+        xp = findViewById(R.id.xp);
+        gamePlayed = findViewById(R.id.gamePlayed);
+        manOfTheTournement = findViewById(R.id.manOfTheTournement);
     }
 
     private void initUIRecycleViewerTeams() {
@@ -168,228 +168,203 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
 
     @Override
     public void doAction() {
-        if(!contactMe) {
-            //player
-            player = SkillsRepository.getInstance().getElement();
-            skillsAdapter = new SkillsAdapter(this, player);
-            skillsRecyclerView.setAdapter(skillsAdapter);
-            //posts
-            if (posts == null) {
-                posts = new ArrayList<Post>();
-                PostRepository.getInstance().setiRepository(this);
+
+        //player
+        player = SkillsRepository.getInstance().getElement();
+        skillsAdapter = new SkillsAdapter(this, player);
+        skillsRecyclerView.setAdapter(skillsAdapter);
+        //posts
+        if (posts == null) {
+            posts = new ArrayList<Post>();
+            PostRepository.getInstance().setiRepository(this);
+        } else {
+            posts = PostRepository.getInstance().getList();
+            if (posts.size() > 0) {
+                postAdapter = new PostAdapter(this, posts);
+                postRecyclerView.setAdapter(postAdapter);
             } else {
-                posts = PostRepository.getInstance().getList();
-                if (posts.size() > 0) {
-                    postAdapter = new PostAdapter(this, posts);
-                    postRecyclerView.setAdapter(postAdapter);
-                } else {
-                    not_yet_posts.setVisibility(View.VISIBLE);
-                }
-                dialoggPost.dismiss();
-
+                not_yet_posts.setVisibility(View.VISIBLE);
             }
+            dialoggPost.dismiss();
 
-            if (player != null) {
+        }
 
-                if (!generated) {
-                    dialoggPost = ProgressDialog.show(this, "", getString(R.string.loading_post), true);
-                    PostRepository.getInstance().findByCreator(this, player.getPlayer().getId());
-                    generated = true;
-                    Bitmap bitmap = getBitmapFromString(player.getPlayer().getPhoto());
-                    playerImage.setImageBitmap(bitmap);
-                    // radar array list
-                    ArrayList<RadarHolder> data = new ArrayList<RadarHolder>();
-                    int x = Math.round(player.getDefending() * 10 / 100);
-                    data.add(new RadarHolder(getString(R.string.defending), x));
-                    x = Math.round(player.getShooting() * 10 / 100);
-                    data.add(new RadarHolder(getString(R.string.shooting), x));
-                    x = Math.round(player.getPassing() * 10 / 100);
-                    data.add(new RadarHolder(getString(R.string.passing), x));
-                    x = Math.round(player.getDribbling() * 10 / 100);
-                    data.add(new RadarHolder(getString(R.string.dribbling), x));
-                    x = Math.round(player.getDefending() * 10 / 100);
-                    data.add(new RadarHolder(getString(R.string.defending), x));
-                    x = Math.round(player.getPhysical() * 10 / 100);
-                    data.add(new RadarHolder(getString(R.string.physical), x));
-                    x = Math.round(player.getPace() * 10 / 100);
-                    data.add(new RadarHolder(getString(R.string.pace), x));
-                    radar.setMaxValue(10);
-                    radar.setData(data);
+        if (player != null) {
 
-                    nationality.setImageResource(this.getResources().getIdentifier(player.getNationality().toString(), "drawable", this.getPackageName()));
-                    switch (player.getRating()) {
-                        case 1:
-                            start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                            break;
-                        case 2:
-                            start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_two.setImageResource(R.drawable.ic_rating_start_checked);
-                            break;
-                        case 3:
-                            start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_two.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_three.setImageResource(R.drawable.ic_rating_start_checked);
-                            break;
-                        case 4:
-                            start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_two.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_three.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_four.setImageResource(R.drawable.ic_rating_start_checked);
-                            break;
-                        case 5:
-                            start_one.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_two.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_three.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_four.setImageResource(R.drawable.ic_rating_start_checked);
-                            start_five.setImageResource(R.drawable.ic_rating_start_checked);
-                            break;
-                        default:
-                            break;
-                    }
-                    if (player.getPlayer().getId().equals(MainActivity.getCurrentLoggedInUser().getId()))
-                        contact.setVisibility(View.GONE);
-                    playerNom.setText(player.getPlayer().getFirstName() + " " + player.getPlayer().getLastName());
-                    rolePlayer.setText(player.getRole().toString());
-                    age.setText(player.getAge() + getString(R.string.years));
-                    descriptionPlayer.setText(player.getDescription());
+            if (!generated) {
+                dialoggPost = ProgressDialog.show(this, "", getString(R.string.loading_post), true);
+                PostRepository.getInstance().findByCreator(this, player.getPlayer().getId());
+                generated = true;
+                Bitmap bitmap = getBitmapFromString(player.getPlayer().getPhoto());
+                playerImage.setImageBitmap(bitmap);
+                // radar array list
+                ArrayList<RadarHolder> data = new ArrayList<RadarHolder>();
+                int x = Math.round(player.getDefending() * 10 / 100);
+                data.add(new RadarHolder(getString(R.string.defending), x));
+                x = Math.round(player.getShooting() * 10 / 100);
+                data.add(new RadarHolder(getString(R.string.shooting), x));
+                x = Math.round(player.getPassing() * 10 / 100);
+                data.add(new RadarHolder(getString(R.string.passing), x));
+                x = Math.round(player.getDribbling() * 10 / 100);
+                data.add(new RadarHolder(getString(R.string.dribbling), x));
+                x = Math.round(player.getDefending() * 10 / 100);
+                data.add(new RadarHolder(getString(R.string.defending), x));
+                x = Math.round(player.getPhysical() * 10 / 100);
+                data.add(new RadarHolder(getString(R.string.physical), x));
+                x = Math.round(player.getPace() * 10 / 100);
+                data.add(new RadarHolder(getString(R.string.pace), x));
+                radar.setMaxValue(10);
+                radar.setData(data);
 
-                    //initstate
+                nationality.setImageResource(this.getResources().getIdentifier(player.getNationality().toString(), "drawable", this.getPackageName()));
+                switch (player.getRating()) {
+                    case 1:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    case 2:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_two.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    case 3:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_two.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_three.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    case 4:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_two.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_three.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_four.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    case 5:
+                        start_one.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_two.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_three.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_four.setImageResource(R.drawable.ic_rating_start_checked);
+                        start_five.setImageResource(R.drawable.ic_rating_start_checked);
+                        break;
+                    default:
+                        break;
+                }
+                if (player.getPlayer().getId().equals(MainActivity.getCurrentLoggedInUser().getId()))
+                    contact.setVisibility(View.GONE);
+                playerNom.setText(player.getPlayer().getFirstName() + " " + player.getPlayer().getLastName());
+                rolePlayer.setText(player.getRole().toString());
+                age.setText(player.getAge() + getString(R.string.years));
+                descriptionPlayer.setText(player.getDescription());
 
-                    Picasso.get().load(player.getBestTeamWorld().getImage()).into(TeamInternation);
-                    Picasso.get().load(player.getBestTeamTunisia().getImage()).into(TeamNational);
-                    Picasso.get().load(player.getBestPlayerWorld().getImage()).into(PlayerNational);
-                    Picasso.get().load(player.getBestPlayerTunisia().getImage()).into(PlayerTunisia);
+                //initstate
 
-                    TeamInternationName.setText(player.getBestTeamWorld().getName());
-                    TeamNationalName.setText(player.getBestTeamTunisia().getName());
-                    PlayerNationalName.setText(player.getBestPlayerWorld().getFirstName() + " " + player.getBestPlayerWorld().getLastName());
-                    PlayerTunisiaName.setText(player.getBestPlayerTunisia().getFirstName() + " " + player.getBestPlayerTunisia().getLastName());
-                    height.setText(player.getHeight() + " cm");
-                    weight.setText(player.getWeight() + " kg");
-                    initUIRecycleViewerTeams();
-                } else {
-                    switch (playerinfo) {
-                        case 0:
-                            MatchActionRepository.getInstance().setiRepository(this);
-                            MatchActionRepository.getInstance().findBy(this, "player", player.getId());
+                Picasso.get().load(player.getBestTeamWorld().getImage()).into(TeamInternation);
+                Picasso.get().load(player.getBestTeamTunisia().getImage()).into(TeamNational);
+                Picasso.get().load(player.getBestPlayerWorld().getImage()).into(PlayerNational);
+                Picasso.get().load(player.getBestPlayerTunisia().getImage()).into(PlayerTunisia);
+
+                TeamInternationName.setText(player.getBestTeamWorld().getName());
+                TeamNationalName.setText(player.getBestTeamTunisia().getName());
+                PlayerNationalName.setText(player.getBestPlayerWorld().getFirstName() + " " + player.getBestPlayerWorld().getLastName());
+                PlayerTunisiaName.setText(player.getBestPlayerTunisia().getFirstName() + " " + player.getBestPlayerTunisia().getLastName());
+                height.setText(player.getHeight() + " cm");
+                weight.setText(player.getWeight() + " kg");
+                initUIRecycleViewerTeams();
+            } else {
+                switch (playerinfo) {
+                    case 0:
+                        MatchActionRepository.getInstance().setiRepository(this);
+                        MatchActionRepository.getInstance().findBy(this, "player", player.getId());
+                        playerinfo++;
+                        break;
+                    case 1:
+                        matchActions = MatchActionRepository.getInstance().getList();
+                        matchActionsTeams = new ArrayList<MatchAction>();
+                        if (player.getTeams().size() == 0)
+                            setStatTotal();
+
+                        for (Team team : player.getTeams()) {
+                            MatchActionRepository.getInstance().findBy(this, "team", team.getId());
+                        }
+                        playerinfo++;
+                        break;
+                    case 2:
+                        interingDoAction++;
+                        if (matchActionsTeams.size() == 0) {
+                            matchActionsTeams = MatchActionRepository.getInstance().getList();
+                        } else {
+                            matchActionsTeams.addAll(MatchActionRepository.getInstance().getList());
+                        }
+
+                        if (interingDoAction == player.getTeams().size()) {
+                            setStatTotal();
                             playerinfo++;
-                            break;
-                        case 1:
-                            matchActions = MatchActionRepository.getInstance().getList();
-                            matchActionsTeams = new ArrayList<MatchAction>();
-                            if (player.getTeams().size() == 0)
-                                setStatTotal();
-
-                            for (Team team : player.getTeams()) {
-                                MatchActionRepository.getInstance().findBy(this, "team", team.getId());
-                            }
-                            playerinfo++;
-                            break;
-                        case 2:
-                            interingDoAction++;
-                            if (matchActionsTeams.size() == 0) {
-                                matchActionsTeams = MatchActionRepository.getInstance().getList();
-                            } else {
-                                matchActionsTeams.addAll(MatchActionRepository.getInstance().getList());
-                            }
-
-                            if (interingDoAction == player.getTeams().size()) {
-                                setStatTotal();
-                                playerinfo++;
-                            }
-                            break;
-                    }
+                        }
+                        break;
                 }
-            }
-        }else {
-            if(rediricting){
-                if(createdNow){
-                    chat.setMessages(new ArrayList<>());
-                    createdNow=false;
-                }else {
-                    chat.setMessages(MessageRepository.getInstance().getList());
-                }
-                Intent intent=new Intent(this, ChatActivity.class);
-                intent.putExtra("chatIdSingle",1);
-                startActivity(intent);
-                rediricting=false;
-            }
-            if(!Objects.isNull(ChatRepository.getInstance().getElement().getId())){
-                chat=ChatRepository.getInstance().getElement();
-                ChatRepository.getInstance().getOneChatFromFireBase(this,chat);
-                rediricting=true;
-            }else{
-                chat=new Chat();
-                chat.setUser1(player.getPlayer());
-                chat.setUser2(MainActivity.getCurrentLoggedInUser());
-                chat.setDate_created(new Date());
-
-                ChatRepository.getInstance().add(this,chat,null);
-                createdNow=true;
             }
         }
     }
-    void setStatTotal(){
+
+    void setStatTotal() {
         //SET VALUES
-        int red=0;
-        int goal=0;
-        int yellow=0;
-        int vote=0;
-        int scoreValue=player.getScore();
-        int XP=0;
-        int games=0;
-        int manOf=0;
+        int red = 0;
+        int goal = 0;
+        int yellow = 0;
+        int vote = 0;
+        int scoreValue = player.getScore();
+        int XP = 0;
+        int games = 0;
+        int manOf = 0;
         //GOALS /RED / YELLOW
-        for(MatchAction row :matchActions){
-            if(row.getType().equals(MatchActionType.goal)){
-                XP+=6;
+        for (MatchAction row : matchActions) {
+            if (row.getType().equals(MatchActionType.goal)) {
+                XP += 6;
                 goal++;
-            }else if(row.getType().equals(MatchActionType.redCard)){
-                XP+=-4;
+            } else if (row.getType().equals(MatchActionType.redCard)) {
+                XP += -4;
                 red++;
-            }else {
-                XP+=-2;
+            } else {
+                XP += -2;
                 yellow++;
             }
         }
         //GAMES
-        for (Team row:player.getTeams()){
-            games+=row.getDefeats()+row.getDraws()+row.getVictories();
+        for (Team row : player.getTeams()) {
+            games += row.getDefeats() + row.getDraws() + row.getVictories();
         }
         //Clean matches
-        ArrayList<Match> matches=new ArrayList<>();
-        for (MatchAction row:matchActionsTeams){
-            if(!matches.contains(row.getMatch()))
+        ArrayList<Match> matches = new ArrayList<>();
+        for (MatchAction row : matchActionsTeams) {
+            if (!matches.contains(row.getMatch()))
                 matches.add(row.getMatch());
         }
         //XP
-        for (Match row:matches){
-            if(row.getType().equals(MatchType.Semi)){
-                XP+=5;
-            } else if(row.getType().equals(MatchType.Final)){
-                XP+=10;
+        for (Match row : matches) {
+            if (row.getType().equals(MatchType.Semi)) {
+                XP += 5;
+            } else if (row.getType().equals(MatchType.Final)) {
+                XP += 10;
 
-                if(player.getTeams().contains(row.getWinner())){
-                    XP+=20;
+                if (player.getTeams().contains(row.getWinner())) {
+                    XP += 20;
 
                 }
             }
         }
-        if(player.getXp()!=XP){
+        if (player.getXp() != XP) {
             player.setXp(XP);
-            SkillsRepository.getInstance().updateInBackground(this,player,player.getId());
+            SkillsRepository.getInstance().updateInBackground(this, player, player.getId());
         }
 
         //SET UI
-        votes.setText(""+vote);
-        yellowCards.setText(""+yellow);
-        redCards.setText(""+red);
-        goals.setText(""+goal);
-        score.setText(scoreValue+"%");
-        xp.setText(""+XP);
-        gamePlayed.setText(""+games);
-        manOfTheTournement.setText(""+manOf);
+        votes.setText("" + vote);
+        yellowCards.setText("" + yellow);
+        redCards.setText("" + red);
+        goals.setText("" + goal);
+        score.setText(scoreValue + "%");
+        xp.setText("" + XP);
+        gamePlayed.setText("" + games);
+        manOfTheTournement.setText("" + manOf);
     }
+
     @Override
     public void dismissLoadingButton() {
         dialogg.dismiss();
@@ -403,7 +378,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
 
     public void showCard(View view) {
         Intent intent = new Intent(PlayerProfileActvity.this, CardActivity.class);
-      //  intent.putExtra("player", player);
+        //  intent.putExtra("player", player);
         startActivity(intent);
     }
 
@@ -412,9 +387,23 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     }
 
     public void contact(View view) {
-        ChatRepository.getInstance().setiRepository(this);
-        ChatRepository.getInstance().findConversation(this,player.getPlayer().getId(),MainActivity.getCurrentLoggedInUser().getId());
-        contactMe=true;
+        Intent intent = new Intent(this, ChatActivity.class);
+        chat = new Chat();
+        chat.setUser1(player.getPlayer());
+        chat.setUser2(MainActivity.getCurrentLoggedInUser());
+        intent.putExtra("chatIdSingle", 1);
+        chat.setDate_created(new Date());
+        chat.setMessages(new ArrayList<>());
+        for(Chat row : AcceuilFragment.chats){
+            if(row.equals(chat)){
+                intent.removeExtra("chatIdSingle");
+                intent.putExtra("chatId", AcceuilFragment.chats.indexOf(row));
+                chat=row;
+                break;
+            }
+        }
+
+        startActivity(intent);
     }
 
     public void showDashboard(View view) {
@@ -476,7 +465,7 @@ public class PlayerProfileActvity extends AppCompatActivity implements IReposito
     }
 
     public void showSettings(View view) {
-        Intent intent = new Intent(this,ProfileActivity.class);
+        Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 }

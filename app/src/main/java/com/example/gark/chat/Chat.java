@@ -4,13 +4,15 @@ import com.example.gark.entites.User;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class Chat {
     String id;
     User user1;
     User user2;
     Date date_created;
-    ArrayList<Message> messages=new ArrayList<Message>();
+    ArrayList<Message> messages = new ArrayList<Message>();
+
     public Chat() {
 
     }
@@ -67,6 +69,21 @@ public class Chat {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chat chat = (Chat) o;
+        return (Objects.equals(user1, chat.user1) &&
+                Objects.equals(user2, chat.user2)) || (Objects.equals(user2, chat.user1) &&
+                Objects.equals(user1, chat.user2));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user1, user2);
+    }
+
+   /* @Override
     public String toString() {
         return "Chat{" +
                 "id='" + id + '\'' +
@@ -75,5 +92,5 @@ public class Chat {
                 ", date_created=" + date_created +
                 ", messages=" + messages +
                 '}';
-    }
+    }*/
 }

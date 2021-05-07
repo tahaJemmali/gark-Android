@@ -1,16 +1,26 @@
 package com.example.gark.fragments;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.databinding.ObservableArrayList;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,15 +36,26 @@ import com.example.gark.adapters.ChallengeAdapter;
 import com.example.gark.adapters.PostAdapter;
 import com.example.gark.adapters.TeamsAdapter;
 import com.example.gark.adapters.TopPlayersAdapter;
+import com.example.gark.chat.Chat;
+import com.example.gark.chat.ChatActivity;
+import com.example.gark.chat.Message;
 import com.example.gark.entites.Challenge;
 import com.example.gark.entites.Post;
 import com.example.gark.entites.Skills;
 import com.example.gark.entites.Team;
+import com.example.gark.entites.User;
 import com.example.gark.repositories.ChallengeRepository;
+import com.example.gark.repositories.ChatRepository;
 import com.example.gark.repositories.IRepository;
 import com.example.gark.repositories.PostRepository;
 import com.example.gark.repositories.SkillsRepository;
 import com.example.gark.repositories.TeamRepository;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 
@@ -62,6 +83,11 @@ public class AcceuilFragment extends Fragment implements IRepository {
     public static ArrayList<Challenge> challenges;
     public static ArrayList<Post> posts;
     public static ArrayList<Post> topTen;
+    public static ArrayList<Chat> chats;
+    private static final String COLLECTION_NAME = "messages";
+    private final String YOUR_CHANNEL_ID="1";
+    private final String YOUR_CHANNEL_NAME="MESSAGE";
+    private final String YOUR_NOTIFICATION_CHANNEL_DESCRIPTION="LAST MESSAGES";
     //Adapters
     TopPlayersAdapter topPlayersAdapter;
     TeamsAdapter teamsAdapter;
@@ -81,6 +107,7 @@ public class AcceuilFragment extends Fragment implements IRepository {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view =  inflater.inflate(R.layout.fragment_acceuil, container, false);
+        chats=new ObservableArrayList<Chat>();
         mContext = getContext();
         if(!generated) {
             initUI();
@@ -248,14 +275,81 @@ public class AcceuilFragment extends Fragment implements IRepository {
                 teams= TeamRepository.getInstance().getList();
                 initUIRecycleViewerTopRatedTeams();
                 generating++;
+                ChatRepository.getInstance().setiRepository(this);
+                ChatRepository.getInstance().getAll(mContext,null);
+                break;
+            case 4:
+                ///Chats
+                chats.addAll(ChatRepository.getInstance().getList());
+                if(!chats.isEmpty()){
+                    for (Chat row:chats) {
+                        listenDataChangeMessageRecived(row);
+                    }
+                }
                 dialogg.dismiss();
                 break;
         }
     }
 
+
+    public void listenDataChangeMessageRecived(Chat chat) {
+        final CollectionReference docRef = ChatRepository.myFireBaseDB.document(chat.getId()).collection(COLLECTION_NAME);
+        docRef.orderBy("dateCreated", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.e("TAG", "Listen failed.", e);
+                    return;
+                }
+                ArrayList<Message> single = (ArrayList<Message>) value.toObjects(Message.class);
+                if(chat.getMessages().size()!=single.size()){
+                    Log.e("TAG," ,"ACCEUIL FRAGMENT DATA CHANGE: " );
+                    chat.getMessages().clear();
+                    chat.getMessages().addAll(single);
+                    messageNotficiation( single.get(0), chat);
+                }
+            }
+        });
+    }
+
     @Override
     public void dismissLoadingButton() {
         dialogg.dismiss();
+    }
+    void messageNotficiation(Message message,Chat chat){
+        NotificationManager mNotificationManager =
+                (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(YOUR_CHANNEL_ID,
+                    YOUR_CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(YOUR_NOTIFICATION_CHANNEL_DESCRIPTION);
+            mNotificationManager.createNotificationChannel(channel);
+        }
+
+        User sender = chat.getUser1().getId().equals(message.getreciverId()) ? chat.getUser2() : chat.getUser1();
+
+        NotificationCompat.Builder notification =  new NotificationCompat.Builder(mContext, "CHANNEL_ID")
+                .setSmallIcon(R.drawable.ic_baseline_message_24)
+                .setContentTitle(sender.getFirstName()+" "+sender.getLastName())
+                .setContentText(message.getMessage())
+                .setLargeIcon(getBitmapFromString(sender.getPhoto()))
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(message.getMessage()))
+                .setAutoCancel(true);
+        Intent intent = new Intent(mContext, ChatActivity.class);
+        intent.putExtra("chatId",AcceuilFragment.chats.indexOf(chat));
+        PendingIntent pi = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notification.setContentIntent(pi);
+        mNotificationManager.notify(0, notification.build());
+    }
+
+
+    public static Bitmap getBitmapFromString(String image) {
+
+        byte[] bytes = Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
     public void setCallBackInterface(CallBackInterface callBackInterface) {

@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity implements CallBackInterface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
-      //  showNotification("message","salut");
         initUI();
     }
     void showNotification(String title, String message) {

@@ -223,11 +223,8 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         descriptions = new ArrayList<>();
         icons.add(R.drawable.ic_default_user);
         titles.add(getString(R.string.name));
-        descriptions.add(MainActivity.getCurrentLoggedInUser().getFirstName()+" "+MainActivity.getCurrentLoggedInUser().getLastName());
+        descriptions.add(MainActivity.getCurrentLoggedInUser().getLastName().toUpperCase()+","+MainActivity.getCurrentLoggedInUser().getFirstName());
 
-        icons.add(R.drawable.ic_baseline_alternate_email_24);
-        titles.add(getString(R.string.email));
-        descriptions.add(MainActivity.getCurrentLoggedInUser().getEmail());
 
     //    if (!MainActivity.getCurrentLoggedInUser().getAddress().equals("Not mentioned")){
             icons.add(R.drawable.ic_baseline_my_location_24);
@@ -239,6 +236,10 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
             icons.add(R.drawable.ic_baseline_phone_24);
             titles.add(getString(R.string.mobile));
             descriptions.add(MainActivity.getCurrentLoggedInUser().getPhone());
+
+        icons.add(R.drawable.ic_baseline_alternate_email_24);
+        titles.add(getString(R.string.email));
+        descriptions.add(MainActivity.getCurrentLoggedInUser().getEmail());
 
         icons.add(R.drawable.ic_baseline_admin_panel_settings_24);
         titles.add(getString(R.string.become_field_owner));
@@ -287,10 +288,7 @@ public class ProfileActivity extends AppCompatActivity implements AppBarLayout.O
         /////posts
         if(!generated){
             posts= PostRepository.getInstance().getList();
-            postAdapter = new PostAdapter(this, posts);
-            recycleViewPosts.setAdapter(postAdapter);
-            generated=true;
-
+            initUIRecycleViewerPosts();
         }
         if(getSkills){
             skills=SkillsRepository.getInstance().getElement();

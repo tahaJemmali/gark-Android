@@ -197,12 +197,12 @@ public class UserRepository {
                     public void onResponse(JSONObject response) {
                         try {
                             String message = response.getString("message");
-                            if(message!="Registration failed"){
+                            if(message.equals("Registration success")){
                                 u.setId(message);
-                                Toast.makeText(context,"Registration success",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
                                 iRepository.doAction();
                             }else{
-                                Toast.makeText(context,message+" please change your email or your phone number, one of them already exists !",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
@@ -398,10 +398,10 @@ public class UserRepository {
         JSONObject object = new JSONObject();
         try {
             //if (user.getBirth_date()!=null) object.put("birth_date",user.getBirth_date());
-            //if (user.getFirstName()!=null) object.put("firstName",user.getFirstName());
-            //if (user.getLastName()!=null) object.put("lastName",user.getLastName());
-            if (user.getEmail()!=null) object.put("user_email",user.getEmail());
-            //if (user.getAddress()!=null) object.put("address",user.getAddress());
+            if (user.getFirstName()!=null) object.put("firstName",user.getFirstName());
+            if (user.getLastName()!=null) object.put("lastName",user.getLastName());
+            //if (user.getEmail()!=null) object.put("user_email",user.getEmail());
+            if (user.getAddress()!=null) object.put("address",user.getAddress());
             if (user.getPhoto()!=null) object.put("photo",user.getPhoto());
             object.put("completedInformation",true);
         } catch (JSONException e) {

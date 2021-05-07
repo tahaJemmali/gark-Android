@@ -14,19 +14,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Your Custom Dialog Heading"
-            android:textSize="18sp"
-            android:textColor="#000"
-            android:id="@+id/heading"/>
+            android:fontFamily="@font/arial_rounded"
+            android:textSize="25sp"
+            android:textColor="@color/dark_green"
+            android:id="@+id/title"/>
 
         <EditText
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/heading"
+            android:layout_below="@id/title"
             android:layout_marginTop="20dp"
-            android:background="@null"
-            android:textColor="#000"
+            android:fontFamily="@font/arial_rounded"
             android:hint="enter some text..."
-            android:id="@+id/input"/>
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +37,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:textSize="18sp"
-            android:textColor="#33bbff"
+            android:fontFamily="@font/arial_rounded"
+            android:textColor="@color/dark_green"
             android:id="@+id/action_ok"/>
 
         <TextView
@@ -47,7 +49,8 @@
             android:layout_alignParentLeft="true"
             android:layout_marginRight="20dp"
             android:textSize="18sp"
-            android:textColor="#33bbff"
+            android:fontFamily="@font/arial_rounded"
+            android:textColor="@color/dark_green"
             android:id="@+id/action_cancel"/>
 
     </RelativeLayout>

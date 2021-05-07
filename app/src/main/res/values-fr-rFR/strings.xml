@@ -211,4 +211,5 @@
     <string name="total">" Le total"</string>
     <string name="champions">Champions</string>
     <string name="connection_problem">Probleme de connection, ressayer !</string>
+    <string name="user_update">" L'utilisateur a été mis à jour avec succès!"</string>
 </resources>

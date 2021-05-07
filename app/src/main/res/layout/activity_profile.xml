@@ -128,7 +128,10 @@
                                 android:text="@string/settings"
                                 android:layout_weight="1"/>
                         </LinearLayout>
-
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"/>
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

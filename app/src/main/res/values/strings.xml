@@ -212,4 +212,5 @@
     <string name="champions">Champions</string>
     <string name="when_this_action_happend_in_minutes">" When this action occurred (in minutes)"</string>
     <string name="connection_problem">Connection problem, try again !</string>
+    <string name="user_update">User updated sucessfully !</string>
 </resources>

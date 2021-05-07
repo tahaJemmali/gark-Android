@@ -73,6 +73,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements IReposit
 
     @Override
     public void doAction() {
+        Toast.makeText(ResetPasswordActivity.this, getString(R.string.user_update),Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();

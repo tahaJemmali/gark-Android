@@ -90,7 +90,6 @@ public class MatchActionAdapter extends RecyclerView.Adapter<MatchActionAdapter.
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.e("TAG", "onClick: "+matchActions.size() );
                     Log.e("TAG", "onClick: "+getAdapterPosition() );
                 }
             });
